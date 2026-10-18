@@ -1,0 +1,30 @@
+{
+  "app": {
+    "name": "MedFlow",
+    "tagline": "Hospital management"
+  },
+  "nav": {
+    "dashboard": "Dashboard"
+  },
+  "common": {
+    "backHome": "Back to home",
+    "comingSoon": "Coming soon",
+    "language": "Language",
+    "theme": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    }
+  },
+  "status": {
+    "title": "System status",
+    "allUp": "All services are running",
+    "degraded": "Some services are unavailable",
+    "up": "up",
+    "down": "down",
+    "unreachable": "The API gateway cannot be reached"
+  },
+  "errors": {
+    "notFound": "This page does not exist"
+  }
+}

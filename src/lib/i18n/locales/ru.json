@@ -1,0 +1,30 @@
+{
+  "app": {
+    "name": "MedFlow",
+    "tagline": "Управление больницей"
+  },
+  "nav": {
+    "dashboard": "Панель"
+  },
+  "common": {
+    "backHome": "На главную",
+    "comingSoon": "Скоро",
+    "language": "Язык",
+    "theme": {
+      "system": "Системная",
+      "light": "Светлая",
+      "dark": "Тёмная"
+    }
+  },
+  "status": {
+    "title": "Состояние системы",
+    "allUp": "Все сервисы работают",
+    "degraded": "Некоторые сервисы недоступны",
+    "up": "работает",
+    "down": "не работает",
+    "unreachable": "API gateway недоступен"
+  },
+  "errors": {
+    "notFound": "Такой страницы нет"
+  }
+}

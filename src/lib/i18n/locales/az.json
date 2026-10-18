@@ -1,0 +1,30 @@
+{
+  "app": {
+    "name": "MedFlow",
+    "tagline": "Xəstəxana idarəetməsi"
+  },
+  "nav": {
+    "dashboard": "İdarə paneli"
+  },
+  "common": {
+    "backHome": "Ana səhifəyə qayıt",
+    "comingSoon": "Tezliklə",
+    "language": "Dil",
+    "theme": {
+      "system": "Sistem",
+      "light": "İşıqlı",
+      "dark": "Qaranlıq"
+    }
+  },
+  "status": {
+    "title": "Sistemin vəziyyəti",
+    "allUp": "Bütün servislər işləyir",
+    "degraded": "Bəzi servislər əlçatan deyil",
+    "up": "işləyir",
+    "down": "işləmir",
+    "unreachable": "API gateway-ə qoşulmaq mümkün deyil"
+  },
+  "errors": {
+    "notFound": "Belə səhifə yoxdur"
+  }
+}
