@@ -72,5 +72,103 @@
     "resetConfirmBody": "Qruplarınız, səhifələrin sırası və seçilmişlər defolt görünüşlə əvəz olunacaq. Baxış tarixçəsi qalır.",
     "hint": "Sıranı dəyişmək üçün səhifələri və qrup adlarını sürükləyin. Səhifəni seçilmişlərə əlavə etmək üçün yanındakı ☆ işarəsinə klikləyin.",
     "saveError": "Menyu dəyişiklikləri yadda saxlanmadı"
+  },
+  "table": {
+    "settings": "Cədvəl ayarları",
+    "view": "Cədvəlin görünüşü",
+    "density": "Sətir sıxlığı",
+    "compact": "Sıx",
+    "comfortable": "Rahat",
+    "columns": "Sütunlar",
+    "visibleCount": "{{total}} sütundan {{visible}} görünür",
+    "columnsHint": "Sıranı dəyişmək üçün sürükləyin, göstərmək və ya gizlətmək üçün işarələyin, vacib sütunları sola və ya sağa sabitləyin. Sütunun enini başlığının kənarını sürükləyərək dəyişin.",
+    "pinnedLeft": "Solda sabit",
+    "pinnedRight": "Sağda sabit",
+    "notPinned": "Sabitlənməyib",
+    "pinLeft": "Sola sabitlə",
+    "pinRight": "Sağa sabitlə",
+    "unpin": "Sabitləməni ləğv et",
+    "showAll": "Bütün sütunları göstər",
+    "resetWidth": "Defolt enə qaytar",
+    "alwaysVisible": "Bu sütun həmişə göstərilir",
+    "dragColumn": "{{name}} sütununu köçür",
+    "resizeColumn": "{{name}} sütununun enini dəyiş",
+    "reset": "Defolt halına qaytar",
+    "resetConfirmTitle": "Cədvəl sıfırlansın?",
+    "resetConfirmBody": "Sütunlar, enlər, sabitləmələr, sıxlıq və görünüş defolt halına qayıdacaq.",
+    "done": "Hazırdır",
+    "emptyTitle": "Hələ heç nə yoxdur",
+    "emptyText": "Göstəriləcək qeyd yoxdur.",
+    "errorTitle": "Məlumatları yükləmək mümkün olmadı",
+    "retry": "Yenidən cəhd et",
+    "total": "{{total}} qeyddən {{from}}–{{to}}",
+    "saveError": "Cədvəl ayarları yadda saxlanmadı",
+    "views": {
+      "classic": {
+        "name": "Klassik",
+        "desc": "Rəngli başlıq, sətirlər arasında xətt"
+      },
+      "striped": {
+        "name": "Zolaqlı",
+        "desc": "Növbəli rəngli sətirlər — uzun sətirləri izləmək asandır"
+      },
+      "grid": {
+        "name": "Şəbəkə",
+        "desc": "Hər xananın ətrafında xətt, Excel kimi"
+      },
+      "minimal": {
+        "name": "Minimal",
+        "desc": "Fon yoxdur, xətt azdır — sakit və geniş"
+      },
+      "cards": {
+        "name": "Kartlar",
+        "desc": "Hər sətir ayrıca kartdır"
+      },
+      "accent": {
+        "name": "Status vurğusu",
+        "desc": "Rəngli zolaq hər sətrin statusunu göstərir"
+      }
+    }
+  },
+  "dev": {
+    "table": {
+      "title": "DataTable sınaq səhifəsi",
+      "subtitle": "Yalnız dev rejimi üçün: test pasiyentləri ilə reusable cədvəl. Ayarlar real səhifədəki kimi yadda saxlanır.",
+      "search": "Ad və ya MRN ilə axtar",
+      "allStatuses": "Bütün statuslar",
+      "simulateLoading": "Yüklənir",
+      "simulateError": "Xəta",
+      "simulateEmpty": "Boş",
+      "normal": "Normal",
+      "errorMessage": "Simulyasiya: pasiyent servisi əlçatan deyil.",
+      "emptyTitle": "Pasiyent tapılmadı",
+      "emptyText": "Başqa axtarış edin və ya filtrləri təmizləyin.",
+      "clearFilters": "Filtrləri təmizlə",
+      "col": {
+        "mrn": "MRN",
+        "name": "Pasiyent",
+        "age": "Yaş",
+        "sex": "Cins",
+        "phone": "Telefon",
+        "department": "Şöbə",
+        "doctor": "Həkim",
+        "status": "Status",
+        "lastVisit": "Son müraciət",
+        "balance": "Balans",
+        "insurance": "Sığorta nömrəsi"
+      },
+      "sex": {
+        "M": "Kişi",
+        "F": "Qadın"
+      }
+    }
+  },
+  "appointmentStatus": {
+    "SCHEDULED": "Planlaşdırılıb",
+    "CHECKED_IN": "Qeydiyyatdan keçib",
+    "IN_PROGRESS": "Davam edir",
+    "COMPLETED": "Tamamlanıb",
+    "CANCELLED": "Ləğv edilib",
+    "NO_SHOW": "Gəlməyib"
   }
 }

@@ -12,4 +12,5 @@ export const PATHS = {
   departments: "/settings/departments",
   history: "/history",
   notifications: "/notifications",
+  devTable: "/dev/table", // dev builds only
 } as const;

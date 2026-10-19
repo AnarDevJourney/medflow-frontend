@@ -72,5 +72,103 @@
     "resetConfirmBody": "Your groups, page order and favorites will be replaced by the default layout. Viewing history is kept.",
     "hint": "Drag pages and group titles to reorder them. Click ☆ next to a page to add it to favorites.",
     "saveError": "Sidebar changes could not be saved"
+  },
+  "table": {
+    "settings": "Table settings",
+    "view": "Table view",
+    "density": "Row density",
+    "compact": "Compact",
+    "comfortable": "Comfortable",
+    "columns": "Columns",
+    "visibleCount": "{{visible}} of {{total}} visible",
+    "columnsHint": "Drag to reorder, tick to show or hide, pin important columns to the left or right. Resize a column by dragging the edge of its header.",
+    "pinnedLeft": "Pinned left",
+    "pinnedRight": "Pinned right",
+    "notPinned": "Not pinned",
+    "pinLeft": "Pin left",
+    "pinRight": "Pin right",
+    "unpin": "Unpin",
+    "showAll": "Show all columns",
+    "resetWidth": "Back to the default width",
+    "alwaysVisible": "This column is always shown",
+    "dragColumn": "Move column {{name}}",
+    "resizeColumn": "Resize column {{name}}",
+    "reset": "Reset to default",
+    "resetConfirmTitle": "Reset this table?",
+    "resetConfirmBody": "Columns, widths, pins, density and view go back to the default.",
+    "done": "Done",
+    "emptyTitle": "Nothing here yet",
+    "emptyText": "There are no records to show.",
+    "errorTitle": "The data could not be loaded",
+    "retry": "Try again",
+    "total": "{{from}}–{{to}} of {{total}}",
+    "saveError": "Table settings could not be saved",
+    "views": {
+      "classic": {
+        "name": "Classic",
+        "desc": "Tinted header, a line between rows"
+      },
+      "striped": {
+        "name": "Striped",
+        "desc": "Every other row tinted — easy to follow long rows"
+      },
+      "grid": {
+        "name": "Grid",
+        "desc": "Lines around every cell, like a spreadsheet"
+      },
+      "minimal": {
+        "name": "Minimal",
+        "desc": "No fills, hardly any lines — calm and airy"
+      },
+      "cards": {
+        "name": "Cards",
+        "desc": "Each row is a separate card"
+      },
+      "accent": {
+        "name": "Status accent",
+        "desc": "A colored stripe shows each row's status"
+      }
+    }
+  },
+  "dev": {
+    "table": {
+      "title": "DataTable playground",
+      "subtitle": "Dev-only page: the reusable table with mock patients. Settings are saved like on any real page.",
+      "search": "Search by name or MRN",
+      "allStatuses": "All statuses",
+      "simulateLoading": "Loading",
+      "simulateError": "Error",
+      "simulateEmpty": "Empty",
+      "normal": "Normal",
+      "errorMessage": "Simulated: the patient service is unavailable.",
+      "emptyTitle": "No patients found",
+      "emptyText": "Try another search or clear the filters.",
+      "clearFilters": "Clear filters",
+      "col": {
+        "mrn": "MRN",
+        "name": "Patient",
+        "age": "Age",
+        "sex": "Sex",
+        "phone": "Phone",
+        "department": "Department",
+        "doctor": "Doctor",
+        "status": "Status",
+        "lastVisit": "Last visit",
+        "balance": "Balance",
+        "insurance": "Insurance no."
+      },
+      "sex": {
+        "M": "Male",
+        "F": "Female"
+      }
+    }
+  },
+  "appointmentStatus": {
+    "SCHEDULED": "Scheduled",
+    "CHECKED_IN": "Checked in",
+    "IN_PROGRESS": "In progress",
+    "COMPLETED": "Completed",
+    "CANCELLED": "Cancelled",
+    "NO_SHOW": "No-show"
   }
 }

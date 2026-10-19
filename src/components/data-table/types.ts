@@ -1,0 +1,86 @@
+import type { TableProps } from "antd";
+import type { Key, ReactNode } from "react";
+import type { ColumnPin, TableDensity } from "./tableSettingsService";
+
+export type { ColumnPin, TableDensity };
+
+export interface DataTableColumn<T> {
+  // Stable id, stored in the user's table settings — never rename one
+  key: string;
+  // Plain text: header and the name in the settings drawer
+  title: string;
+  // Custom header content (icon, tooltip …); defaults to `title`
+  header?: ReactNode;
+  // Field to read; nested paths as arrays (["doctor", "lastName"])
+  dataIndex?: keyof T | string[];
+  render?: (value: unknown, record: T, index: number) => ReactNode;
+  width?: number; // default width in px (160)
+  minWidth?: number; // resize limits (72 … 800)
+  maxWidth?: number;
+  align?: "left" | "center" | "right";
+  // Numbers, money, times, MRN: tabular figures, right aligned
+  numeric?: boolean;
+  // Server-side sorting: the table reports the clicked column via onSortChange
+  sortable?: boolean;
+  ellipsis?: boolean;
+  defaultHidden?: boolean;
+  defaultPinned?: ColumnPin;
+  // false = always visible (e.g. the patient name)
+  hideable?: boolean;
+}
+
+export type SortOrder = "asc" | "desc";
+export interface DataTableSort {
+  key: string;
+  order: SortOrder;
+}
+
+export interface DataTablePagination {
+  page: number;
+  pageSize: number;
+  total: number;
+  onChange: (page: number, pageSize: number) => void;
+  pageSizeOptions?: number[];
+}
+
+export interface DataTableEmptyState {
+  title: string;
+  description?: string;
+  action?: ReactNode;
+  icon?: ReactNode;
+}
+
+export interface DataTableProps<T extends object> {
+  // Settings key in configurations-service ('patients', 'invoices', …)
+  tableKey: string;
+  columns: DataTableColumn<T>[];
+  data: T[] | undefined;
+  rowKey: keyof T | ((record: T) => Key);
+
+  loading?: boolean; // first load → skeleton rows; refetch → dimmed rows
+  error?: Error | null;
+  onRetry?: () => void;
+  empty?: DataTableEmptyState;
+
+  pagination?: DataTablePagination | false;
+  sort?: DataTableSort | null;
+  onSortChange?: (sort: DataTableSort | null) => void;
+
+  onRowClick?: (record: T) => void;
+  // Color of the left stripe in the "accent" view (a CSS color / variable)
+  rowAccent?: (record: T) => string | undefined;
+  rowSelection?: TableProps<T>["rowSelection"];
+
+  // Left side of the toolbar (search, filters); right side: extra actions
+  toolbar?: ReactNode;
+  actions?: ReactNode;
+
+  defaultDensity?: TableDensity;
+  defaultView?: TableViewId;
+  // false hides the settings button (e.g. small embedded tables)
+  configurable?: boolean;
+  // Sticky header offset (height of the app's top bar)
+  stickyOffset?: number;
+}
+
+export type TableViewId = "classic" | "striped" | "grid" | "minimal" | "cards" | "accent";

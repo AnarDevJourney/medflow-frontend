@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { AppLayout } from "@components/layout/AppLayout";
 import { ComingSoonPage } from "@features/coming-soon/pages/ComingSoonPage";
 import { DashboardPage } from "@features/dashboard/pages/DashboardPage";
+import { TableDemoPage } from "@features/dev/pages/TableDemoPage";
 import { NotFoundPage } from "@features/errors/pages/NotFoundPage";
 import { PATHS } from "./paths";
 
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <DashboardPage /> },
       ...UPCOMING.map((path) => ({ path, element: <ComingSoonPage /> })),
+      // Component playgrounds — not part of production builds
+      ...(import.meta.env.DEV
+        ? [{ path: PATHS.devTable, element: <TableDemoPage /> }]
+        : []),
     ],
   },
   { path: "*", element: <NotFoundPage /> },
