@@ -4,7 +4,17 @@
     "tagline": "Hospital management"
   },
   "nav": {
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "today": "My day",
+    "notifications": "Notifications",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "labQueue": "Lab queue",
+    "invoices": "Invoices",
+    "prices": "Price list",
+    "staff": "Staff",
+    "departments": "Departments",
+    "history": "Action history"
   },
   "common": {
     "backHome": "Back to home",
@@ -14,7 +24,9 @@
       "system": "System",
       "light": "Light",
       "dark": "Dark"
-    }
+    },
+    "cancel": "Cancel",
+    "comingSoonText": "This page is built in one of the next phases."
   },
   "status": {
     "title": "System status",
@@ -26,5 +38,39 @@
   },
   "errors": {
     "notFound": "This page does not exist"
+  },
+  "sidebar": {
+    "label": "Main navigation",
+    "favorites": "Favorites",
+    "frequent": "Frequently used",
+    "recent": "Recently viewed",
+    "quickAccess": "Frequent and recent pages",
+    "groups": {
+      "main": "General",
+      "clinical": "Clinical",
+      "finance": "Finance",
+      "admin": "Administration"
+    },
+    "addFavorite": "Add to favorites",
+    "removeFavorite": "Remove from favorites",
+    "collapse": "Collapse sidebar",
+    "expand": "Expand sidebar",
+    "collapseGroup": "Collapse {{name}}",
+    "expandGroup": "Expand {{name}}",
+    "groupActions": "{{name}} actions",
+    "renameGroup": "Rename",
+    "deleteGroup": "Delete group",
+    "emptyGroup": "Drag pages here",
+    "newGroup": "New group",
+    "newGroupName": "New group",
+    "customize": "Customize",
+    "showFrequent": "Show frequently used",
+    "showRecent": "Show recently viewed",
+    "clearHistory": "Clear viewing history",
+    "reset": "Reset to default",
+    "resetConfirmTitle": "Reset the sidebar?",
+    "resetConfirmBody": "Your groups, page order and favorites will be replaced by the default layout. Viewing history is kept.",
+    "hint": "Drag pages and group titles to reorder them. Click ☆ next to a page to add it to favorites.",
+    "saveError": "Sidebar changes could not be saved"
   }
 }

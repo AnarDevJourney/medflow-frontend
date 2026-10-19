@@ -4,7 +4,17 @@
     "tagline": "Xəstəxana idarəetməsi"
   },
   "nav": {
-    "dashboard": "İdarə paneli"
+    "dashboard": "İdarə paneli",
+    "today": "Mənim günüm",
+    "notifications": "Bildirişlər",
+    "patients": "Pasiyentlər",
+    "appointments": "Qəbullar",
+    "labQueue": "Laboratoriya növbəsi",
+    "invoices": "Hesab-fakturalar",
+    "prices": "Qiymət siyahısı",
+    "staff": "Əməkdaşlar",
+    "departments": "Şöbələr",
+    "history": "Əməliyyat tarixçəsi"
   },
   "common": {
     "backHome": "Ana səhifəyə qayıt",
@@ -14,7 +24,9 @@
       "system": "Sistem",
       "light": "İşıqlı",
       "dark": "Qaranlıq"
-    }
+    },
+    "cancel": "Ləğv et",
+    "comingSoonText": "Bu səhifə növbəti mərhələlərdən birində hazırlanacaq."
   },
   "status": {
     "title": "Sistemin vəziyyəti",
@@ -26,5 +38,39 @@
   },
   "errors": {
     "notFound": "Belə səhifə yoxdur"
+  },
+  "sidebar": {
+    "label": "Əsas naviqasiya",
+    "favorites": "Seçilmişlər",
+    "frequent": "Tez-tez istifadə olunan",
+    "recent": "Son baxılanlar",
+    "quickAccess": "Tez-tez və son baxılan səhifələr",
+    "groups": {
+      "main": "Ümumi",
+      "clinical": "Klinik",
+      "finance": "Maliyyə",
+      "admin": "İdarəetmə"
+    },
+    "addFavorite": "Seçilmişlərə əlavə et",
+    "removeFavorite": "Seçilmişlərdən çıxar",
+    "collapse": "Menyunu yığ",
+    "expand": "Menyunu aç",
+    "collapseGroup": "{{name}} qrupunu yığ",
+    "expandGroup": "{{name}} qrupunu aç",
+    "groupActions": "{{name}} əməliyyatları",
+    "renameGroup": "Adını dəyiş",
+    "deleteGroup": "Qrupu sil",
+    "emptyGroup": "Səhifələri bura sürükləyin",
+    "newGroup": "Yeni qrup",
+    "newGroupName": "Yeni qrup",
+    "customize": "Fərdiləşdir",
+    "showFrequent": "Tez-tez istifadə olunanları göstər",
+    "showRecent": "Son baxılanları göstər",
+    "clearHistory": "Baxış tarixçəsini təmizlə",
+    "reset": "Defolt görünüşə qaytar",
+    "resetConfirmTitle": "Menyu sıfırlansın?",
+    "resetConfirmBody": "Qruplarınız, səhifələrin sırası və seçilmişlər defolt görünüşlə əvəz olunacaq. Baxış tarixçəsi qalır.",
+    "hint": "Sıranı dəyişmək üçün səhifələri və qrup adlarını sürükləyin. Səhifəni seçilmişlərə əlavə etmək üçün yanındakı ☆ işarəsinə klikləyin.",
+    "saveError": "Menyu dəyişiklikləri yadda saxlanmadı"
   }
 }
