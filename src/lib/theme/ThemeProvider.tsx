@@ -6,53 +6,99 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { DEFAULT_THEME, resolveTheme, THEME_STORAGE_KEY, type Theme } from "./constants";
+import { DEFAULT_APPEARANCE, normalizeAppearance, type Appearance } from "./appearance";
+import { buildTheme } from "./buildTheme";
+import {
+  APPEARANCE_STORAGE_KEY,
+  LEGACY_THEME_STORAGE_KEY,
+  resolveTheme,
+} from "./constants";
 import { ThemeContext } from "./ThemeContext";
 
-function getStoredTheme(): Theme {
+function readStoredAppearance(): Appearance {
   try {
-    const raw = localStorage.getItem(THEME_STORAGE_KEY);
-    return raw === "light" || raw === "dark" || raw === "system" ? raw : DEFAULT_THEME;
+    const raw = localStorage.getItem(APPEARANCE_STORAGE_KEY);
+    if (raw)
+      return normalizeAppearance((JSON.parse(raw) as { appearance?: object }).appearance);
+    return normalizeAppearance({ mode: localStorage.getItem(LEGACY_THEME_STORAGE_KEY) });
   } catch {
-    return DEFAULT_THEME;
+    return DEFAULT_APPEARANCE;
   }
 }
 
-const getPrefersDark = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-// System / light / dark, persisted per browser. Sets <html data-theme> for
-// the app's own CSS variables; AntD gets its theme from App.tsx.
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(getStoredTheme);
-  const [prefersDark, setPrefersDark] = useState(getPrefersDark);
-
-  // Follow the OS theme live while theme === "system"
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(() => window.matchMedia(query).matches);
   useEffect(() => {
-    const mql = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = (e: MediaQueryListEvent) => setPrefersDark(e.matches);
+    const mql = window.matchMedia(query);
+    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
     mql.addEventListener("change", handler);
     return () => mql.removeEventListener("change", handler);
-  }, []);
+  }, [query]);
+  return matches;
+}
 
-  const resolvedTheme = resolveTheme(theme, prefersDark);
+interface ThemeProviderProps {
+  // The signed-in user's saved appearance (undefined while unknown / signed out)
+  saved: Appearance | undefined;
+  children: ReactNode;
+}
 
-  // Before paint, so a theme change never flashes the old colors
+// Applies the appearance: <html data-theme / data-density / data-motion>,
+// the CSS variables, and (via useTheme) the AntD theme for App.tsx.
+// Source: the user's saved settings; signed out or still loading, the last
+// appearance used on this browser.
+export function ThemeProvider({ saved, children }: ThemeProviderProps) {
+  const [local, setLocal] = useState<Appearance>(readStoredAppearance);
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)");
+  const prefersReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+
+  const appearance = saved ?? local;
+  const resolvedTheme = resolveTheme(appearance.mode, prefersDark);
+  const reducedMotion =
+    appearance.motion === "reduced" ||
+    (appearance.motion === "system" && prefersReducedMotion);
+  const built = useMemo(
+    () => buildTheme(appearance, resolvedTheme, reducedMotion),
+    [appearance, resolvedTheme, reducedMotion],
+  );
+
+  // Before paint, so a change never flashes the old colors
   useLayoutEffect(() => {
-    document.documentElement.setAttribute("data-theme", resolvedTheme);
-  }, [resolvedTheme]);
+    const root = document.documentElement;
+    root.setAttribute("data-theme", resolvedTheme);
+    root.setAttribute("data-density", appearance.density);
+    root.setAttribute("data-motion", reducedMotion ? "reduced" : "full");
+    for (const [name, value] of Object.entries(built.vars))
+      root.style.setProperty(name, value);
+  }, [built, resolvedTheme, appearance.density, reducedMotion]);
 
-  const setTheme = useCallback((next: Theme) => {
-    setThemeState(next);
+  // Snapshot for the next page load (index.html applies it before React runs)
+  useEffect(() => {
     try {
-      localStorage.setItem(THEME_STORAGE_KEY, next);
+      localStorage.setItem(
+        APPEARANCE_STORAGE_KEY,
+        JSON.stringify({
+          appearance,
+          vars: {
+            light: buildTheme(appearance, "light", reducedMotion).vars,
+            dark: buildTheme(appearance, "dark", reducedMotion).vars,
+          },
+        }),
+      );
     } catch {
-      // private mode: the choice lasts for this tab only
+      // storage blocked: the look is just rebuilt on the next load
     }
-  }, []);
+  }, [appearance, reducedMotion]);
+
+  const setLocalAppearance = useCallback(
+    (change: Partial<Appearance> | null) =>
+      setLocal((current) => (change ? { ...current, ...change } : DEFAULT_APPEARANCE)),
+    [],
+  );
 
   const value = useMemo(
-    () => ({ theme, resolvedTheme, setTheme }),
-    [theme, resolvedTheme, setTheme],
+    () => ({ appearance, resolvedTheme, reducedMotion, built, setLocalAppearance }),
+    [appearance, resolvedTheme, reducedMotion, built, setLocalAppearance],
   );
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }

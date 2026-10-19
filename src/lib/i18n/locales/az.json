@@ -170,5 +170,63 @@
     "COMPLETED": "Tamamlanıb",
     "CANCELLED": "Ləğv edilib",
     "NO_SHOW": "Gəlməyib"
+  },
+  "appearance": {
+    "title": "Görünüş",
+    "saveError": "Görünüş ayarları yadda saxlanmadı",
+    "reset": "Defolt görünüşə qaytar",
+    "resetConfirmTitle": "Görünüş sıfırlansın?",
+    "resetConfirmBody": "Rejim, rənglər, menyu, sıxlıq və animasiyalar defolt halına qayıdacaq.",
+    "mode": {
+      "title": "Rejim"
+    },
+    "palette": {
+      "title": "Rəng palitrası",
+      "hint": "Bütün tətbiqin fon, səth və mətn tonları.",
+      "default": "MedFlow",
+      "slate": "Şifer",
+      "neutral": "Neytral",
+      "warm": "İsti",
+      "ocean": "Okean"
+    },
+    "primary": {
+      "title": "Əsas rəng",
+      "hint": "Düymələr, keçidlər, aktiv menyu elementləri və fokus halqaları.",
+      "custom": "Xüsusi",
+      "lowContrast": "Bu rəngin üzərində ağ mətn çətin oxunur — daha tünd çalar seçin.",
+      "teal": "Firuzəyi",
+      "cyan": "Mavi-yaşıl",
+      "blue": "Göy",
+      "indigo": "İndiqo",
+      "violet": "Bənövşəyi",
+      "rose": "Qızılgül",
+      "orange": "Narıncı",
+      "green": "Yaşıl"
+    },
+    "sidebar": {
+      "title": "Menyunun rəngi",
+      "default": "Standart",
+      "tinted": "Rəngli",
+      "dark": "Tünd",
+      "accent": "Vurğulu"
+    },
+    "density": {
+      "title": "İnterfeysin sıxlığı",
+      "compact": "Sıx",
+      "comfortable": "Standart",
+      "spacious": "Geniş",
+      "compactDesc": "Kiçik elementlər və boşluqlar — ekranda daha çox məlumat.",
+      "comfortableDesc": "Gündəlik iş üçün balanslı boşluqlar.",
+      "spaciousDesc": "Böyük elementlər və daha çox boşluq — toxunmatik ekran və planşetlərdə rahatdır."
+    },
+    "motion": {
+      "title": "Animasiyalar",
+      "system": "Sistem",
+      "reduced": "Azaldılmış",
+      "full": "Tam",
+      "systemDesc": "Cihazınızın “hərəkəti azalt” ayarına uyğunlaşır.",
+      "reducedDesc": "Keçid və animasiya yoxdur.",
+      "fullDesc": "Cihaz az hərəkət istəsə belə bütün keçidlər işləyir."
+    }
   }
 }

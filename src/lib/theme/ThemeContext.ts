@@ -1,10 +1,15 @@
 import { createContext } from "react";
-import type { ResolvedTheme, Theme } from "./constants";
+import type { Appearance } from "./appearance";
+import type { BuiltTheme } from "./buildTheme";
+import type { ResolvedTheme } from "./constants";
 
 export interface ThemeContextValue {
-  theme: Theme;
+  appearance: Appearance; // effective: the user's saved one, or this browser's
   resolvedTheme: ResolvedTheme;
-  setTheme: (theme: Theme) => void;
+  reducedMotion: boolean;
+  built: BuiltTheme;
+  // Signed out: changes live in this browser only (null = reset)
+  setLocalAppearance: (change: Partial<Appearance> | null) => void;
 }
 
 export const ThemeContext = createContext<ThemeContextValue | null>(null);

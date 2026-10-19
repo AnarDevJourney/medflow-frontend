@@ -9,7 +9,7 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  padding: 0 var(--space-6);
+  padding: 0 var(--content-padding);
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -20,5 +20,5 @@
 }
 
 .content {
-  padding: var(--space-6);
+  padding: var(--content-padding);
 }

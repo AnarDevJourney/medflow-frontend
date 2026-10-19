@@ -3,13 +3,10 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import "@lib/dayjs";
 import "@lib/i18n";
-import { ThemeProvider } from "@lib/theme/ThemeProvider";
 import "@styles/global.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider>
-      <App />
-    </ThemeProvider>
+    <App />
   </StrictMode>,
 );

@@ -7,15 +7,25 @@
     <meta name="description" content="MedFlow — hospital management system" />
     <title>MedFlow</title>
     <script>
-      // Apply the saved theme before the first paint (no flash of light theme)
+      // Apply the last appearance (mode, colors, density) before the first
+      // paint — no flash of the default look. Written by ThemeProvider.
       (function () {
         try {
-          var saved = localStorage.getItem("medflow-theme") || "system";
+          var root = document.documentElement;
+          var snapshot = JSON.parse(localStorage.getItem("medflow-appearance") || "null");
+          var mode =
+            (snapshot && snapshot.appearance.mode) ||
+            localStorage.getItem("medflow-theme") ||
+            "system";
           var dark =
-            saved === "dark" ||
-            (saved === "system" &&
+            mode === "dark" ||
+            (mode === "system" &&
               window.matchMedia("(prefers-color-scheme: dark)").matches);
-          document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+          root.setAttribute("data-theme", dark ? "dark" : "light");
+          if (!snapshot) return;
+          root.setAttribute("data-density", snapshot.appearance.density);
+          var vars = snapshot.vars[dark ? "dark" : "light"];
+          for (var name in vars) root.style.setProperty(name, vars[name]);
         } catch (e) {}
       })();
     </script>

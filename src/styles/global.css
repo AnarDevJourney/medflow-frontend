@@ -1,4 +1,6 @@
-/* App-wide CSS variables — colors are the same values as styles/theme.ts (AntD) */
+/* App-wide CSS variables. ThemeProvider overrides the colors, density and
+   motion values from the user's appearance (lib/theme/buildTheme.ts); these
+   are the defaults until it runs. */
 :root {
   /* 4px spacing grid */
   --space-1: 4px;
@@ -28,6 +30,11 @@
 
   --sidebar-width: 248px;
   --sidebar-collapsed-width: 64px;
+
+  /* UI density (compact / comfortable / spacious) */
+  --nav-item-height: 36px;
+  --nav-item-gap: 2px;
+  --content-padding: 24px;
 }
 
 :root,
@@ -39,8 +46,16 @@
   --color-hover: #eef3f3;
   --color-border: #e3e8e8;
   --color-text: #1f2933;
-  --color-muted: #6b7780;
+  --color-muted: #5f6b73;
   --color-favorite: #d97706;
+  --sidebar-bg: var(--color-card);
+  --sidebar-text: var(--color-text);
+  --sidebar-muted: var(--color-muted);
+  --sidebar-hover: var(--color-hover);
+  --sidebar-active-bg: var(--color-primary-soft);
+  --sidebar-active-text: var(--color-primary);
+  --sidebar-border: var(--color-border);
+  --sidebar-brand: var(--color-primary);
   /* Appointment status colors (DOC 9) — identical everywhere */
   --color-status-scheduled: #2563eb;
   --color-status-checked-in: #d97706;

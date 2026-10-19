@@ -170,5 +170,63 @@
     "COMPLETED": "Completed",
     "CANCELLED": "Cancelled",
     "NO_SHOW": "No-show"
+  },
+  "appearance": {
+    "title": "Appearance",
+    "saveError": "Appearance settings could not be saved",
+    "reset": "Reset to default",
+    "resetConfirmTitle": "Reset the appearance?",
+    "resetConfirmBody": "Mode, colors, sidebar, density and motion go back to the default.",
+    "mode": {
+      "title": "Mode"
+    },
+    "palette": {
+      "title": "Color palette",
+      "hint": "Background, surfaces and text tones of the whole app.",
+      "default": "MedFlow",
+      "slate": "Slate",
+      "neutral": "Neutral",
+      "warm": "Warm",
+      "ocean": "Ocean"
+    },
+    "primary": {
+      "title": "Primary color",
+      "hint": "Buttons, links, active menu items and focus rings.",
+      "custom": "Custom",
+      "lowContrast": "White text is hard to read on this color — choose a darker shade.",
+      "teal": "Teal",
+      "cyan": "Cyan",
+      "blue": "Blue",
+      "indigo": "Indigo",
+      "violet": "Violet",
+      "rose": "Rose",
+      "orange": "Orange",
+      "green": "Green"
+    },
+    "sidebar": {
+      "title": "Sidebar color",
+      "default": "Standard",
+      "tinted": "Tinted",
+      "dark": "Dark",
+      "accent": "Accent"
+    },
+    "density": {
+      "title": "Interface density",
+      "compact": "Compact",
+      "comfortable": "Standard",
+      "spacious": "Spacious",
+      "compactDesc": "Smaller controls and spacing — more information on screen.",
+      "comfortableDesc": "Balanced spacing for everyday work.",
+      "spaciousDesc": "Larger controls and more room — easier on touch screens and tablets."
+    },
+    "motion": {
+      "title": "Animations",
+      "system": "System",
+      "reduced": "Reduced",
+      "full": "Full",
+      "systemDesc": "Follows your device's “reduce motion” setting.",
+      "reducedDesc": "No transitions or animations.",
+      "fullDesc": "All transitions, even if the device asks for less motion."
+    }
   }
 }

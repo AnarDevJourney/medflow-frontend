@@ -1,0 +1,109 @@
+.preview {
+  display: flex;
+  height: 72px;
+  overflow: hidden;
+  border: 1px solid var(--p-border);
+  border-radius: var(--radius-md);
+  background: var(--p-bg);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 30%;
+  padding: 6px 5px;
+  border-inline-end: 1px solid var(--p-side-border);
+  background: var(--p-side-bg);
+}
+
+.brand {
+  width: 55%;
+  height: 5px;
+  margin-bottom: 3px;
+  border-radius: 3px;
+  background: var(--p-side-brand);
+}
+
+.nav {
+  height: 7px;
+  border-radius: 3px;
+  background: var(--p-side-muted);
+  opacity: 0.35;
+}
+
+.navActive {
+  background: var(--p-side-active-bg);
+  box-shadow: inset 0 0 0 1px var(--p-side-active-bg);
+  opacity: 1;
+  position: relative;
+}
+
+.navActive::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 3px;
+  width: 50%;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--p-side-active-text);
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.top {
+  height: 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--p-border);
+  background: var(--p-card);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 7px;
+  padding: 6px;
+  border: 1px solid var(--p-border);
+  border-radius: 4px;
+  background: var(--p-card);
+}
+
+.title {
+  width: 45%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--p-text);
+  opacity: 0.8;
+}
+
+.line,
+.lineShort {
+  height: 3px;
+  border-radius: 2px;
+  background: var(--p-muted);
+  opacity: 0.45;
+}
+
+.line {
+  width: 85%;
+}
+
+.lineShort {
+  width: 60%;
+}
+
+.button {
+  align-self: flex-end;
+  width: 28%;
+  height: 7px;
+  margin-top: 1px;
+  border-radius: 3px;
+  background: var(--p-primary);
+}
