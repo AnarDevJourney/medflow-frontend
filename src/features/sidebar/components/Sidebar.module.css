@@ -7,6 +7,13 @@
   color: var(--sidebar-text);
 }
 
+/* Right side: after the page in the flex row, border on the inner edge */
+.right {
+  order: 1;
+  border-inline-end: 0;
+  border-inline-start: 1px solid var(--sidebar-border);
+}
+
 .sider > :global(.ant-layout-sider-children) {
   display: flex;
   flex-direction: column;
@@ -420,6 +427,14 @@ button.item {
   border-radius: var(--radius-sm);
   font-size: var(--font-size-md);
   cursor: pointer;
+}
+
+.panelField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  font-size: var(--font-size-md);
 }
 
 .panelRow:hover {

@@ -35,6 +35,7 @@ import {
 } from "react";
 import { useTranslation } from "react-i18next";
 import { HeaderCell, type HeaderCellExtra } from "./HeaderCell";
+import { RowActionsMenu } from "./RowActionsMenu";
 import {
   clampWidth,
   maxWidthOf,
@@ -44,7 +45,7 @@ import {
   type ResolvedColumn,
 } from "./resolveColumns";
 import { TableSettingsDrawer } from "./TableSettingsDrawer";
-import { DEFAULT_TABLE_VIEW, isTableView } from "./tableViews";
+import { DEFAULT_TABLE_VIEW, isTableView, TABLE_VIEWS } from "./tableViews";
 import type { DataTableProps, TableDensity } from "./types";
 import { useTableSettings } from "./useTableSettings";
 import styles from "./DataTable.module.css";
@@ -52,6 +53,7 @@ import styles from "./DataTable.module.css";
 const SKELETON_ROWS = 8;
 const horizontalOnly: Modifier = ({ transform }) => ({ ...transform, y: 0 });
 const SELECTION_WIDTH = 48;
+const ROW_ACTIONS_WIDTH = 56;
 
 // Row heights: compact ≈ 40px (default for clinical lists), comfortable ≈ 52px.
 // No tinted "sorted column" band — it fights with the striped / card views.
@@ -91,6 +93,9 @@ export function DataTable<T extends object>({
   onRowClick,
   rowAccent,
   rowSelection,
+  rowActions,
+  onViewDetails,
+  rowLabel,
   toolbar,
   actions,
   defaultDensity = "compact",
@@ -109,7 +114,13 @@ export function DataTable<T extends object>({
     [defs, settings?.columns],
   );
   const density = settings?.density ?? defaultDensity;
-  const view = isTableView(settings?.view) ? settings.view : defaultView;
+  // "accent" only makes sense when the table says what color a row is
+  const views = rowAccent ? TABLE_VIEWS : TABLE_VIEWS.filter((v) => v.id !== "accent");
+  const savedView = settings?.view;
+  const view =
+    isTableView(savedView) && views.some((v) => v.id === savedView)
+      ? savedView
+      : defaultView;
   const customized = Boolean(settings?.columns || settings?.density || settings?.view);
 
   const saveColumns = (next: ResolvedColumn<T>[]) =>
@@ -190,9 +201,31 @@ export function DataTable<T extends object>({
       }) satisfies HeaderCellExtra as unknown as HTMLAttributes<HTMLElement>,
   }));
 
+  // ⋮ column: always last, pinned right, outside the user's column settings
+  // (no onHeaderCell extras → HeaderCell renders a plain <th>)
+  const hasRowMenu = Boolean(rowActions || onViewDetails);
+  if (hasRowMenu) {
+    antColumns.push({
+      key: "__row-actions",
+      title: <span className="sr-only">{t("table.actions")}</span>,
+      width: ROW_ACTIONS_WIDTH,
+      fixed: "right",
+      align: "center",
+      render: (_value: unknown, record: T) =>
+        showSkeleton ? null : (
+          <RowActionsMenu
+            items={rowActions?.(record) ?? []}
+            onViewDetails={onViewDetails && (() => onViewDetails(record))}
+            label={rowLabel?.(record)}
+          />
+        ),
+    });
+  }
+
   const scrollX =
     visible.reduce((sum, c) => sum + widthOf(c), 0) +
-    (rowSelection ? SELECTION_WIDTH : 0);
+    (rowSelection ? SELECTION_WIDTH : 0) +
+    (hasRowMenu ? ROW_ACTIONS_WIDTH : 0);
 
   const onChange: TableProps<T>["onChange"] = (_pagination, _filters, sorter, extra) => {
     if (extra.action !== "sort" || !onSortChange) return;
@@ -332,6 +365,7 @@ export function DataTable<T extends object>({
           columns={columns}
           density={density}
           view={view}
+          views={views}
           customized={customized}
           onColumnsChange={saveColumns}
           onDensityChange={(value) => update({ density: value })}

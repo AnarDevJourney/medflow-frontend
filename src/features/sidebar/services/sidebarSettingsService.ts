@@ -12,9 +12,12 @@ export interface PageVisit {
   lastVisitedAt: string;
 }
 
+export type SidebarPosition = "left" | "right";
+
 // configurations-service: one row per user, created on the first change
 export interface SidebarSettings {
   collapsed: boolean;
+  position: SidebarPosition; // side of the screen
   groups: SidebarGroup[] | null; // null = default grouping
   favorites: string[];
   showFrequent: boolean;
@@ -26,7 +29,12 @@ export interface SidebarSettings {
 export type SidebarSettingsPatch = Partial<
   Pick<
     SidebarSettings,
-    "collapsed" | "groups" | "favorites" | "showFrequent" | "showRecent"
+    | "collapsed"
+    | "position"
+    | "groups"
+    | "favorites"
+    | "showFrequent"
+    | "showRecent"
   >
 >;
 

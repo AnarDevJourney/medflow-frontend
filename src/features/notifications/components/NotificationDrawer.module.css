@@ -1,0 +1,14 @@
+.message {
+  --tone: var(--color-primary);
+  margin: 0 0 var(--space-6);
+  padding: var(--space-4);
+  border-inline-start: 3px solid var(--tone);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--tone) 7%, transparent);
+  font-size: var(--font-size-md);
+  line-height: 1.55;
+}
+
+.urgent {
+  --tone: var(--color-warning);
+}

@@ -2,20 +2,25 @@ import {
   BulbOutlined,
   ClearOutlined,
   FolderAddOutlined,
+  PicLeftOutlined,
+  PicRightOutlined,
   SettingOutlined,
   UndoOutlined,
 } from "@ant-design/icons";
-import { App, Button, Popover, Switch, Tooltip } from "antd";
+import { App, Button, Popover, Segmented, Switch, Tooltip } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import type { SidebarPosition } from "../services/sidebarSettingsService";
 import styles from "./Sidebar.module.css";
 
 interface SidebarCustomizeProps {
   collapsed: boolean;
+  position: SidebarPosition;
   showFrequent: boolean;
   showRecent: boolean;
   onShowFrequent: (value: boolean) => void;
   onShowRecent: (value: boolean) => void;
+  onPosition: (value: SidebarPosition) => void;
   onNewGroup: () => void;
   onClearHistory: () => void;
   onReset: () => void;
@@ -24,10 +29,12 @@ interface SidebarCustomizeProps {
 // Footer button → small panel with the sidebar's options
 export function SidebarCustomize({
   collapsed,
+  position,
   showFrequent,
   showRecent,
   onShowFrequent,
   onShowRecent,
+  onPosition,
   onNewGroup,
   onClearHistory,
   onReset,
@@ -52,6 +59,20 @@ export function SidebarCustomize({
   const panel = (
     <div className={styles.panel}>
       <div className={styles.panelTitle}>{t("sidebar.customize")}</div>
+      <div className={styles.panelField}>
+        <span id="sidebar-position-label">{t("sidebar.position")}</span>
+        <Segmented<SidebarPosition>
+          block
+          size="small"
+          aria-labelledby="sidebar-position-label"
+          value={position}
+          onChange={onPosition}
+          options={[
+            { value: "left", label: t("sidebar.left"), icon: <PicLeftOutlined /> },
+            { value: "right", label: t("sidebar.right"), icon: <PicRightOutlined /> },
+          ]}
+        />
+      </div>
       <label className={styles.panelRow}>
         {t("sidebar.showFrequent")}
         <Switch size="small" checked={showFrequent} onChange={onShowFrequent} />
@@ -111,13 +132,24 @@ export function SidebarCustomize({
     <Popover
       content={panel}
       trigger="click"
-      placement={collapsed ? "rightBottom" : "topLeft"}
+      placement={
+        position === "right"
+          ? collapsed
+            ? "leftBottom"
+            : "topRight"
+          : collapsed
+            ? "rightBottom"
+            : "topLeft"
+      }
       open={open}
       onOpenChange={setOpen}
       arrow={false}
     >
       {collapsed ? (
-        <Tooltip title={t("sidebar.customize")} placement="right">
+        <Tooltip
+          title={t("sidebar.customize")}
+          placement={position === "right" ? "left" : "right"}
+        >
           {trigger}
         </Tooltip>
       ) : (

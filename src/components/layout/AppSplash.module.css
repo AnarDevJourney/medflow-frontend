@@ -1,0 +1,54 @@
+.splash {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: var(--sidebar-width);
+  padding: var(--space-6) var(--space-4);
+  border-inline-end: 1px solid var(--sidebar-border);
+  background: var(--sidebar-bg);
+}
+
+/* Sidebar on the right (data-sidebar is set before the first paint) */
+:global(html[data-sidebar="right"]) .splash {
+  flex-direction: row-reverse;
+}
+
+:global(html[data-sidebar="right"]) .side {
+  border-inline-end: 0;
+  border-inline-start: 1px solid var(--sidebar-border);
+}
+
+.brand {
+  margin-bottom: var(--space-4);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+}
+
+.top {
+  height: 64px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-card);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--content-padding);
+}
+
+.card {
+  padding: var(--space-6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+}

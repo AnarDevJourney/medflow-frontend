@@ -50,6 +50,19 @@ export interface DataTableEmptyState {
   icon?: ReactNode;
 }
 
+// One item of a row's ⋮ menu
+export interface DataTableRowAction {
+  key: string;
+  label: ReactNode;
+  icon?: ReactNode;
+  onClick: () => void;
+  danger?: boolean;
+  disabled?: boolean;
+}
+// "divider" draws a line; dividers at the edges or doubled are dropped,
+// so conditional items need no special care
+export type DataTableRowMenuItem = DataTableRowAction | "divider";
+
 export interface DataTableProps<T extends object> {
   // Settings key in configurations-service ('patients', 'invoices', …)
   tableKey: string;
@@ -70,6 +83,14 @@ export interface DataTableProps<T extends object> {
   // Color of the left stripe in the "accent" view (a CSS color / variable)
   rowAccent?: (record: T) => string | undefined;
   rowSelection?: TableProps<T>["rowSelection"];
+
+  // ⋮ menu at the end of every row, in a column pinned to the right. Not a
+  // user column: it can't be hidden, moved or resized in the settings.
+  rowActions?: (record: T) => DataTableRowMenuItem[];
+  // Adds "View details" as the first item of the ⋮ menu (opens a drawer)
+  onViewDetails?: (record: T) => void;
+  // The row's name for screen readers: "Actions for <name>"
+  rowLabel?: (record: T) => string;
 
   // Left side of the toolbar (search, filters); right side: extra actions
   toolbar?: ReactNode;

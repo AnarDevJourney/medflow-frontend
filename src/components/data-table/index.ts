@@ -5,6 +5,8 @@ export type {
   DataTableEmptyState,
   DataTablePagination,
   DataTableProps,
+  DataTableRowAction,
+  DataTableRowMenuItem,
   DataTableSort,
   TableDensity,
   TableViewId,

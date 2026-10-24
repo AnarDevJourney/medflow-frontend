@@ -16,7 +16,15 @@
     "departments": "Departments",
     "history": "Action history"
   },
+  "modal": {
+    "discardTitle": "Discard changes?",
+    "discardText": "What you entered hasn't been saved and will be lost.",
+    "discard": "Discard",
+    "keepEditing": "Keep editing"
+  },
   "common": {
+    "close": "Close",
+    "clearFilters": "Clear filters",
     "backHome": "Back to home",
     "comingSoon": "Coming soon",
     "language": "Language",
@@ -26,18 +34,24 @@
       "dark": "Dark"
     },
     "cancel": "Cancel",
-    "comingSoonText": "This page is built in one of the next phases."
-  },
-  "status": {
-    "title": "System status",
-    "allUp": "All services are running",
-    "degraded": "Some services are unavailable",
-    "up": "up",
-    "down": "down",
-    "unreachable": "The API gateway cannot be reached"
+    "comingSoonText": "This page is built in one of the next phases.",
+    "save": "Save",
+    "from": "From",
+    "to": "To",
+    "period": "Period"
   },
   "errors": {
-    "notFound": "This page does not exist"
+    "notFound": "This page does not exist",
+    "unavailable": "The service is temporarily unavailable. Please try again in a moment.",
+    "tooManyRequests": "Too many attempts. Wait a minute and try again.",
+    "forbidden": "You don't have permission to do this.",
+    "unexpected": "Something went wrong. Please try again.",
+    "notFoundText": "The page may have moved, or the link is incorrect.",
+    "forbiddenTitle": "You don't have access to this page",
+    "forbiddenText": "This page is for other roles. Ask an administrator if you think you should have access.",
+    "serverTitle": "MedFlow can't be reached right now",
+    "bannerTitle": "Some data couldn't be loaded",
+    "bannerText": "A service didn't respond. What you see may be incomplete."
   },
   "sidebar": {
     "label": "Main navigation",
@@ -63,6 +77,9 @@
     "emptyGroup": "Drag pages here",
     "newGroup": "New group",
     "newGroupName": "New group",
+    "position": "Sidebar position",
+    "left": "Left",
+    "right": "Right",
     "customize": "Customize",
     "showFrequent": "Show frequently used",
     "showRecent": "Show recently viewed",
@@ -74,6 +91,10 @@
     "saveError": "Sidebar changes could not be saved"
   },
   "table": {
+    "actions": "Actions",
+    "rowActions": "Row actions",
+    "rowActionsFor": "Actions for {{name}}",
+    "viewDetails": "View details",
     "settings": "Table settings",
     "view": "Table view",
     "density": "Row density",
@@ -227,6 +248,315 @@
       "systemDesc": "Follows your device's “reduce motion” setting.",
       "reducedDesc": "No transitions or animations.",
       "fullDesc": "All transitions, even if the device asks for less motion."
+    }
+  },
+  "roles": {
+    "ADMIN": "Administrator",
+    "DOCTOR": "Doctor",
+    "NURSE": "Nurse",
+    "RECEPTIONIST": "Receptionist",
+    "ACCOUNTANT": "Accountant"
+  },
+  "userStatus": {
+    "INVITED": "Invited",
+    "ACTIVE": "Active",
+    "DEACTIVATED": "Deactivated"
+  },
+  "auth": {
+    "brand": {
+      "headline": "Your entire hospital, on one screen",
+      "subtitle": "Admissions, visits, lab work and billing stay connected — nothing falls through the cracks.",
+      "feature1": "From appointment to payment in one flow",
+      "feature1Text": "Patient registration, the visit and the invoice link up automatically",
+      "feature2": "Real-time alerts",
+      "feature2Text": "Doctors know right away when a patient arrives or a lab result is ready",
+      "feature3": "Secure and fully audited",
+      "feature3Text": "Each role sees only its own work, and every action stays in the history"
+    },
+    "loginTitle": "Sign in",
+    "loginSubtitle": "Welcome back. Sign in with your work email.",
+    "email": "Email",
+    "password": "Password",
+    "emailRequired": "Enter your email",
+    "emailInvalid": "This doesn't look like an email address",
+    "passwordRequired": "Enter your password",
+    "forgotLink": "Forgot password?",
+    "loginButton": "Sign in",
+    "invalidCredentials": "Email or password is incorrect.",
+    "sessionRevoked": "You were signed out because your session was closed elsewhere. Please sign in again.",
+    "inviteOnly": "Accounts are created by an administrator — check your email for an invitation.",
+    "logout": "Sign out",
+    "forgotTitle": "Reset your password",
+    "forgotSubtitle": "Enter your work email and we'll send you a link to set a new password.",
+    "forgotButton": "Send reset link",
+    "forgotSentTitle": "Check your inbox",
+    "forgotSentText": "If an account exists for <b>{{email}}</b>, we've sent a link to reset the password. It is valid for 1 hour.",
+    "backToLogin": "Back to sign in",
+    "resetTitle": "Set a new password",
+    "resetSubtitle": "Choose a new password for your account. All other sessions will be signed out.",
+    "resetButton": "Save new password",
+    "resetDoneTitle": "Password updated",
+    "resetDoneText": "Your new password is set. Sign in with it to continue.",
+    "resetInvalidTitle": "This link no longer works",
+    "resetInvalidText": "Reset links are valid for 1 hour and can be used once. Request a new one.",
+    "requestNewLink": "Request a new link",
+    "newPassword": "New password",
+    "choosePassword": "Choose a password",
+    "confirmPassword": "Repeat the password",
+    "confirmRequired": "Repeat the password",
+    "passwordsDiffer": "The passwords don't match",
+    "passwordInvalid": "The password doesn't meet the rules below",
+    "passwordRule": {
+      "length": "At least 8 characters",
+      "letter": "A letter",
+      "digit": "A digit"
+    },
+    "inviteTitle": "Welcome, {{name}}!",
+    "inviteTitleShort": "Welcome to MedFlow",
+    "inviteSubtitle": "Set a password to activate your account.",
+    "inviteButton": "Activate account",
+    "inviteExpires": "This invitation is valid until <b>{{date}}</b>.",
+    "inviteExpiredTitle": "This invitation has expired",
+    "inviteExpiredText": "Invitations are valid for 72 hours. Ask an administrator to send a new one.",
+    "inviteUsedTitle": "This invitation was already used",
+    "inviteUsedText": "The account is already active. Sign in with your email and password.",
+    "inviteInvalidTitle": "The invitation link is not valid",
+    "inviteInvalidText": "Open the link exactly as it appears in the email, or ask an administrator to send a new invitation."
+  },
+  "dashboard": {
+    "greeting": {
+      "morning": "Good morning, {{name}}",
+      "afternoon": "Good afternoon, {{name}}",
+      "evening": "Good evening, {{name}}"
+    },
+    "lead": "Your role's dashboard widgets — today's queue, lab orders, revenue — will appear here as each module is built.",
+    "quickAccess": "Quick access"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Unread: {{count}}",
+    "markAllRead": "Mark all as read",
+    "markRead": "Mark as read",
+    "unread": "Unread",
+    "emptyTitle": "No notifications yet",
+    "emptyText": "Check-ins, lab results and other updates for you will show up here.",
+    "viewAll": "View all notifications",
+    "bellLabel": "Notifications, {{count}} unread",
+    "read": "Read",
+    "urgent": "Urgent",
+    "normal": "Normal",
+    "allStatuses": "All statuses",
+    "allPriorities": "All priorities",
+    "allTypes": "All types",
+    "detailsTitle": "Notification details",
+    "detailsSection": "Details",
+    "openLink": "Open related page",
+    "noMatchTitle": "No notifications match these filters",
+    "noMatchText": "Change or clear the filters.",
+    "columns": {
+      "notification": "Notification",
+      "type": "Type",
+      "priority": "Priority",
+      "status": "Status",
+      "createdAt": "Received",
+      "readAt": "Read at"
+    }
+  },
+  "notificationTypes": {
+    "SESSION_REVOKED": {
+      "title": "You were signed out everywhere",
+      "message": "For your security all sessions were closed. If this wasn't you, change your password.",
+      "label": "Security"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "subtitle": "Your account, password and preferences.",
+    "menuLabel": "Account menu for {{name}}",
+    "personalTitle": "Personal information",
+    "personalText": "Your name as colleagues see it across MedFlow.",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "nameRequired": "This field is required",
+    "nameTooLong": "At most 100 characters",
+    "emailLocked": "Your email is your sign-in and can't be changed here.",
+    "saved": "Profile saved",
+    "passwordTitle": "Password",
+    "passwordText": "After changing it, you stay signed in here and all other devices are signed out.",
+    "currentPassword": "Current password",
+    "changePassword": "Change password",
+    "passwordChanged": "Password changed. Other sessions were signed out.",
+    "currentWrong": "The current password is incorrect",
+    "samePassword": "The new password must be different from the current one",
+    "preferencesTitle": "Preferences",
+    "languageHint": "The language of the whole interface.",
+    "appearanceHint": "Theme, colors, density and animations.",
+    "customizeAppearance": "Customize"
+  },
+  "staff": {
+    "accountSection": "Account",
+    "activitySection": "Activity",
+    "title": "Staff",
+    "subtitle": "Invite colleagues, manage roles and access.",
+    "inviteButton": "Invite staff member",
+    "search": "Search by name or email",
+    "allRoles": "All roles",
+    "allStatuses": "All statuses",
+    "role": "Role",
+    "chooseRole": "Choose a role",
+    "roleRequired": "Choose a role",
+    "columns": {
+      "name": "Name",
+      "status": "Status"
+    },
+    "lastLogin": "Last sign-in",
+    "createdAt": "Added",
+    "never": "Never",
+    "you": "You",
+    "edit": "Edit",
+    "emptyTitle": "No staff members yet",
+    "emptyText": "Invite your colleagues — each gets an email to set a password.",
+    "noMatchTitle": "No one matches these filters",
+    "noMatchText": "Try another name or clear the filters.",
+    "inviteTitle": "Invite a staff member",
+    "inviteText": "We'll email an invitation link valid for 72 hours. The account becomes active once they set a password.",
+    "sendInvite": "Send invitation",
+    "invited": "Invitation sent to {{email}}",
+    "emailTaken": "A user with this email already exists",
+    "detailsTitle": "Staff member",
+    "editTitle": "Details",
+    "saved": "Changes saved",
+    "ownRoleLocked": "You can't change your own role.",
+    "roleChangeHint": "A new role applies the next time their session refreshes (within 15 minutes).",
+    "resendTitle": "Invitation not accepted yet",
+    "resendHint": "Sends a new link; the old one stops working.",
+    "resendInvite": "Resend invitation",
+    "inviteResent": "A new invitation was sent to {{email}}",
+    "deactivate": "Deactivate account",
+    "deactivateHint": "Blocks sign-in and signs them out everywhere. History is kept.",
+    "deactivateTitle": "Deactivate {{name}}?",
+    "deactivateText": "They will be signed out on every device immediately and won't be able to sign in. You can reactivate the account later.",
+    "deactivated": "{{name}} was deactivated",
+    "reactivate": "Reactivate account",
+    "reactivateHint": "Allows signing in again with the existing password.",
+    "reactivateTitle": "Reactivate {{name}}?",
+    "reactivateText": "They will be able to sign in again with their existing password.",
+    "reactivateInvitedText": "They never set a password, so the account goes back to “Invited” — resend the invitation afterwards.",
+    "reactivated": "{{name}} was reactivated"
+  },
+  "history": {
+    "title": "Action history",
+    "subtitle": "Every change in the system — who did what, and when. The log can't be edited.",
+    "actionsTab": "Actions",
+    "emailsTab": "Emails",
+    "allEvents": "All events",
+    "allEntities": "All objects",
+    "allTemplates": "All templates",
+    "searchRecipient": "Search recipient",
+    "columns": {
+      "occurredAt": "Time",
+      "actor": "Who",
+      "actorRole": "Role",
+      "eventType": "Event",
+      "summary": "What happened",
+      "entity": "Object",
+      "source": "Module",
+      "createdAt": "Created",
+      "recipient": "Recipient",
+      "template": "Template",
+      "subject": "Subject",
+      "attempts": "Attempts",
+      "sentAt": "Sent",
+      "error": "Error"
+    },
+    "system": "System",
+    "entities": {
+      "USER": "User"
+    },
+    "emailStatus": {
+      "QUEUED": "Queued",
+      "SENT": "Sent",
+      "FAILED": "Failed"
+    },
+    "emptyTitle": "No actions recorded yet",
+    "emptyText": "Changes such as invitations and role updates will appear here.",
+    "emailsEmptyTitle": "No emails yet",
+    "emailsEmptyText": "Invitations and security emails will be listed here with their delivery status.",
+    "noMatchTitle": "Nothing matches these filters",
+    "noMatchText": "Widen the period or clear the filters.",
+    "detailsTitle": "Action details",
+    "eventTypes": {
+      "user": {
+        "invited": "Invitation",
+        "activated": "Account activated",
+        "updated": "Account updated",
+        "deactivated": "Account deactivated",
+        "reactivated": "Account reactivated",
+        "password_changed": "Password changed",
+        "session_revoked": "Sessions revoked"
+      }
+    },
+    "fields": {
+      "firstName": "first name",
+      "lastName": "last name",
+      "role": "role",
+      "email": "email",
+      "avatarFileId": "profile photo"
+    },
+    "actorSection": "Performed by",
+    "detailsSection": "Details",
+    "systemHint": "Automatic action",
+    "meta": {
+      "title": "Job title",
+      "changedFields": "Changed fields",
+      "invitation": "Invitation",
+      "resent": "Resent",
+      "firstInvite": "First invitation",
+      "via": "Method",
+      "reason": "Reason"
+    },
+    "via": {
+      "RESET": "Reset with an email link",
+      "CHANGE": "Changed in the profile"
+    },
+    "reasons": {
+      "REFRESH_TOKEN_REUSE": "A used sign-in token was presented again"
+    },
+    "sources": {
+      "auth-service": "Sign-in and users",
+      "staff-service": "Staff",
+      "patient-service": "Patients",
+      "appointment-service": "Appointments",
+      "medical-record-service": "Medical records",
+      "billing-service": "Billing",
+      "file-service": "Files"
+    },
+    "emailDetailsTitle": "Email details",
+    "emailSection": "Email",
+    "deliverySection": "Delivery",
+    "failedReason": "Not sent because",
+    "lastError": "Last attempt failed (will retry)",
+    "emailTemplates": {
+      "staff-invite": "Staff invitation",
+      "password-reset": "Password reset",
+      "password-changed": "Password changed notice",
+      "session-revoked": "Security alert"
+    }
+  },
+  "historyEvents": {
+    "user": {
+      "invited": "{{actor}} invited {{name}} as {{role}}",
+      "invitationResent": "{{actor}} resent the invitation to {{name}}",
+      "createdBySystem": "{{name}} was created as {{role}} by the system",
+      "activated": "{{name}} accepted the invitation and activated the account",
+      "activatedBySystem": "The account of {{name}} was activated by the system",
+      "profileUpdated": "{{name}} updated their profile ({{fields}})",
+      "updated": "{{actor}} updated the account of {{name}} ({{fields}})",
+      "deactivated": "{{actor}} deactivated the account of {{email}}",
+      "reactivated": "{{actor}} reactivated the account of {{email}}",
+      "sessionRevoked": "All sessions were revoked: a used refresh token was presented again (possible token theft)",
+      "passwordReset": "{{name}} reset their password with an email link",
+      "passwordChanged": "{{name}} changed their password"
     }
   }
 }

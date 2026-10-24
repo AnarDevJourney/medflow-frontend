@@ -26,7 +26,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { Button, Checkbox, Drawer, Popconfirm, Segmented, Tooltip } from "antd";
 import { useTranslation } from "react-i18next";
 import type { ResolvedColumn } from "./resolveColumns";
-import { TABLE_VIEWS } from "./tableViews";
+import type { TABLE_VIEWS } from "./tableViews";
 import { TableViewPreview } from "./TableViewPreview";
 import type { ColumnPin, TableDensity, TableViewId } from "./types";
 import styles from "./TableSettingsDrawer.module.css";
@@ -37,6 +37,7 @@ interface TableSettingsDrawerProps<T> {
   columns: ResolvedColumn<T>[];
   density: TableDensity;
   view: TableViewId;
+  views: typeof TABLE_VIEWS; // the views this table supports
   customized: boolean; // something differs from the defaults
   onColumnsChange: (columns: ResolvedColumn<T>[]) => void;
   onDensityChange: (density: TableDensity) => void;
@@ -55,6 +56,7 @@ export function TableSettingsDrawer<T>({
   columns,
   density,
   view,
+  views,
   customized,
   onColumnsChange,
   onDensityChange,
@@ -130,7 +132,7 @@ export function TableSettingsDrawer<T>({
       <section className={styles.section}>
         <h3 className={styles.heading}>{t("table.view")}</h3>
         <div className={styles.views} role="radiogroup" aria-label={t("table.view")}>
-          {TABLE_VIEWS.map((option) => {
+          {views.map((option) => {
             const selected = option.id === view;
             return (
               <button

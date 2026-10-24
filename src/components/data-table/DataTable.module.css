@@ -222,7 +222,7 @@
 }
 
 .stateError {
-  color: var(--ant-color-error, var(--color-muted));
+  color: var(--color-error);
 }
 
 .stateTitle {

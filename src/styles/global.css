@@ -48,6 +48,9 @@
   --color-text: #1f2933;
   --color-muted: #5f6b73;
   --color-favorite: #d97706;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-error: #dc2626;
   --sidebar-bg: var(--color-card);
   --sidebar-text: var(--color-text);
   --sidebar-muted: var(--color-muted);
@@ -77,6 +80,9 @@
   --color-text: #e8eef0;
   --color-muted: #93a3a8;
   --color-favorite: #f59e0b;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
   --color-status-scheduled: #60a5fa;
   --color-status-checked-in: #fbbf24;
   --color-status-in-progress: #a78bfa;
@@ -129,4 +135,17 @@ body {
 ::-webkit-scrollbar-thumb {
   background: var(--color-border);
   border-radius: 4px;
+}
+
+/* Visually hidden, still read by screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

@@ -1,0 +1,35 @@
+.filter {
+  min-width: 170px;
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.cellText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.title,
+.titleUnread,
+.message {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.titleUnread {
+  font-weight: 600;
+}
+
+.message,
+.muted {
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+}

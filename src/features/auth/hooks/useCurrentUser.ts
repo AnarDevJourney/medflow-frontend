@@ -3,7 +3,7 @@ import { getCurrentUser } from "../services/authService";
 
 export const currentUserQueryKey = ["auth", "me"] as const;
 
-// The signed-in user. TODO(F1): RequireAuth redirects to /login on 401.
+// The signed-in user; RequireAuth sends a 401 to /login
 export function useCurrentUser() {
   return useQuery({
     queryKey: currentUserQueryKey,

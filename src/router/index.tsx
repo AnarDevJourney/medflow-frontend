@@ -1,39 +1,74 @@
 import { createBrowserRouter } from "react-router-dom";
 import { AppLayout } from "@components/layout/AppLayout";
+import { NAV_ITEMS, rolesFor } from "@components/layout/navigation";
+import { AcceptInvitePage } from "@features/auth/pages/AcceptInvitePage";
+import { ForgotPasswordPage } from "@features/auth/pages/ForgotPasswordPage";
+import { LoginPage } from "@features/auth/pages/LoginPage";
+import { ResetPasswordPage } from "@features/auth/pages/ResetPasswordPage";
 import { ComingSoonPage } from "@features/coming-soon/pages/ComingSoonPage";
 import { DashboardPage } from "@features/dashboard/pages/DashboardPage";
 import { TableDemoPage } from "@features/dev/pages/TableDemoPage";
 import { NotFoundPage } from "@features/errors/pages/NotFoundPage";
+import { HistoryPage } from "@features/history/pages/HistoryPage";
+import { NotificationsPage } from "@features/notifications/pages/NotificationsPage";
+import { ProfilePage } from "@features/profile/pages/ProfilePage";
+import { StaffPage } from "@features/staff/pages/StaffPage";
 import { PATHS } from "./paths";
+import { PublicOnly } from "./PublicOnly";
+import { RequireAuth } from "./RequireAuth";
+import { RequireRole } from "./RequireRole";
 
-// Pages of later phases — each phase replaces its placeholder
-const UPCOMING = [
-  PATHS.today,
-  PATHS.patients,
-  PATHS.appointments,
-  PATHS.labQueue,
-  PATHS.invoices,
-  PATHS.prices,
-  PATHS.staff,
-  PATHS.departments,
-  PATHS.history,
-  PATHS.notifications,
-];
+// Pages that exist; every other nav entry shows its "coming soon" page
+const BUILT = new Set(["dashboard", "notifications", "staff", "history"]);
 
-// TODO(F1): public auth routes (login, accept-invite, forgot / reset
-// password) and RequireAuth / RequireRole guards around the AppLayout branch.
+// Signed-in pages are gated by the same roles as their nav entry (and the backend)
+const gated = (key: string, element: React.ReactNode) => (
+  <RequireRole roles={rolesFor(key)}>{element}</RequireRole>
+);
+
 export const router = createBrowserRouter([
+  // Public — email links point to accept-invite and reset-password
+  {
+    path: PATHS.login,
+    element: (
+      <PublicOnly>
+        <LoginPage />
+      </PublicOnly>
+    ),
+  },
+  {
+    path: PATHS.forgotPassword,
+    element: (
+      <PublicOnly>
+        <ForgotPasswordPage />
+      </PublicOnly>
+    ),
+  },
+  { path: PATHS.acceptInvite, element: <AcceptInvitePage /> },
+  { path: PATHS.resetPassword, element: <ResetPasswordPage /> },
+
   {
     path: PATHS.home,
-    element: <AppLayout />,
+    element: (
+      <RequireAuth>
+        <AppLayout />
+      </RequireAuth>
+    ),
     children: [
       { index: true, element: <DashboardPage /> },
-      ...UPCOMING.map((path) => ({ path, element: <ComingSoonPage /> })),
+      { path: PATHS.profile, element: <ProfilePage /> },
+      { path: PATHS.notifications, element: <NotificationsPage /> },
+      { path: PATHS.staff, element: gated("staff", <StaffPage />) },
+      { path: PATHS.history, element: gated("history", <HistoryPage />) },
+      ...NAV_ITEMS.filter((item) => !BUILT.has(item.key)).map((item) => ({
+        path: item.path,
+        element: gated(item.key, <ComingSoonPage />),
+      })),
       // Component playgrounds — not part of production builds
       ...(import.meta.env.DEV
         ? [{ path: PATHS.devTable, element: <TableDemoPage /> }]
         : []),
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
-  { path: "*", element: <NotFoundPage /> },
 ]);

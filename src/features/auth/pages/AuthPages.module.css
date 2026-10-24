@@ -1,0 +1,67 @@
+.alert {
+  margin-bottom: var(--space-4);
+}
+
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.labelLink {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.footnote {
+  margin: var(--space-6) 0 0;
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  font-size: var(--font-size-sm);
+}
+
+.invitee {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+}
+
+.inviteeText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.inviteeName {
+  font-weight: 600;
+}
+
+.inviteeEmail {
+  overflow: hidden;
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* AntD vertical form: let the label (with the "forgot?" link) span the row */
+.form :global(.ant-form-item-label > label) {
+  width: 100%;
+}

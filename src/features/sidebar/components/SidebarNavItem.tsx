@@ -15,6 +15,8 @@ interface SidebarNavItemProps {
   favorite?: boolean;
   inFavorites?: boolean; // shown in the Favorites section
   onToggleFavorite?: (key: string) => void;
+  // collapsed: the side the label tooltip opens on (away from the edge)
+  tooltipPlacement?: "left" | "right";
   // set by SortableNavItem
   rowRef?: Ref<HTMLDivElement>;
   rowProps?: HTMLAttributes<HTMLDivElement>;
@@ -30,6 +32,7 @@ export function SidebarNavItem({
   favorite = false,
   inFavorites = false,
   onToggleFavorite,
+  tooltipPlacement = "right",
   rowRef,
   rowProps,
   className,
@@ -67,7 +70,7 @@ export function SidebarNavItem({
         .join(" ")}
     >
       {collapsed ? (
-        <Tooltip title={label} placement="right" mouseEnterDelay={0.15}>
+        <Tooltip title={label} placement={tooltipPlacement} mouseEnterDelay={0.15}>
           {link}
         </Tooltip>
       ) : (

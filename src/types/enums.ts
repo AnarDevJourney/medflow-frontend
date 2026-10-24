@@ -23,3 +23,11 @@ export const AppointmentStatus = {
 } as const;
 export type AppointmentStatus =
   (typeof AppointmentStatus)[keyof typeof AppointmentStatus];
+
+// auth users.status
+export const UserStatus = {
+  INVITED: "INVITED", // created by an admin, password not set yet
+  ACTIVE: "ACTIVE",
+  DEACTIVATED: "DEACTIVATED",
+} as const;
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus];

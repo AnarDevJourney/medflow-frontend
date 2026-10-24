@@ -28,7 +28,16 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Button, Layout, Popover, Skeleton, Tooltip } from "antd";
-import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import {
+  Fragment,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { findNavItem, NAV_ITEMS, type NavItem } from "@components/layout/navigation";
@@ -92,11 +101,25 @@ export function Sidebar() {
 
   const activeKey = findNavItem(pathname)?.key;
   const collapsed = settings?.collapsed ?? false;
+  const position = settings?.position ?? "left";
+  // Tooltips and popovers open away from the screen edge
+  const side = position === "right" ? "left" : "right";
   const model = useMemo(
     () => (settings && user ? buildSidebar(settings, user.role, activeKey) : null),
     [settings, user, activeKey],
   );
   const favoriteKeys = useMemo(() => new Set(settings?.favorites ?? []), [settings]);
+
+  // On <html> for the splash screen; index.html applies the last one before
+  // the first paint, so a right-side sidebar does not jump on reload
+  useLayoutEffect(() => {
+    document.documentElement.dataset.sidebar = position;
+    try {
+      localStorage.setItem("medflow-sidebar-position", position);
+    } catch {
+      // storage blocked — only the splash falls back to the left
+    }
+  }, [position]);
 
   // Count a visit each time the user lands on another page
   const lastVisit = useRef<string | undefined>(undefined);
@@ -114,6 +137,20 @@ export function Sidebar() {
   const [renamingId, setRenamingId] = useState<string | null>(null);
   // A drop ends with a click on the link under the pointer — swallow it
   const justDropped = useRef(false);
+  // A page that just changed group shifts the layout; until it settles the
+  // pointer can land on the old group and the page would bounce back and
+  // forth forever (dnd-kit MultipleContainers pattern)
+  const movedGroup = useRef(false);
+  useEffect(() => {
+    requestAnimationFrame(() => (movedGroup.current = false));
+  }, [draft]);
+  const detectCollisions = useCallback<CollisionDetection>(
+    (args) =>
+      movedGroup.current && !isGroupId(String(args.active.id))
+        ? [{ id: args.active.id }]
+        : collisionDetection(args),
+    [],
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 6 } }),
@@ -126,7 +163,9 @@ export function Sidebar() {
   if (!settings || !model) {
     return (
       <Layout.Sider
-        className={styles.sider}
+        className={[styles.sider, position === "right" && styles.right]
+          .filter(Boolean)
+          .join(" ")}
         width="var(--sidebar-width)"
         collapsedWidth="var(--sidebar-collapsed-width)"
         collapsed={collapsed}
@@ -179,6 +218,7 @@ export function Sidebar() {
       const target = prev[to].items;
       const overIndex = target.findIndex((i) => i.key === keyOf(overId));
       const at = overIndex < 0 ? target.length : overIndex;
+      movedGroup.current = true;
       return prev.map((group, index) => {
         if (index === from) {
           return { ...group, items: group.items.filter((i) => i.key !== item.key) };
@@ -308,7 +348,13 @@ export function Sidebar() {
 
   return (
     <Layout.Sider
-      className={[styles.sider, collapsed && styles.collapsed].filter(Boolean).join(" ")}
+      className={[
+        styles.sider,
+        collapsed && styles.collapsed,
+        position === "right" && styles.right,
+      ]
+        .filter(Boolean)
+        .join(" ")}
       width="var(--sidebar-width)"
       collapsedWidth="var(--sidebar-collapsed-width)"
       collapsed={collapsed}
@@ -336,11 +382,12 @@ export function Sidebar() {
                 item={item}
                 active={item.key === activeKey}
                 collapsed
+                tooltipPlacement={side}
               />
             ))}
             {quickAccess.length > 0 && (
               <Popover
-                placement="rightTop"
+                placement={`${side}Top`}
                 arrow={false}
                 content={
                   <div className={styles.quickList}>
@@ -391,6 +438,7 @@ export function Sidebar() {
                     item={item}
                     active={item.key === activeKey}
                     collapsed
+                    tooltipPlacement={side}
                   />
                 ))}
               </Fragment>
@@ -443,7 +491,7 @@ export function Sidebar() {
 
             <DndContext
               sensors={sensors}
-              collisionDetection={collisionDetection}
+              collisionDetection={detectCollisions}
               onDragStart={onDragStart}
               onDragOver={onDragOver}
               onDragEnd={onDragEnd}
@@ -496,10 +544,12 @@ export function Sidebar() {
       <div className={styles.footer}>
         <SidebarCustomize
           collapsed={collapsed}
+          position={position}
           showFrequent={settings.showFrequent}
           showRecent={settings.showRecent}
           onShowFrequent={(showFrequent) => actions.update({ showFrequent })}
           onShowRecent={(showRecent) => actions.update({ showRecent })}
+          onPosition={(next) => actions.update({ position: next })}
           onNewGroup={() => {
             if (collapsed) actions.update({ collapsed: false });
             newGroup();
@@ -509,11 +559,18 @@ export function Sidebar() {
         />
         <Tooltip
           title={t(collapsed ? "sidebar.expand" : "sidebar.collapse")}
-          placement="right"
+          placement={side}
         >
           <Button
             type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            // The arrow points the way the sidebar will move
+            icon={
+              collapsed === (position === "right") ? (
+                <MenuFoldOutlined />
+              ) : (
+                <MenuUnfoldOutlined />
+              )
+            }
             aria-label={t(collapsed ? "sidebar.expand" : "sidebar.collapse")}
             onClick={() => actions.update({ collapsed: !collapsed })}
           />

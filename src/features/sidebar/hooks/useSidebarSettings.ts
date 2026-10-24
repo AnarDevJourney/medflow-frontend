@@ -14,6 +14,7 @@ import {
 // Same as the backend defaults (user without a saved row)
 export const DEFAULT_SIDEBAR_SETTINGS: SidebarSettings = {
   collapsed: false,
+  position: "left",
   groups: null,
   favorites: [],
   showFrequent: true,

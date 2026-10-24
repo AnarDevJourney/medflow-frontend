@@ -22,6 +22,9 @@
             (mode === "system" &&
               window.matchMedia("(prefers-color-scheme: dark)").matches);
           root.setAttribute("data-theme", dark ? "dark" : "light");
+          // Sidebar side, written by Sidebar (the splash screen follows it)
+          if (localStorage.getItem("medflow-sidebar-position") === "right")
+            root.setAttribute("data-sidebar", "right");
           if (!snapshot) return;
           root.setAttribute("data-density", snapshot.appearance.density);
           var vars = snapshot.vars[dark ? "dark" : "light"];

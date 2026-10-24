@@ -104,7 +104,9 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.staff,
     labelKey: "nav.staff",
     icon: <TeamOutlined />,
-    roles: ALL_ROLES,
+    // F1: user management on auth /users (ADMIN only).
+    // TODO(phase 5): staff directory for every role (DOC 9.1).
+    roles: [ADMIN],
     group: "admin",
   },
   {
@@ -124,6 +126,9 @@ export const NAV_ITEMS: NavItem[] = [
     group: "admin",
   },
 ];
+
+export const rolesFor = (key: string): readonly RoleType[] =>
+  NAV_ITEMS.find((item) => item.key === key)?.roles ?? ALL_ROLES;
 
 // The nav entry a URL belongs to: longest matching path wins
 // ("/settings/prices/x" → prices, "/" only for exactly "/")

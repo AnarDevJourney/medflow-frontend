@@ -1,0 +1,167 @@
+.page {
+  display: grid;
+  grid-template-columns: minmax(360px, 44%) 1fr;
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+/* ─── Brand panel ───────────────────────────────────────── */
+.brand {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--space-12);
+  overflow: hidden;
+  /* the sidebar color with a hint of the accent */
+  background: color-mix(in srgb, var(--sidebar-bg) 95%, var(--color-primary));
+  color: var(--sidebar-text);
+  border-inline-end: 1px solid var(--sidebar-border);
+}
+
+/* quiet, large brand mark in the corner — texture, not decoration */
+.brand::after {
+  content: "";
+  position: absolute;
+  right: -120px;
+  bottom: -120px;
+  width: 360px;
+  height: 360px;
+  border: 48px solid var(--color-primary-soft);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--sidebar-brand);
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+.pitch {
+  position: relative;
+  z-index: 1;
+  max-width: 440px;
+}
+
+.headline {
+  margin: 0 0 var(--space-4);
+  color: var(--sidebar-text);
+  font-size: var(--font-size-3xl);
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  margin: 0 0 var(--space-8);
+  color: var(--sidebar-muted);
+  font-size: var(--font-size-lg);
+  line-height: 1.5;
+}
+
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--sidebar-muted);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+}
+
+.features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.featureTitle {
+  margin-bottom: 2px;
+  color: var(--sidebar-text);
+  font-weight: 600;
+}
+
+.featureIcon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  background: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text);
+}
+
+.footnote {
+  color: var(--sidebar-muted);
+  font-size: var(--font-size-xs);
+}
+
+/* ─── Form side ─────────────────────────────────────────── */
+.main {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-4);
+}
+
+.toolbar {
+  position: absolute;
+  top: var(--space-4);
+  inset-inline-end: var(--space-6);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.mobileLogo {
+  display: none;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+  color: var(--color-primary);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--font-size-2xl);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  margin: var(--space-2) 0 var(--space-6);
+  color: var(--color-muted);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+}
+
+@media (max-width: 900px) {
+  .page {
+    grid-template-columns: 1fr;
+  }
+
+  .brand {
+    display: none;
+  }
+
+  .mobileLogo {
+    display: flex;
+  }
+}

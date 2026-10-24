@@ -16,7 +16,15 @@
     "departments": "Şöbələr",
     "history": "Əməliyyat tarixçəsi"
   },
+  "modal": {
+    "discardTitle": "Dəyişikliklər silinsin?",
+    "discardText": "Daxil etdiyiniz məlumatlar yadda saxlanmayıb və itəcək.",
+    "discard": "Sil və bağla",
+    "keepEditing": "Davam et"
+  },
   "common": {
+    "close": "Bağla",
+    "clearFilters": "Filtrləri təmizlə",
     "backHome": "Ana səhifəyə qayıt",
     "comingSoon": "Tezliklə",
     "language": "Dil",
@@ -26,18 +34,24 @@
       "dark": "Qaranlıq"
     },
     "cancel": "Ləğv et",
-    "comingSoonText": "Bu səhifə növbəti mərhələlərdən birində hazırlanacaq."
-  },
-  "status": {
-    "title": "Sistemin vəziyyəti",
-    "allUp": "Bütün servislər işləyir",
-    "degraded": "Bəzi servislər əlçatan deyil",
-    "up": "işləyir",
-    "down": "işləmir",
-    "unreachable": "API gateway-ə qoşulmaq mümkün deyil"
+    "comingSoonText": "Bu səhifə növbəti mərhələlərdən birində hazırlanacaq.",
+    "save": "Yadda saxla",
+    "from": "Başlanğıc",
+    "to": "Son",
+    "period": "Dövr"
   },
   "errors": {
-    "notFound": "Belə səhifə yoxdur"
+    "notFound": "Belə səhifə yoxdur",
+    "unavailable": "Servis müvəqqəti əlçatan deyil. Bir azdan yenidən cəhd edin.",
+    "tooManyRequests": "Çox sayda cəhd. Bir dəqiqə gözləyib yenidən cəhd edin.",
+    "forbidden": "Bunu etməyə icazəniz yoxdur.",
+    "unexpected": "Nəsə alınmadı. Yenidən cəhd edin.",
+    "notFoundText": "Səhifənin yeri dəyişib və ya link səhvdir.",
+    "forbiddenTitle": "Bu səhifəyə girişiniz yoxdur",
+    "forbiddenText": "Bu səhifə başqa rollar üçündür. Girişiniz olmalıdırsa, administratora müraciət edin.",
+    "serverTitle": "MedFlow hazırda əlçatan deyil",
+    "bannerTitle": "Bəzi məlumatlar yüklənmədi",
+    "bannerText": "Servislərdən biri cavab vermədi. Gördükləriniz natamam ola bilər."
   },
   "sidebar": {
     "label": "Əsas naviqasiya",
@@ -63,6 +77,9 @@
     "emptyGroup": "Səhifələri bura sürükləyin",
     "newGroup": "Yeni qrup",
     "newGroupName": "Yeni qrup",
+    "position": "Menyunun yeri",
+    "left": "Solda",
+    "right": "Sağda",
     "customize": "Fərdiləşdir",
     "showFrequent": "Tez-tez istifadə olunanları göstər",
     "showRecent": "Son baxılanları göstər",
@@ -74,6 +91,10 @@
     "saveError": "Menyu dəyişiklikləri yadda saxlanmadı"
   },
   "table": {
+    "actions": "Əməliyyatlar",
+    "rowActions": "Sətir əməliyyatları",
+    "rowActionsFor": "{{name}} üçün əməliyyatlar",
+    "viewDetails": "Ətraflı bax",
     "settings": "Cədvəl ayarları",
     "view": "Cədvəlin görünüşü",
     "density": "Sətir sıxlığı",
@@ -227,6 +248,315 @@
       "systemDesc": "Cihazınızın “hərəkəti azalt” ayarına uyğunlaşır.",
       "reducedDesc": "Keçid və animasiya yoxdur.",
       "fullDesc": "Cihaz az hərəkət istəsə belə bütün keçidlər işləyir."
+    }
+  },
+  "roles": {
+    "ADMIN": "Administrator",
+    "DOCTOR": "Həkim",
+    "NURSE": "Tibb bacısı",
+    "RECEPTIONIST": "Qeydiyyatçı",
+    "ACCOUNTANT": "Mühasib"
+  },
+  "userStatus": {
+    "INVITED": "Dəvət edilib",
+    "ACTIVE": "Aktiv",
+    "DEACTIVATED": "Deaktiv"
+  },
+  "auth": {
+    "brand": {
+      "headline": "Xəstəxananın bütün işi bir ekranda",
+      "subtitle": "Qəbul, müayinə, laboratoriya və ödəniş bir-birinə bağlıdır — heç bir detal gözdən qaçmır.",
+      "feature1": "Randevudan ödənişə bir axın",
+      "feature1Text": "Pasiyent qeydiyyatı, müayinə və hesab avtomatik bir-birinə bağlanır",
+      "feature2": "Real vaxt bildirişləri",
+      "feature2Text": "Pasiyent gələndə və ya analiz hazır olanda həkim dərhal xəbər tutur",
+      "feature3": "Təhlükəsiz və izlənilən",
+      "feature3Text": "Hər rol yalnız öz işini görür, hər əməliyyat tarixçədə qalır"
+    },
+    "loginTitle": "Daxil olun",
+    "loginSubtitle": "Xoş gəlmisiniz. İş emailiniz ilə daxil olun.",
+    "email": "Email",
+    "password": "Şifrə",
+    "emailRequired": "Emailinizi daxil edin",
+    "emailInvalid": "Bu email ünvanına oxşamır",
+    "passwordRequired": "Şifrənizi daxil edin",
+    "forgotLink": "Şifrəni unutmusunuz?",
+    "loginButton": "Daxil ol",
+    "invalidCredentials": "Email və ya şifrə yanlışdır.",
+    "sessionRevoked": "Sessiyanız başqa yerdən bağlandığı üçün sistemdən çıxdınız. Yenidən daxil olun.",
+    "inviteOnly": "Hesabları administrator yaradır — dəvət üçün emailinizi yoxlayın.",
+    "logout": "Çıxış",
+    "forgotTitle": "Şifrəni bərpa edin",
+    "forgotSubtitle": "İş emailinizi daxil edin, yeni şifrə təyin etmək üçün link göndərək.",
+    "forgotButton": "Link göndər",
+    "forgotSentTitle": "Emailinizi yoxlayın",
+    "forgotSentText": "<b>{{email}}</b> ünvanı ilə hesab varsa, şifrəni yeniləmək üçün link göndərdik. Link 1 saat etibarlıdır.",
+    "backToLogin": "Girişə qayıt",
+    "resetTitle": "Yeni şifrə təyin edin",
+    "resetSubtitle": "Hesabınız üçün yeni şifrə seçin. Bütün digər sessiyalar bağlanacaq.",
+    "resetButton": "Yeni şifrəni saxla",
+    "resetDoneTitle": "Şifrə yeniləndi",
+    "resetDoneText": "Yeni şifrəniz təyin olundu. Davam etmək üçün onunla daxil olun.",
+    "resetInvalidTitle": "Bu link artıq işləmir",
+    "resetInvalidText": "Bərpa linkləri 1 saat etibarlıdır və bir dəfə istifadə olunur. Yeni link istəyin.",
+    "requestNewLink": "Yeni link istə",
+    "newPassword": "Yeni şifrə",
+    "choosePassword": "Şifrə seçin",
+    "confirmPassword": "Şifrəni təkrarlayın",
+    "confirmRequired": "Şifrəni təkrarlayın",
+    "passwordsDiffer": "Şifrələr eyni deyil",
+    "passwordInvalid": "Şifrə aşağıdakı qaydalara uyğun deyil",
+    "passwordRule": {
+      "length": "Ən azı 8 simvol",
+      "letter": "Hərf",
+      "digit": "Rəqəm"
+    },
+    "inviteTitle": "Xoş gəlmisiniz, {{name}}!",
+    "inviteTitleShort": "MedFlow-a xoş gəlmisiniz",
+    "inviteSubtitle": "Hesabınızı aktivləşdirmək üçün şifrə təyin edin.",
+    "inviteButton": "Hesabı aktivləşdir",
+    "inviteExpires": "Bu dəvət <b>{{date}}</b> tarixinədək etibarlıdır.",
+    "inviteExpiredTitle": "Dəvətin vaxtı bitib",
+    "inviteExpiredText": "Dəvətlər 72 saat etibarlıdır. Administratordan yenisini göndərməyi xahiş edin.",
+    "inviteUsedTitle": "Bu dəvət artıq istifadə olunub",
+    "inviteUsedText": "Hesab artıq aktivdir. Email və şifrənizlə daxil olun.",
+    "inviteInvalidTitle": "Dəvət linki etibarsızdır",
+    "inviteInvalidText": "Linki emaildə olduğu kimi açın və ya administratordan yeni dəvət göndərməyi xahiş edin."
+  },
+  "dashboard": {
+    "greeting": {
+      "morning": "Sabahınız xeyir, {{name}}",
+      "afternoon": "Günortanız xeyir, {{name}}",
+      "evening": "Axşamınız xeyir, {{name}}"
+    },
+    "lead": "Rolunuzun panel vidcetləri — bugünkü növbə, laboratoriya sifarişləri, gəlir — hər modul hazırlandıqca burada görünəcək.",
+    "quickAccess": "Sürətli keçid"
+  },
+  "notifications": {
+    "title": "Bildirişlər",
+    "subtitle": "Oxunmamış: {{count}}",
+    "markAllRead": "Hamısını oxunmuş et",
+    "markRead": "Oxunmuş et",
+    "unread": "Oxunmayıb",
+    "emptyTitle": "Hələ bildiriş yoxdur",
+    "emptyText": "Qeydiyyat, laboratoriya nəticələri və sizə aid digər yeniliklər burada görünəcək.",
+    "viewAll": "Bütün bildirişlər",
+    "bellLabel": "Bildirişlər, {{count}} oxunmamış",
+    "read": "Oxunub",
+    "urgent": "Təcili",
+    "normal": "Adi",
+    "allStatuses": "Bütün statuslar",
+    "allPriorities": "Bütün prioritetlər",
+    "allTypes": "Bütün növlər",
+    "detailsTitle": "Bildirişin təfərrüatları",
+    "detailsSection": "Təfərrüatlar",
+    "openLink": "Əlaqəli səhifəni aç",
+    "noMatchTitle": "Bu filtrlərə uyğun bildiriş yoxdur",
+    "noMatchText": "Filtrləri dəyişin və ya təmizləyin.",
+    "columns": {
+      "notification": "Bildiriş",
+      "type": "Növ",
+      "priority": "Prioritet",
+      "status": "Status",
+      "createdAt": "Gəlib",
+      "readAt": "Oxunma vaxtı"
+    }
+  },
+  "notificationTypes": {
+    "SESSION_REVOKED": {
+      "title": "Bütün cihazlardan çıxış edildi",
+      "message": "Təhlükəsizliyiniz üçün bütün sessiyalar bağlandı. Bunu siz etməmisinizsə, şifrənizi dəyişin.",
+      "label": "Təhlükəsizlik"
+    }
+  },
+  "profile": {
+    "title": "Profil",
+    "subtitle": "Hesabınız, şifrəniz və tərcihləriniz.",
+    "menuLabel": "{{name}} — hesab menyusu",
+    "personalTitle": "Şəxsi məlumatlar",
+    "personalText": "Adınız MedFlow-da həmkarlarınıza belə görünür.",
+    "firstName": "Ad",
+    "lastName": "Soyad",
+    "nameRequired": "Bu sahə mütləqdir",
+    "nameTooLong": "Ən çox 100 simvol",
+    "emailLocked": "Email sizin girişinizdir, burada dəyişdirilə bilməz.",
+    "saved": "Profil yadda saxlanıldı",
+    "passwordTitle": "Şifrə",
+    "passwordText": "Dəyişdikdən sonra burada daxil olmuş qalırsınız, bütün digər cihazlardan çıxış edilir.",
+    "currentPassword": "Hazırkı şifrə",
+    "changePassword": "Şifrəni dəyiş",
+    "passwordChanged": "Şifrə dəyişdirildi. Digər sessiyalar bağlandı.",
+    "currentWrong": "Hazırkı şifrə yanlışdır",
+    "samePassword": "Yeni şifrə hazırkından fərqli olmalıdır",
+    "preferencesTitle": "Tərcihlər",
+    "languageHint": "Bütün interfeysin dili.",
+    "appearanceHint": "Tema, rənglər, sıxlıq və animasiyalar.",
+    "customizeAppearance": "Fərdiləşdir"
+  },
+  "staff": {
+    "accountSection": "Hesab",
+    "activitySection": "Fəaliyyət",
+    "title": "Əməkdaşlar",
+    "subtitle": "Həmkarlarınızı dəvət edin, rolları və girişi idarə edin.",
+    "inviteButton": "Əməkdaş dəvət et",
+    "search": "Ad və ya email ilə axtar",
+    "allRoles": "Bütün rollar",
+    "allStatuses": "Bütün statuslar",
+    "role": "Rol",
+    "chooseRole": "Rol seçin",
+    "roleRequired": "Rol seçin",
+    "columns": {
+      "name": "Ad",
+      "status": "Status"
+    },
+    "lastLogin": "Son giriş",
+    "createdAt": "Əlavə edilib",
+    "never": "Heç vaxt",
+    "you": "Siz",
+    "edit": "Redaktə et",
+    "emptyTitle": "Hələ əməkdaş yoxdur",
+    "emptyText": "Həmkarlarınızı dəvət edin — hər biri şifrə təyin etmək üçün email alacaq.",
+    "noMatchTitle": "Bu filtrlərə uyğun heç kim yoxdur",
+    "noMatchText": "Başqa ad yoxlayın və ya filtrləri təmizləyin.",
+    "inviteTitle": "Əməkdaş dəvət et",
+    "inviteText": "72 saat etibarlı dəvət linki emaillə göndəriləcək. Şifrə təyin olunanda hesab aktivləşir.",
+    "sendInvite": "Dəvət göndər",
+    "invited": "Dəvət {{email}} ünvanına göndərildi",
+    "emailTaken": "Bu email ilə istifadəçi artıq var",
+    "detailsTitle": "Əməkdaş",
+    "editTitle": "Məlumatlar",
+    "saved": "Dəyişikliklər yadda saxlanıldı",
+    "ownRoleLocked": "Öz rolunuzu dəyişə bilməzsiniz.",
+    "roleChangeHint": "Yeni rol sessiyası yeniləndikdə (15 dəqiqə ərzində) tətbiq olunur.",
+    "resendTitle": "Dəvət hələ qəbul edilməyib",
+    "resendHint": "Yeni link göndərir; köhnəsi işləməyəcək.",
+    "resendInvite": "Dəvəti yenidən göndər",
+    "inviteResent": "{{email}} ünvanına yeni dəvət göndərildi",
+    "deactivate": "Hesabı deaktiv et",
+    "deactivateHint": "Girişi bloklayır və bütün cihazlardan çıxış edir. Tarixçə qalır.",
+    "deactivateTitle": "{{name}} deaktiv edilsin?",
+    "deactivateText": "Bütün cihazlardan dərhal çıxış ediləcək və daxil ola bilməyəcək. Hesabı sonra yenidən aktivləşdirə bilərsiniz.",
+    "deactivated": "{{name}} deaktiv edildi",
+    "reactivate": "Hesabı aktivləşdir",
+    "reactivateHint": "Mövcud şifrə ilə yenidən daxil olmağa icazə verir.",
+    "reactivateTitle": "{{name}} aktivləşdirilsin?",
+    "reactivateText": "Mövcud şifrəsi ilə yenidən daxil ola biləcək.",
+    "reactivateInvitedText": "Heç vaxt şifrə təyin etməyib, ona görə hesab “Dəvət edilib” halına qayıdır — sonra dəvəti yenidən göndərin.",
+    "reactivated": "{{name}} aktivləşdirildi"
+  },
+  "history": {
+    "title": "Əməliyyat tarixçəsi",
+    "subtitle": "Sistemdəki hər dəyişiklik — kim, nə vaxt, nə etdi. Jurnal redaktə edilə bilməz.",
+    "actionsTab": "Əməliyyatlar",
+    "emailsTab": "Email-lər",
+    "allEvents": "Bütün hadisələr",
+    "allEntities": "Bütün obyektlər",
+    "allTemplates": "Bütün şablonlar",
+    "searchRecipient": "Alıcını axtar",
+    "columns": {
+      "occurredAt": "Vaxt",
+      "actor": "Kim",
+      "actorRole": "Rol",
+      "eventType": "Hadisə",
+      "summary": "Nə baş verdi",
+      "entity": "Obyekt",
+      "source": "Modul",
+      "createdAt": "Yaradılıb",
+      "recipient": "Alıcı",
+      "template": "Şablon",
+      "subject": "Mövzu",
+      "attempts": "Cəhd",
+      "sentAt": "Göndərilib",
+      "error": "Xəta"
+    },
+    "system": "Sistem",
+    "entities": {
+      "USER": "İstifadəçi"
+    },
+    "emailStatus": {
+      "QUEUED": "Növbədə",
+      "SENT": "Göndərilib",
+      "FAILED": "Uğursuz"
+    },
+    "emptyTitle": "Hələ əməliyyat qeydə alınmayıb",
+    "emptyText": "Dəvətlər, rol dəyişiklikləri kimi əməliyyatlar burada görünəcək.",
+    "emailsEmptyTitle": "Hələ email yoxdur",
+    "emailsEmptyText": "Dəvət və təhlükəsizlik emailləri çatdırılma statusu ilə burada siyahılanacaq.",
+    "noMatchTitle": "Bu filtrlərə uyğun heç nə yoxdur",
+    "noMatchText": "Dövrü genişləndirin və ya filtrləri təmizləyin.",
+    "detailsTitle": "Əməliyyatın təfərrüatları",
+    "eventTypes": {
+      "user": {
+        "invited": "Dəvət",
+        "activated": "Hesab aktivləşdi",
+        "updated": "Hesab yeniləndi",
+        "deactivated": "Hesab deaktiv edildi",
+        "reactivated": "Hesab yenidən aktivləşdi",
+        "password_changed": "Şifrə dəyişdi",
+        "session_revoked": "Sessiyalar ləğv edildi"
+      }
+    },
+    "fields": {
+      "firstName": "ad",
+      "lastName": "soyad",
+      "role": "rol",
+      "email": "email",
+      "avatarFileId": "profil şəkli"
+    },
+    "actorSection": "Əməliyyatı edən",
+    "detailsSection": "Təfərrüatlar",
+    "systemHint": "Avtomatik əməliyyat",
+    "meta": {
+      "title": "Vəzifə",
+      "changedFields": "Dəyişən sahələr",
+      "invitation": "Dəvət",
+      "resent": "Təkrar göndərilib",
+      "firstInvite": "İlk dəfə göndərilib",
+      "via": "Üsul",
+      "reason": "Səbəb"
+    },
+    "via": {
+      "RESET": "Email linki ilə sıfırlama",
+      "CHANGE": "Profildən dəyişdirmə"
+    },
+    "reasons": {
+      "REFRESH_TOKEN_REUSE": "İstifadə olunmuş giriş tokeni təkrar göndərildi"
+    },
+    "sources": {
+      "auth-service": "Giriş və istifadəçilər",
+      "staff-service": "Əməkdaşlar",
+      "patient-service": "Pasiyentlər",
+      "appointment-service": "Qəbullar",
+      "medical-record-service": "Tibbi qeydlər",
+      "billing-service": "Maliyyə",
+      "file-service": "Fayllar"
+    },
+    "emailDetailsTitle": "Emailin təfərrüatları",
+    "emailSection": "Email",
+    "deliverySection": "Göndərmə",
+    "failedReason": "Göndərilmədi, çünki",
+    "lastError": "Son cəhdin xətası (yenidən cəhd ediləcək)",
+    "emailTemplates": {
+      "staff-invite": "Əməkdaş dəvəti",
+      "password-reset": "Şifrənin sıfırlanması",
+      "password-changed": "Şifrə dəyişdi bildirişi",
+      "session-revoked": "Təhlükəsizlik xəbərdarlığı"
+    }
+  },
+  "historyEvents": {
+    "user": {
+      "invited": "{{actor}} {{name}} adlı istifadəçini {{role}} kimi dəvət etdi",
+      "invitationResent": "{{actor}} {{name}} üçün dəvəti yenidən göndərdi",
+      "createdBySystem": "{{name}} sistem tərəfindən {{role}} kimi yaradıldı",
+      "activated": "{{name}} dəvəti qəbul edib hesabı aktivləşdirdi",
+      "activatedBySystem": "{{name}} adlı istifadəçinin hesabı sistem tərəfindən aktivləşdirildi",
+      "profileUpdated": "{{name}} profilini yenilədi ({{fields}})",
+      "updated": "{{actor}} {{name}} adlı istifadəçinin hesabını yenilədi ({{fields}})",
+      "deactivated": "{{actor}} {{email}} hesabını deaktiv etdi",
+      "reactivated": "{{actor}} {{email}} hesabını yenidən aktivləşdirdi",
+      "sessionRevoked": "Bütün sessiyalar ləğv edildi: istifadə olunmuş refresh token yenidən göndərildi (ehtimal ki, token oğurlanıb)",
+      "passwordReset": "{{name}} email linki ilə şifrəsini sıfırladı",
+      "passwordChanged": "{{name}} şifrəsini dəyişdi"
     }
   }
 }

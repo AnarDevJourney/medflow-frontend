@@ -22,3 +22,8 @@
 .content {
   padding: var(--content-padding);
 }
+
+.divider {
+  height: 24px;
+  margin: 0 var(--space-1);
+}

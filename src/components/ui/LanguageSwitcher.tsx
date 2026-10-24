@@ -5,18 +5,19 @@ import { supportedLanguages, type SupportedLanguage } from "@lib/i18n";
 
 const LABELS: Record<SupportedLanguage, string> = { az: "AZ", en: "EN", ru: "RU" };
 
+// Compact language picker for the top bar / auth pages: globe + code
 export function LanguageSwitcher() {
   const { i18n, t } = useTranslation();
   return (
     <Select
       aria-label={t("common.language")}
-      size="small"
       variant="borderless"
-      suffixIcon={<GlobalOutlined />}
+      prefix={<GlobalOutlined />}
+      suffixIcon={null}
+      popupMatchSelectWidth={false}
       value={i18n.resolvedLanguage as SupportedLanguage}
       onChange={(lng) => void i18n.changeLanguage(lng)}
       options={supportedLanguages.map((lng) => ({ value: lng, label: LABELS[lng] }))}
-      style={{ width: 80 }}
     />
   );
 }

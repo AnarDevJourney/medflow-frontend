@@ -1,20 +1,26 @@
 import { BgColorsOutlined } from "@ant-design/icons";
-import { Button, Layout, Tooltip } from "antd";
+import { Button, Divider, Layout, Tooltip } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
 import { LanguageSwitcher } from "@components/ui/LanguageSwitcher";
-import { ThemeSwitcher } from "@components/ui/ThemeSwitcher";
 import { AppearanceDrawer } from "@features/appearance/components/AppearanceDrawer";
+import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
+import { NotificationBell } from "@features/notifications/components/NotificationBell";
+import { useNotificationSocket } from "@features/notifications/hooks/useNotificationSocket";
 import { Sidebar } from "@features/sidebar/components/Sidebar";
+import { ServiceBanner } from "./ServiceBanner";
+import { UserMenu } from "./UserMenu";
 import styles from "./AppLayout.module.css";
 
-// Shell of every signed-in page: sidebar + top bar + the page (<Outlet />).
-// TODO(F1): user menu, logout, notification bell; global patient search in
-// the top bar's left side.
+// Shell of every signed-in page (inside RequireAuth): sidebar, top bar
+// (appearance, language, notifications, account) and the page.
+// TODO(command palette): global patient search on the left of the top bar.
 export function AppLayout() {
   const { t } = useTranslation();
+  const { data: user } = useCurrentUser();
   const [appearanceOpen, setAppearanceOpen] = useState(false);
+  useNotificationSocket();
 
   return (
     <Layout className={styles.layout}>
@@ -23,7 +29,6 @@ export function AppLayout() {
         <Layout.Header className={styles.header}>
           <div />
           <div className={styles.headerRight}>
-            <ThemeSwitcher />
             <Tooltip title={t("appearance.title")}>
               <Button
                 type="text"
@@ -33,9 +38,15 @@ export function AppLayout() {
               />
             </Tooltip>
             <LanguageSwitcher />
+            <NotificationBell />
+            <Divider orientation="vertical" className={styles.divider} />
+            {user && (
+              <UserMenu user={user} onAppearance={() => setAppearanceOpen(true)} />
+            )}
           </div>
         </Layout.Header>
         <Layout.Content className={styles.content}>
+          <ServiceBanner />
           <Outlet />
         </Layout.Content>
       </Layout>
