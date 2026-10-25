@@ -3,6 +3,7 @@ import { useCallback, useMemo, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { TableSyncProvider, TABLE_VIEWS, type TableSyncLabels } from "tablesync";
 import { tableSettingsStorage } from "./tableSettingsStorage";
+import "tablesync/styles.css";
 import "./tablesyncTheme.css";
 
 const TOP_BAR_HEIGHT = 64;

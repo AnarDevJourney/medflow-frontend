@@ -23,8 +23,6 @@ export default defineConfig(({ mode }) => {
         "@styles": alias("styles"),
         "@models": alias("types"),
         "@utils": alias("utils"),
-        // the DataTable package, built here until it is published to npm
-        tablesync: alias("packages/tablesync/index.ts"),
       },
     },
     server: {
