@@ -1,5 +1,6 @@
-export { DataTable } from "./DataTable";
-export { TABLE_VIEWS } from "./tableViews";
+// MedFlow's tables come from the tablesync package (src/packages/tablesync
+// until it is published); MedflowTableSync wires it to configurations-service.
+export { DataTable, TABLE_VIEWS } from "tablesync";
 export type {
   DataTableColumn,
   DataTableEmptyState,
@@ -10,4 +11,5 @@ export type {
   DataTableSort,
   TableDensity,
   TableViewId,
-} from "./types";
+} from "tablesync";
+export { MedflowTableSync } from "./MedflowTableSync";

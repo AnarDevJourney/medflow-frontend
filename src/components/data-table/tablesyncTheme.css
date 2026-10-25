@@ -1,0 +1,28 @@
+/* tablesync follows MedFlow's design tokens (and so the user's appearance) */
+:root {
+  --tablesync-text: var(--color-text);
+  --tablesync-muted: var(--color-muted);
+  --tablesync-primary: var(--color-primary);
+  --tablesync-primary-soft: var(--color-primary-soft);
+  --tablesync-error: var(--color-error);
+  --tablesync-border: var(--color-border);
+  --tablesync-card: var(--color-card);
+  --tablesync-bg: var(--color-bg);
+  --tablesync-hover: var(--color-hover);
+  --tablesync-shadow: var(--shadow-float);
+  --tablesync-radius-sm: var(--radius-sm);
+  --tablesync-radius-md: var(--radius-md);
+  --tablesync-radius-lg: var(--radius-lg);
+  --tablesync-font-size-xs: var(--font-size-xs);
+  --tablesync-font-size-sm: var(--font-size-sm);
+  --tablesync-font-size-md: var(--font-size-md);
+  --tablesync-font-size-lg: var(--font-size-lg);
+  --tablesync-font-size-icon: var(--font-size-3xl);
+  --tablesync-motion-fast: var(--motion-fast);
+  --tablesync-motion-base: var(--motion-base);
+  --tablesync-ease: var(--ease-out);
+  --tablesync-accent-1: var(--color-status-scheduled);
+  --tablesync-accent-2: var(--color-status-checked-in);
+  --tablesync-accent-3: var(--color-status-completed);
+  --tablesync-accent-4: var(--color-status-no-show);
+}

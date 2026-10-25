@@ -23,4 +23,28 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // The tablesync package must not know about MedFlow: no app aliases,
+    // no app libraries — only react, antd, @ant-design/icons, @dnd-kit
+    files: ["src/packages/tablesync/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              regex:
+                "^@(components|features|hooks|lib|router|store|styles|models|utils)/",
+              message: "tablesync is app-independent",
+            },
+            {
+              regex:
+                "^(react-i18next|i18next|@tanstack/|axios|react-redux|@reduxjs/|react-router)",
+              message: "not a tablesync dependency",
+            },
+          ],
+        },
+      ],
+    },
+  },
 ]);

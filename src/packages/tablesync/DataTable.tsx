@@ -33,7 +33,7 @@ import {
   type HTMLAttributes,
   type Key,
 } from "react";
-import { useTranslation } from "react-i18next";
+import { useTableSync } from "./context";
 import { HeaderCell, type HeaderCellExtra } from "./HeaderCell";
 import { RowActionsMenu } from "./RowActionsMenu";
 import {
@@ -46,6 +46,7 @@ import {
 } from "./resolveColumns";
 import { TableSettingsDrawer } from "./TableSettingsDrawer";
 import { DEFAULT_TABLE_VIEW, isTableView, TABLE_VIEWS } from "./tableViews";
+import { useThemeVars } from "./themeVars";
 import type { DataTableProps, TableDensity } from "./types";
 import { useTableSettings } from "./useTableSettings";
 import styles from "./DataTable.module.css";
@@ -76,7 +77,7 @@ const DENSITY_THEME: Record<
 
 // The one table of the app. Columns are described once in code; how they
 // look for each user (visible, order, width, pinned, density, view) comes
-// from configurations-service and is edited in the table itself or in the
+// from the TableSyncProvider's storage and is edited in the table itself or in the
 // settings drawer. Loading / empty / error states are built in.
 export function DataTable<T extends object>({
   tableKey,
@@ -101,9 +102,10 @@ export function DataTable<T extends object>({
   defaultDensity = "compact",
   defaultView = DEFAULT_TABLE_VIEW,
   configurable = true,
-  stickyOffset = 64,
+  stickyOffset,
 }: DataTableProps<T>) {
-  const { t } = useTranslation();
+  const { labels, stickyOffset: defaultStickyOffset } = useTableSync();
+  const vars = useThemeVars();
   const { settings, update, reset } = useTableSettings(tableKey);
   const [drawerOpen, setDrawerOpen] = useState(false);
   // Width of the column being resized, before it is saved
@@ -115,12 +117,10 @@ export function DataTable<T extends object>({
   );
   const density = settings?.density ?? defaultDensity;
   // "accent" only makes sense when the table says what color a row is
-  const views = rowAccent ? TABLE_VIEWS : TABLE_VIEWS.filter((v) => v.id !== "accent");
+  const views = rowAccent ? TABLE_VIEWS : TABLE_VIEWS.filter((v) => v !== "accent");
   const savedView = settings?.view;
   const view =
-    isTableView(savedView) && views.some((v) => v.id === savedView)
-      ? savedView
-      : defaultView;
+    isTableView(savedView) && views.includes(savedView) ? savedView : defaultView;
   const customized = Boolean(settings?.columns || settings?.density || settings?.view);
 
   const saveColumns = (next: ResolvedColumn<T>[]) =>
@@ -197,7 +197,7 @@ export function DataTable<T extends object>({
             }
           : undefined,
         onResetWidth: configurable ? (key) => setWidth(key, null) : undefined,
-        resizeLabel: t("table.resizeColumn", { name: c.def.title }),
+        resizeLabel: labels.resizeColumn(c.def.title),
       }) satisfies HeaderCellExtra as unknown as HTMLAttributes<HTMLElement>,
   }));
 
@@ -207,7 +207,7 @@ export function DataTable<T extends object>({
   if (hasRowMenu) {
     antColumns.push({
       key: "__row-actions",
-      title: <span className="sr-only">{t("table.actions")}</span>,
+      title: <span className={styles.srOnly}>{labels.actions}</span>,
       width: ROW_ACTIONS_WIDTH,
       fixed: "right",
       align: "center",
@@ -240,18 +240,16 @@ export function DataTable<T extends object>({
   const emptyContent = error ? (
     <div className={styles.state} role="alert">
       <ExclamationCircleOutlined className={`${styles.stateIcon} ${styles.stateError}`} />
-      <div className={styles.stateTitle}>{t("table.errorTitle")}</div>
+      <div className={styles.stateTitle}>{labels.errorTitle}</div>
       <div className={styles.stateText}>{error.message}</div>
-      {onRetry && <Button onClick={onRetry}>{t("table.retry")}</Button>}
+      {onRetry && <Button onClick={onRetry}>{labels.retry}</Button>}
     </div>
   ) : (
     <div className={styles.state}>
       <span className={styles.stateIcon}>{empty?.icon ?? <InboxOutlined />}</span>
-      <div className={styles.stateTitle}>{empty?.title ?? t("table.emptyTitle")}</div>
+      <div className={styles.stateTitle}>{empty?.title ?? labels.emptyTitle}</div>
       {(empty?.description || !empty) && (
-        <div className={styles.stateText}>
-          {empty?.description ?? t("table.emptyText")}
-        </div>
+        <div className={styles.stateText}>{empty?.description ?? labels.emptyText}</div>
       )}
       {empty?.action}
     </div>
@@ -271,17 +269,17 @@ export function DataTable<T extends object>({
         : (record[rowKey] as Key);
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.wrapper} style={vars}>
       {(toolbar || actions || configurable) && (
         <div className={styles.toolbar}>
           <div className={styles.toolbarStart}>{toolbar}</div>
           <div className={styles.toolbarEnd}>
             {actions}
             {configurable && (
-              <Tooltip title={t("table.settings")}>
+              <Tooltip title={labels.settings}>
                 <Button
                   icon={<SettingOutlined />}
-                  aria-label={t("table.settings")}
+                  aria-label={labels.settings}
                   onClick={() => setDrawerOpen(true)}
                   disabled={waitingForSettings}
                 />
@@ -318,7 +316,7 @@ export function DataTable<T extends object>({
               rowKey={getRowKey}
               components={{ header: { cell: HeaderCell } }}
               scroll={{ x: scrollX }}
-              sticky={{ offsetHeader: stickyOffset }}
+              sticky={{ offsetHeader: stickyOffset ?? defaultStickyOffset }}
               showSorterTooltip={false}
               locale={{ emptyText: emptyContent }}
               rowSelection={showSkeleton ? undefined : rowSelection}
@@ -348,8 +346,7 @@ export function DataTable<T extends object>({
                       onChange: pagination.onChange,
                       showSizeChanger: true,
                       pageSizeOptions: pagination.pageSizeOptions ?? [10, 20, 50, 100],
-                      showTotal: (total, [from, to]) =>
-                        t("table.total", { from, to, total }),
+                      showTotal: (total, [from, to]) => labels.total(from, to, total),
                     }
                   : false
               }
@@ -366,6 +363,7 @@ export function DataTable<T extends object>({
           density={density}
           view={view}
           views={views}
+          themeVars={vars}
           customized={customized}
           onColumnsChange={saveColumns}
           onDensityChange={(value) => update({ density: value })}

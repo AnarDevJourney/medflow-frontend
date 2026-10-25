@@ -34,7 +34,8 @@
       "@store/*": ["./src/store/*"],
       "@styles/*": ["./src/styles/*"],
       "@models/*": ["./src/types/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "tablesync": ["./src/packages/tablesync/index.ts"]
     }
   },
   "include": ["src"]

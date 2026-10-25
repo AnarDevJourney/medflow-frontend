@@ -1,8 +1,38 @@
 import type { TableProps } from "antd";
 import type { Key, ReactNode } from "react";
-import type { ColumnPin, TableDensity } from "./tableSettingsService";
 
-export type { ColumnPin, TableDensity };
+export type TableDensity = "compact" | "comfortable";
+export type ColumnPin = "left" | "right";
+export type TableViewId = "classic" | "striped" | "grid" | "minimal" | "cards" | "accent";
+
+// ─── Saved settings ──────────────────────────────────────────
+
+export interface TableColumnSetting {
+  key: string;
+  visible: boolean;
+  width: number | null; // null = the column's default width
+  pinned: ColumnPin | null;
+}
+
+// What is saved for one table (and one user); null = the table's default
+export interface TableSettings {
+  columns: TableColumnSetting[] | null;
+  density: TableDensity | null;
+  view: string | null;
+}
+
+export type TableSettingsPatch = Partial<TableSettings>;
+
+// Where settings live: localStorage, your REST API, anything async.
+// `load` may return extra fields (they are ignored) or null (nothing saved).
+// `save` gets only the changed fields; `reset` deletes the saved settings.
+export interface TableSettingsStorage {
+  load(tableKey: string): Promise<Partial<TableSettings> | null>;
+  save(tableKey: string, patch: TableSettingsPatch): Promise<unknown>;
+  reset(tableKey: string): Promise<unknown>;
+}
+
+// ─── Columns and props ───────────────────────────────────────
 
 export interface DataTableColumn<T> {
   // Stable id, stored in the user's table settings — never rename one
@@ -64,7 +94,7 @@ export interface DataTableRowAction {
 export type DataTableRowMenuItem = DataTableRowAction | "divider";
 
 export interface DataTableProps<T extends object> {
-  // Settings key in configurations-service ('patients', 'invoices', …)
+  // Key the settings are saved under ('patients', 'invoices', …)
   tableKey: string;
   columns: DataTableColumn<T>[];
   data: T[] | undefined;
@@ -100,8 +130,7 @@ export interface DataTableProps<T extends object> {
   defaultView?: TableViewId;
   // false hides the settings button (e.g. small embedded tables)
   configurable?: boolean;
-  // Sticky header offset (height of the app's top bar)
+  // Sticky header offset (height of the app's top bar); default from the
+  // TableSyncProvider, else 0
   stickyOffset?: number;
 }
-
-export type TableViewId = "classic" | "striped" | "grid" | "minimal" | "cards" | "accent";

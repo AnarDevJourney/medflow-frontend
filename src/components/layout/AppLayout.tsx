@@ -3,6 +3,7 @@ import { Button, Divider, Layout, Tooltip } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "react-router-dom";
+import { MedflowTableSync } from "@components/data-table";
 import { LanguageSwitcher } from "@components/ui/LanguageSwitcher";
 import { AppearanceDrawer } from "@features/appearance/components/AppearanceDrawer";
 import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
@@ -47,7 +48,9 @@ export function AppLayout() {
         </Layout.Header>
         <Layout.Content className={styles.content}>
           <ServiceBanner />
-          <Outlet />
+          <MedflowTableSync>
+            <Outlet />
+          </MedflowTableSync>
         </Layout.Content>
       </Layout>
       <AppearanceDrawer open={appearanceOpen} onClose={() => setAppearanceOpen(false)} />

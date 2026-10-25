@@ -1,6 +1,6 @@
 import { EyeOutlined, MoreOutlined } from "@ant-design/icons";
 import { Button, Dropdown, type MenuProps } from "antd";
-import { useTranslation } from "react-i18next";
+import { useTableSync } from "./context";
 import type { DataTableRowAction, DataTableRowMenuItem } from "./types";
 
 interface RowActionsMenuProps {
@@ -21,13 +21,13 @@ function tidy(items: DataTableRowMenuItem[]): DataTableRowMenuItem[] {
 // ⋮ button at the end of a DataTable row. Clicks never reach the row, so
 // opening the menu doesn't also trigger onRowClick.
 export function RowActionsMenu({ items, onViewDetails, label }: RowActionsMenuProps) {
-  const { t } = useTranslation();
+  const { labels } = useTableSync();
   const all = tidy([
     ...(onViewDetails
       ? [
           {
             key: "__details",
-            label: t("table.viewDetails"),
+            label: labels.viewDetails,
             icon: <EyeOutlined />,
             onClick: onViewDetails,
           },
@@ -72,9 +72,7 @@ export function RowActionsMenu({ items, onViewDetails, label }: RowActionsMenuPr
         type="text"
         size="small"
         icon={<MoreOutlined />}
-        aria-label={
-          label ? t("table.rowActionsFor", { name: label }) : t("table.rowActions")
-        }
+        aria-label={label ? labels.rowActionsFor(label) : labels.rowActions}
         onClick={(event) => event.stopPropagation()}
         // Enter / Space open the menu, not the row. Other keys must bubble:
         // AntD closes the menu on Esc with a window listener.

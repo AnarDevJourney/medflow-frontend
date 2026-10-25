@@ -24,9 +24,9 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Button, Checkbox, Drawer, Popconfirm, Segmented, Tooltip } from "antd";
-import { useTranslation } from "react-i18next";
+import type { CSSProperties } from "react";
+import { useTableSync } from "./context";
 import type { ResolvedColumn } from "./resolveColumns";
-import type { TABLE_VIEWS } from "./tableViews";
 import { TableViewPreview } from "./TableViewPreview";
 import type { ColumnPin, TableDensity, TableViewId } from "./types";
 import styles from "./TableSettingsDrawer.module.css";
@@ -37,7 +37,8 @@ interface TableSettingsDrawerProps<T> {
   columns: ResolvedColumn<T>[];
   density: TableDensity;
   view: TableViewId;
-  views: typeof TABLE_VIEWS; // the views this table supports
+  views: readonly TableViewId[]; // the views this table supports
+  themeVars: CSSProperties; // the drawer is portaled out of the table
   customized: boolean; // something differs from the defaults
   onColumnsChange: (columns: ResolvedColumn<T>[]) => void;
   onDensityChange: (density: TableDensity) => void;
@@ -57,13 +58,14 @@ export function TableSettingsDrawer<T>({
   density,
   view,
   views,
+  themeVars,
   customized,
   onColumnsChange,
   onDensityChange,
   onViewChange,
   onReset,
 }: TableSettingsDrawerProps<T>) {
-  const { t } = useTranslation();
+  const { labels } = useTableSync();
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
@@ -98,57 +100,58 @@ export function TableSettingsDrawer<T>({
   };
 
   const zones: { zone: Zone; label: string }[] = [
-    { zone: "left", label: t("table.pinnedLeft") },
-    { zone: "none", label: t("table.notPinned") },
-    { zone: "right", label: t("table.pinnedRight") },
+    { zone: "left", label: labels.pinnedLeft },
+    { zone: "none", label: labels.notPinned },
+    { zone: "right", label: labels.pinnedRight },
   ];
 
   return (
     <Drawer
-      title={t("table.settings")}
+      title={labels.settings}
       open={open}
+      styles={{ root: themeVars }}
       onClose={onClose}
       size={440}
       footer={
         <div className={styles.footer}>
           <Popconfirm
-            title={t("table.resetConfirmTitle")}
-            description={t("table.resetConfirmBody")}
-            okText={t("table.reset")}
-            cancelText={t("common.cancel")}
+            title={labels.resetConfirmTitle}
+            description={labels.resetConfirmBody}
+            okText={labels.reset}
+            cancelText={labels.cancel}
             onConfirm={onReset}
             disabled={!customized}
           >
             <Button icon={<UndoOutlined />} disabled={!customized}>
-              {t("table.reset")}
+              {labels.reset}
             </Button>
           </Popconfirm>
           <Button type="primary" onClick={onClose}>
-            {t("table.done")}
+            {labels.done}
           </Button>
         </div>
       }
     >
       <section className={styles.section}>
-        <h3 className={styles.heading}>{t("table.view")}</h3>
-        <div className={styles.views} role="radiogroup" aria-label={t("table.view")}>
+        <h3 className={styles.heading}>{labels.view}</h3>
+        <div className={styles.views} role="radiogroup" aria-label={labels.view}>
           {views.map((option) => {
-            const selected = option.id === view;
+            const selected = option === view;
             return (
               <button
-                key={option.id}
+                key={option}
                 type="button"
                 role="radio"
                 aria-checked={selected}
                 className={[styles.viewCard, selected && styles.viewSelected]
                   .filter(Boolean)
                   .join(" ")}
-                onClick={() => onViewChange(option.id)}
+                onClick={() => onViewChange(option)}
               >
                 {selected && <CheckCircleFilled className={styles.viewCheck} />}
-                <TableViewPreview view={option.id} density={density} columns={columns} />
-                <span className={styles.viewName}>{t(option.nameKey)}</span>
-                <span className={styles.viewDesc}>{t(option.descKey)}</span>
+                <TableViewPreview view={option} density={density} columns={columns} />
+                <span className={styles.viewName}>{labels.views[option].name}</span>
+                <span className={styles.viewDesc}>{labels.views[option].desc}</span>
               </button>
             );
           })}
@@ -156,7 +159,7 @@ export function TableSettingsDrawer<T>({
       </section>
 
       <section className={styles.section}>
-        <h3 className={styles.heading}>{t("table.density")}</h3>
+        <h3 className={styles.heading}>{labels.density}</h3>
         <Segmented<TableDensity>
           block
           value={density}
@@ -164,12 +167,12 @@ export function TableSettingsDrawer<T>({
           options={[
             {
               value: "compact",
-              label: t("table.compact"),
+              label: labels.compact,
               icon: <VerticalAlignMiddleOutlined />,
             },
             {
               value: "comfortable",
-              label: t("table.comfortable"),
+              label: labels.comfortable,
               icon: <ColumnHeightOutlined />,
             },
           ]}
@@ -178,12 +181,12 @@ export function TableSettingsDrawer<T>({
 
       <section className={styles.section}>
         <div className={styles.headingRow}>
-          <h3 className={styles.heading}>{t("table.columns")}</h3>
+          <h3 className={styles.heading}>{labels.columns}</h3>
           <span className={styles.count}>
-            {t("table.visibleCount", { visible: visibleCount, total: columns.length })}
+            {labels.visibleCount(visibleCount, columns.length)}
           </span>
         </div>
-        <p className={styles.hint}>{t("table.columnsHint")}</p>
+        <p className={styles.hint}>{labels.columnsHint}</p>
         <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
@@ -232,7 +235,7 @@ export function TableSettingsDrawer<T>({
           disabled={visibleCount === columns.length}
           onClick={() => onColumnsChange(columns.map((c) => ({ ...c, visible: true })))}
         >
-          {t("table.showAll")}
+          {labels.showAll}
         </Button>
       </section>
     </Drawer>
@@ -254,7 +257,7 @@ function ColumnRow<T>({
   onPinChange,
   onResetWidth,
 }: ColumnRowProps<T>) {
-  const { t } = useTranslation();
+  const { labels } = useTableSync();
   const {
     attributes,
     listeners,
@@ -281,13 +284,13 @@ function ColumnRow<T>({
         type="button"
         ref={setActivatorNodeRef}
         className={styles.handle}
-        aria-label={t("table.dragColumn", { name: column.def.title })}
+        aria-label={labels.dragColumn(column.def.title)}
         {...attributes}
         {...listeners}
       >
         <HolderOutlined />
       </button>
-      <Tooltip title={lockVisible ? t("table.alwaysVisible") : undefined}>
+      <Tooltip title={lockVisible ? labels.alwaysVisible : undefined}>
         <Checkbox
           checked={column.visible}
           disabled={lockVisible}
@@ -298,7 +301,7 @@ function ColumnRow<T>({
         </Checkbox>
       </Tooltip>
       {column.customWidth && (
-        <Tooltip title={t("table.resetWidth")}>
+        <Tooltip title={labels.resetWidth}>
           <button type="button" className={styles.width} onClick={onResetWidth}>
             {column.width} px
           </button>
@@ -312,13 +315,13 @@ function ColumnRow<T>({
           {
             value: "left",
             icon: <PushpinOutlined rotate={-45} />,
-            title: t("table.pinLeft"),
+            title: labels.pinLeft,
           },
-          { value: "none", label: "—", title: t("table.unpin") },
+          { value: "none", label: "—", title: labels.unpin },
           {
             value: "right",
             icon: <PushpinOutlined rotate={45} />,
-            title: t("table.pinRight"),
+            title: labels.pinRight,
           },
         ]}
       />

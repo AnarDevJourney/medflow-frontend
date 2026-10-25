@@ -1,5 +1,4 @@
-import type { TableColumnSetting } from "./tableSettingsService";
-import type { ColumnPin, DataTableColumn } from "./types";
+import type { ColumnPin, DataTableColumn, TableColumnSetting } from "./types";
 
 export const DEFAULT_COLUMN_WIDTH = 160;
 export const MIN_COLUMN_WIDTH = 72;

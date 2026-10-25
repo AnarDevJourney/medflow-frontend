@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   height: 104px;
-  padding: var(--space-2);
+  padding: 8px;
   overflow: hidden;
-  border-radius: var(--radius-md);
-  background: var(--color-card);
+  border-radius: var(--ts-radius-md);
+  background: var(--ts-card);
 }
 
 .row {
@@ -13,7 +13,7 @@
   gap: 0;
   flex-shrink: 0;
   height: 16px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--ts-border);
 }
 
 .comfortable .row {
@@ -31,31 +31,31 @@
   display: block;
   height: 4px;
   border-radius: 2px;
-  background: var(--color-border);
+  background: var(--ts-border);
 }
 
 .header .bar {
   height: 5px;
-  background: var(--color-muted);
+  background: var(--ts-muted);
   opacity: 0.55;
 }
 
 .pinned {
-  background: var(--color-primary-soft);
+  background: var(--ts-primary-soft);
 }
 
 /* ─── Looks (mirror the real ones in DataTable.module.css) ── */
 .view-classic .header {
   border-radius: 3px 3px 0 0;
-  background: var(--color-hover);
+  background: var(--ts-hover);
 }
 
 .view-striped .header {
-  background: var(--color-hover);
+  background: var(--ts-hover);
 }
 
 .view-striped .row:not(.header):nth-child(odd) {
-  background: var(--color-hover);
+  background: var(--ts-hover);
 }
 
 .view-striped .row {
@@ -63,21 +63,21 @@
 }
 
 .view-grid {
-  padding: var(--space-2);
+  padding: 8px;
 }
 
 .view-grid .row {
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--ts-border);
   border-top: 0;
 }
 
 .view-grid .header {
-  border-top: 1px solid var(--color-border);
-  background: var(--color-hover);
+  border-top: 1px solid var(--ts-border);
+  background: var(--ts-hover);
 }
 
 .view-grid .cell + .cell {
-  border-left: 1px solid var(--color-border);
+  border-left: 1px solid var(--ts-border);
 }
 
 .view-minimal .row {
@@ -85,18 +85,18 @@
 }
 
 .view-minimal .header {
-  border-bottom-color: var(--color-border);
+  border-bottom-color: var(--ts-border);
 }
 
 .view-cards {
   gap: 3px;
-  background: var(--color-hover);
+  background: var(--ts-hover);
 }
 
 .view-cards .row {
   border: 0;
   border-radius: 3px;
-  background: var(--color-card);
+  background: var(--ts-card);
 }
 
 .view-cards .header {
@@ -108,5 +108,5 @@
 }
 
 .view-accent .header {
-  background: var(--color-hover);
+  background: var(--ts-hover);
 }

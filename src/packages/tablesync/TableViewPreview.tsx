@@ -3,12 +3,12 @@ import type { ResolvedColumn } from "./resolveColumns";
 import type { TableDensity, TableViewId } from "./types";
 import styles from "./TableViewPreview.module.css";
 
-// Accent colors of the mock rows: the appointment status colors
+// Accent colors of the mock rows
 const ACCENTS = [
-  "var(--color-status-scheduled)",
-  "var(--color-status-checked-in)",
-  "var(--color-status-completed)",
-  "var(--color-status-no-show)",
+  "var(--ts-accent-1)",
+  "var(--ts-accent-2)",
+  "var(--ts-accent-3)",
+  "var(--ts-accent-4)",
 ];
 
 interface TableViewPreviewProps<T> {

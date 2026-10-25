@@ -8,13 +8,16 @@ import { ApiError } from "./api/errors";
 const isUnavailable = (error: unknown) =>
   error instanceof ApiError && (error.status === 503 || error.status === 0);
 
-const onError = (error: unknown) => {
+// Exported for requests made outside TanStack Query (table settings)
+export const reportServiceError = (error: unknown) => {
   if (isUnavailable(error)) store.dispatch(setServiceUnavailable(true));
 };
-const onSuccess = () => {
+export const reportServiceOk = () => {
   if (store.getState().ui.serviceUnavailable)
     store.dispatch(setServiceUnavailable(false));
 };
+const onError = reportServiceError;
+const onSuccess = reportServiceOk;
 
 export const queryClient = new QueryClient({
   queryCache: new QueryCache({ onError, onSuccess }),
