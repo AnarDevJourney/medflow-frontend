@@ -14,7 +14,8 @@
     "prices": "Qiymət siyahısı",
     "staff": "Əməkdaşlar",
     "departments": "Şöbələr",
-    "history": "Əməliyyat tarixçəsi"
+    "history": "Əməliyyat tarixçəsi",
+    "permissions": "İcazələr"
   },
   "modal": {
     "discardTitle": "Dəyişikliklər silinsin?",
@@ -48,7 +49,7 @@
     "unexpected": "Nəsə alınmadı. Yenidən cəhd edin.",
     "notFoundText": "Səhifənin yeri dəyişib və ya link səhvdir.",
     "forbiddenTitle": "Bu səhifəyə girişiniz yoxdur",
-    "forbiddenText": "Bu səhifə başqa rollar üçündür. Girişiniz olmalıdırsa, administratora müraciət edin.",
+    "forbiddenText": "Bu səhifə üçün icazəniz yoxdur. Lazım olduğunu düşünürsünüzsə, administratora müraciət edin.",
     "serverTitle": "MedFlow hazırda əlçatan deyil",
     "bannerTitle": "Bəzi məlumatlar yüklənmədi",
     "bannerText": "Servislərdən biri cavab vermədi. Gördükləriniz natamam ola bilər."
@@ -471,7 +472,8 @@
     },
     "system": "Sistem",
     "entities": {
-      "USER": "İstifadəçi"
+      "USER": "İstifadəçi",
+      "ROLE": "Rol"
     },
     "emailStatus": {
       "QUEUED": "Növbədə",
@@ -494,6 +496,9 @@
         "reactivated": "Hesab yenidən aktivləşdi",
         "password_changed": "Şifrə dəyişdi",
         "session_revoked": "Sessiyalar ləğv edildi"
+      },
+      "role_permissions": {
+        "updated": "İcazələr dəyişdi"
       }
     },
     "fields": {
@@ -513,7 +518,9 @@
       "resent": "Təkrar göndərilib",
       "firstInvite": "İlk dəfə göndərilib",
       "via": "Üsul",
-      "reason": "Səbəb"
+      "reason": "Səbəb",
+      "added": "Verilən icazələr",
+      "removed": "Alınan icazələr"
     },
     "via": {
       "RESET": "Email linki ilə sıfırlama",
@@ -529,7 +536,8 @@
       "appointment-service": "Qəbullar",
       "medical-record-service": "Tibbi qeydlər",
       "billing-service": "Maliyyə",
-      "file-service": "Fayllar"
+      "file-service": "Fayllar",
+      "configurations-service": "Tənzimləmələr"
     },
     "emailDetailsTitle": "Emailin təfərrüatları",
     "emailSection": "Email",
@@ -557,6 +565,306 @@
       "sessionRevoked": "Bütün sessiyalar ləğv edildi: istifadə olunmuş refresh token yenidən göndərildi (ehtimal ki, token oğurlanıb)",
       "passwordReset": "{{name}} email linki ilə şifrəsini sıfırladı",
       "passwordChanged": "{{name}} şifrəsini dəyişdi"
+    },
+    "permissions": {
+      "updated": "{{actor}} {{role}} rolunun icazələrini dəyişdi ({{changes}})"
     }
+  },
+  "permissionCatalog": {
+    "users": {
+      "read": {
+        "label": "İstifadəçi hesablarına baxmaq",
+        "description": "Əməkdaş hesablarını rol və statusu ilə siyahıda görmək və açmaq."
+      },
+      "invite": {
+        "label": "Əməkdaş dəvət etmək",
+        "description": "Yeni istifadəçi dəvət etmək və dəvəti yenidən göndərmək."
+      },
+      "update": {
+        "label": "Hesabları redaktə etmək",
+        "description": "İstifadəçinin adını, soyadını və rolunu dəyişmək."
+      },
+      "deactivate": {
+        "label": "Hesabları deaktiv etmək",
+        "description": "Hesabı bağlamaq və yenidən aktivləşdirmək."
+      }
+    },
+    "permissions": {
+      "read": {
+        "label": "İcazələrə baxmaq",
+        "description": "Bu səhifəni açmaq və hər rolun icazələrini görmək."
+      },
+      "manage": {
+        "label": "İcazələri idarə etmək",
+        "description": "Rollara icazə vermək və geri almaq."
+      }
+    },
+    "departments": {
+      "read": {
+        "label": "Şöbələrə baxmaq",
+        "description": "Klinikanın şöbələrini görmək."
+      },
+      "manage": {
+        "label": "Şöbələri idarə etmək",
+        "description": "Şöbə yaratmaq və redaktə etmək."
+      }
+    },
+    "staff": {
+      "read": {
+        "label": "Əməkdaş kataloqu",
+        "description": "Bütün əməkdaşların profillərinə baxmaq."
+      },
+      "update": {
+        "label": "Əməkdaş profillərini redaktə etmək",
+        "description": "Şöbə, vəzifə və əlaqə məlumatlarını dəyişmək."
+      }
+    },
+    "schedules": {
+      "read": {
+        "label": "Bütün iş qrafiklərinə baxmaq",
+        "description": "İstənilən həkimin qrafikini və məzuniyyətlərini görmək."
+      },
+      "read_own": {
+        "label": "Öz qrafikinə baxmaq",
+        "description": "Yalnız öz iş saatlarını və məzuniyyətlərini görmək."
+      },
+      "manage": {
+        "label": "Qrafikləri idarə etmək",
+        "description": "İş saatlarını və məzuniyyətləri təyin etmək."
+      }
+    },
+    "patients": {
+      "read": {
+        "label": "Pasiyentlərə baxmaq",
+        "description": "Pasiyent axtarmaq və şəxsi məlumatlarını görmək."
+      },
+      "create": {
+        "label": "Pasiyent qeydiyyatı",
+        "description": "Yeni pasiyent qeydiyyatdan keçirmək."
+      },
+      "update": {
+        "label": "Pasiyent məlumatlarını redaktə etmək",
+        "description": "Şəxsi və əlaqə məlumatlarını dəyişmək."
+      },
+      "deactivate": {
+        "label": "Pasiyent kartını deaktiv etmək",
+        "description": "Pasiyent kartını arxivə köçürmək."
+      },
+      "clinical_read": {
+        "label": "Allergiya və xroniki xəstəliklərə baxmaq",
+        "description": "Pasiyentin allergiyalarını və xroniki xəstəliklərini görmək."
+      },
+      "clinical_manage": {
+        "label": "Allergiya və xroniki xəstəlikləri idarə etmək",
+        "description": "Allergiya və xroniki xəstəlik əlavə etmək, dəyişmək, silmək."
+      },
+      "stats": {
+        "label": "Pasiyent statistikası",
+        "description": "Pasiyentlər üzrə ümumi rəqəmlər."
+      }
+    },
+    "appointments": {
+      "read": {
+        "label": "Qəbullara baxmaq",
+        "description": "Qəbul təqvimini və bugünkü qəbulları görmək."
+      },
+      "availability": {
+        "label": "Boş vaxtlara baxmaq",
+        "description": "Həkimin boş saatlarını görmək."
+      },
+      "book": {
+        "label": "Qəbul yazmaq",
+        "description": "Qəbul yazmaq, vaxtını dəyişmək və ləğv etmək."
+      },
+      "check_in": {
+        "label": "Pasiyenti qəbula qeyd etmək",
+        "description": "Gələn pasiyenti \"gəldi\" kimi qeyd etmək."
+      },
+      "stats": {
+        "label": "Qəbul statistikası",
+        "description": "Bütün klinika üzrə qəbul rəqəmləri."
+      },
+      "stats_own": {
+        "label": "Öz qəbul statistikası",
+        "description": "Həkimin öz qəbulları üzrə rəqəmlər."
+      }
+    },
+    "encounters": {
+      "read": {
+        "label": "Müayinələrə baxmaq",
+        "description": "Müayinə qeydlərini açmaq."
+      },
+      "manage": {
+        "label": "Müayinə aparmaq",
+        "description": "Müayinəni başlatmaq, qeyd yazmaq, bağlamaq və əlavə etmək (öz pasiyentləri)."
+      }
+    },
+    "vitals": {
+      "record": {
+        "label": "Həyati göstəriciləri qeyd etmək",
+        "description": "Təzyiq, nəbz, temperatur və s. yazmaq."
+      }
+    },
+    "diagnoses": {
+      "manage": {
+        "label": "Diaqnoz qoymaq",
+        "description": "ICD-10 üzrə diaqnoz əlavə etmək və silmək."
+      }
+    },
+    "prescriptions": {
+      "manage": {
+        "label": "Resept yazmaq",
+        "description": "Resept yazmaq və ləğv etmək."
+      }
+    },
+    "lab_orders": {
+      "manage": {
+        "label": "Analiz təyin etmək",
+        "description": "Laboratoriya analizi təyin etmək və ləğv etmək."
+      }
+    },
+    "records": {
+      "read": {
+        "label": "Tibbi tarixçəyə baxmaq",
+        "description": "Pasiyentin müayinələrini, diaqnozlarını, reseptlərini və analizlərini görmək."
+      },
+      "stats": {
+        "label": "Diaqnoz statistikası",
+        "description": "Ən çox rast gəlinən diaqnozlar."
+      }
+    },
+    "lab": {
+      "process": {
+        "label": "Laboratoriya növbəsi",
+        "description": "Nümunə götürmək və analiz nəticəsini daxil etmək."
+      },
+      "stats": {
+        "label": "Laboratoriya statistikası",
+        "description": "Laboratoriya iş yükü üzrə rəqəmlər."
+      }
+    },
+    "invoices": {
+      "read": {
+        "label": "Hesab-fakturalara baxmaq",
+        "description": "Hesab-fakturaları və ödənişlərini görmək."
+      },
+      "manage": {
+        "label": "Hesab-fakturaları idarə etmək",
+        "description": "Qaralamanı redaktə etmək, endirim etmək, təqdim etmək və ləğv etmək."
+      }
+    },
+    "payments": {
+      "create": {
+        "label": "Ödəniş qəbul etmək",
+        "description": "Hesab-faktura üzrə ödəniş qeyd etmək."
+      },
+      "read": {
+        "label": "Ödənişlərə baxmaq",
+        "description": "Bütün ödənişlərin siyahısını görmək."
+      }
+    },
+    "prices": {
+      "read": {
+        "label": "Qiymət siyahısına baxmaq",
+        "description": "Xidmətlərin qiymətlərini görmək."
+      },
+      "manage": {
+        "label": "Qiymət siyahısını idarə etmək",
+        "description": "Xidmət əlavə etmək və qiymətləri dəyişmək."
+      }
+    },
+    "billing": {
+      "stats": {
+        "label": "Gəlir statistikası",
+        "description": "Dövr üzrə gəlir hesabatları."
+      }
+    },
+    "files": {
+      "upload": {
+        "label": "Fayl yükləmək",
+        "description": "Pasiyent sənədlərini və şəkilləri yükləmək."
+      },
+      "patient_documents": {
+        "label": "Pasiyent sənədlərinə baxmaq",
+        "description": "Pasiyentin yüklənmiş sənədlərini açmaq."
+      },
+      "lab_results": {
+        "label": "Analiz fayllarına baxmaq",
+        "description": "Laboratoriya nəticə fayllarını açmaq və yükləmək."
+      },
+      "delete_any": {
+        "label": "İstənilən faylı silmək",
+        "description": "Başqasının yüklədiyi faylı da silmək."
+      }
+    },
+    "history": {
+      "read": {
+        "label": "Ümumi əməliyyat tarixçəsi",
+        "description": "Sistemdəki bütün əməliyyatların jurnalına baxmaq."
+      },
+      "entity_read": {
+        "label": "Obyektin tarixçəsi",
+        "description": "Bir qəbulun, hesab-fakturanın və s. dəyişiklik tarixçəsini görmək."
+      },
+      "patient_read": {
+        "label": "Pasiyentin xronologiyası",
+        "description": "Bir pasiyentlə bağlı bütün əməliyyatları görmək."
+      },
+      "user_read": {
+        "label": "İstifadəçinin fəaliyyəti",
+        "description": "Bir əməkdaşın etdiyi əməliyyatları görmək."
+      }
+    },
+    "emails": {
+      "read": {
+        "label": "Email jurnalı",
+        "description": "Göndərilən email-ləri və çatdırılma statusunu görmək."
+      }
+    }
+  },
+  "permissionGroups": {
+    "users": "İstifadəçi hesabları",
+    "permissions": "İcazələr",
+    "staff": "Əməkdaşlar və qrafiklər",
+    "patients": "Pasiyentlər",
+    "appointments": "Qəbullar",
+    "encounters": "Müayinələr",
+    "records": "Tibbi qeydlər",
+    "lab": "Laboratoriya",
+    "billing": "Maliyyə",
+    "files": "Fayllar",
+    "history": "Tarixçə və jurnal"
+  },
+  "permissionsPage": {
+    "title": "İcazələr",
+    "subtitle": "Hər rolun sistemdə nə edə biləcəyini seçin. Dəyişiklik həmin roldakı bütün istifadəçilərə dərhal tətbiq olunur.",
+    "search": "İcazə axtar",
+    "permissionColumn": "İcazə",
+    "granted": "{{count}} / {{total}}",
+    "grantedLabel": "{{role}}: {{total}} icazədən {{count}}",
+    "locked": "Administrator bu icazəni həmişə saxlayır — əks halda heç kim icazələri idarə edə bilməz.",
+    "groupToggle": "{{role}} üçün \"{{group}}\" bölməsinin hamısı",
+    "cellLabel": "{{role}}: {{permission}}",
+    "changed": "dəyişdirilib",
+    "readOnlyTitle": "Yalnız baxış",
+    "readOnlyText": "İcazələri dəyişmək üçün \"İcazələri idarə etmək\" hüququ lazımdır.",
+    "unsaved_one": "{{count}} yadda saxlanmamış dəyişiklik",
+    "unsaved_other": "{{count}} yadda saxlanmamış dəyişiklik",
+    "unsavedRoles": "Rollar: {{roles}}",
+    "discard": "Ləğv et",
+    "save": "Yadda saxla",
+    "saved": "İcazələr yeniləndi. Həmin roldakı istifadəçilər dəyişikliyi dərhal görəcək.",
+    "noMatchTitle": "Uyğun icazə tapılmadı",
+    "noMatchText": "Başqa söz yoxlayın.",
+    "errorTitle": "İcazələri yükləmək olmadı",
+    "retry": "Yenidən cəhd et",
+    "leaveTitle": "Dəyişikliklər yadda saxlanmayıb",
+    "leaveText": "Səhifədən çıxsanız, etdiyiniz dəyişikliklər itəcək.",
+    "leave": "Çıx",
+    "stay": "Səhifədə qal",
+    "expandGroup": "Bölməni aç",
+    "collapseGroup": "Bölməni bağla",
+    "groupCount_one": "{{count}} icazə",
+    "groupCount_other": "{{count}} icazə"
   }
 }

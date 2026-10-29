@@ -1,5 +1,4 @@
 import { NAV_GROUP_IDS, NAV_ITEMS, type NavItem } from "@components/layout/navigation";
-import type { Role } from "@models/enums";
 import type { SidebarGroup, SidebarSettings } from "../services/sidebarSettingsService";
 
 // "Frequently used": pages opened at least this often, most used first
@@ -28,17 +27,17 @@ export const DEFAULT_GROUPS: SidebarGroup[] = NAV_GROUP_IDS.map((id) => ({
   items: NAV_ITEMS.filter((item) => item.group === id).map((item) => item.key),
 }));
 
-// Saved settings + the user's role → what the sidebar shows. Saved keys the
-// role can't see (or that no longer exist) are skipped; pages that are not
-// in any saved group (new pages, role change) go to their built-in group,
+// Saved settings + the user's permissions → what the sidebar shows. Saved
+// keys the user can't see (or that no longer exist) are skipped; pages that are not
+// in any saved group (new pages, new permissions) go to their built-in group,
 // or to the first group if the user deleted that one.
 export function buildSidebar(
   settings: SidebarSettings,
-  role: Role,
+  can: (permission: NavItem["permission"]) => boolean,
   activeKey: string | undefined,
 ): SidebarModel {
   const visible = new Map(
-    NAV_ITEMS.filter((item) => item.roles.includes(role)).map((item) => [item.key, item]),
+    NAV_ITEMS.filter((item) => can(item.permission)).map((item) => [item.key, item]),
   );
   const pick = (keys: string[]) =>
     keys.flatMap((key) => {
@@ -85,7 +84,7 @@ export function buildSidebar(
     favorites,
     frequent,
     recent,
-    // An empty built-in group only means "nothing for this role" — hide it;
+    // An empty built-in group only means "nothing this user may open" — hide it;
     // an empty group the user created stays visible as a drop target
     groups: groups.filter((group) => group.items.length > 0 || group.name !== null),
   };

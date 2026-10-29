@@ -14,7 +14,7 @@ import { useLastDefined } from "@hooks/useLastDefined";
 import { formatDateTime, fromNow } from "@lib/dayjs";
 import type { StaffUser } from "../services/usersService";
 
-// Read-only view of one account; "Edit" hands over to UserModal.
+// Read-only view of one account; "Edit" (users.update) hands over to UserModal.
 // TODO(phase 5): department, title, schedule from staff-service.
 export function StaffDetailDrawer({
   user: selected,
@@ -23,7 +23,7 @@ export function StaffDetailDrawer({
 }: {
   user: StaffUser | null;
   onClose: () => void;
-  onEdit: (user: StaffUser) => void;
+  onEdit?: (user: StaffUser) => void;
 }) {
   const { t } = useTranslation();
   const user = useLastDefined(selected);
@@ -37,9 +37,11 @@ export function StaffDetailDrawer({
         user && (
           <>
             <Button onClick={onClose}>{t("common.close")}</Button>
-            <Button type="primary" icon={<EditOutlined />} onClick={() => onEdit(user)}>
-              {t("staff.edit")}
-            </Button>
+            {onEdit && (
+              <Button type="primary" icon={<EditOutlined />} onClick={() => onEdit(user)}>
+                {t("staff.edit")}
+              </Button>
+            )}
           </>
         )
       }

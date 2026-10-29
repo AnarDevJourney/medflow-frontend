@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import {
   DataTable,
   type DataTableColumn,
+  type DataTableRowAction,
   type DataTableSort,
 } from "@components/data-table";
 import { ClearFiltersButton } from "@components/ui/ClearFiltersButton";
@@ -20,6 +21,7 @@ import { SearchInput } from "@components/ui/SearchInput";
 import { UserAvatar } from "@components/ui/UserAvatar";
 import { UserStatusTag } from "@components/ui/UserStatusTag";
 import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
+import { useCan } from "@features/permissions/hooks/usePermissions";
 import { formatDate, formatDateTime, fromNow } from "@lib/dayjs";
 import { UserStatus, type Role } from "@models/enums";
 import { USER_STATUS_COLOR } from "@utils/statusColors";
@@ -40,11 +42,16 @@ const SORT_FIELDS: Record<string, string> = {
   createdAt: "createdAt",
 };
 
-// ADMIN user management on auth-service /users.
+// User management on auth-service /users (users.read); each action shows
+// only with its permission.
 // TODO(phase 5): all-roles staff directory with department and title.
 export function StaffPage() {
   const { t } = useTranslation();
   const { data: me } = useCurrentUser();
+  const can = useCan();
+  const canInvite = can("users.invite");
+  const canEdit = can("users.update");
+  const canDeactivate = can("users.deactivate");
   const { resend, deactivate, reactivate } = useConfirmUserAction();
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<Role>();
@@ -154,13 +161,15 @@ export function StaffPage() {
         title={t("staff.title")}
         subtitle={t("staff.subtitle")}
         actions={
-          <Button
-            type="primary"
-            icon={<UserAddOutlined />}
-            onClick={() => setInviteOpen(true)}
-          >
-            {t("staff.inviteButton")}
-          </Button>
+          canInvite && (
+            <Button
+              type="primary"
+              icon={<UserAddOutlined />}
+              onClick={() => setInviteOpen(true)}
+            >
+              {t("staff.inviteButton")}
+            </Button>
+          )
         }
       />
       <DataTable<StaffUser>
@@ -188,40 +197,48 @@ export function StaffPage() {
         onRowClick={(u) => setDetailsId(u.id)}
         onViewDetails={(u) => setDetailsId(u.id)}
         rowLabel={(u) => `${u.firstName} ${u.lastName}`}
-        rowActions={(u) => [
-          {
-            key: "edit",
-            icon: <EditOutlined />,
-            label: t("staff.edit"),
-            onClick: () => setEditId(u.id),
-          },
-          ...(u.status === "INVITED"
-            ? [
-                {
-                  key: "resend",
-                  icon: <MailOutlined />,
-                  label: t("staff.resendInvite"),
-                  onClick: () => resend(u),
-                },
-              ]
-            : []),
-          "divider",
-          u.status === "DEACTIVATED"
-            ? {
-                key: "reactivate",
-                icon: <UndoOutlined />,
-                label: t("staff.reactivate"),
-                onClick: () => reactivate(u),
-              }
-            : {
-                key: "deactivate",
-                icon: <StopOutlined />,
-                label: t("staff.deactivate"),
-                danger: true,
-                disabled: u.id === me?.id,
-                onClick: () => deactivate(u),
-              },
-        ]}
+        rowActions={(u) => {
+          const edits: DataTableRowAction[] = [
+            ...(canEdit
+              ? [
+                  {
+                    key: "edit",
+                    icon: <EditOutlined />,
+                    label: t("staff.edit"),
+                    onClick: () => setEditId(u.id),
+                  },
+                ]
+              : []),
+            ...(canInvite && u.status === "INVITED"
+              ? [
+                  {
+                    key: "resend",
+                    icon: <MailOutlined />,
+                    label: t("staff.resendInvite"),
+                    onClick: () => resend(u),
+                  },
+                ]
+              : []),
+          ];
+          if (!canDeactivate) return edits;
+          const status: DataTableRowAction =
+            u.status === "DEACTIVATED"
+              ? {
+                  key: "reactivate",
+                  icon: <UndoOutlined />,
+                  label: t("staff.reactivate"),
+                  onClick: () => reactivate(u),
+                }
+              : {
+                  key: "deactivate",
+                  icon: <StopOutlined />,
+                  label: t("staff.deactivate"),
+                  danger: true,
+                  disabled: u.id === me?.id,
+                  onClick: () => deactivate(u),
+                };
+          return edits.length > 0 ? [...edits, "divider", status] : [status];
+        }}
         rowAccent={(u) => USER_STATUS_COLOR[u.status]}
         empty={
           filtersActive
@@ -235,7 +252,7 @@ export function StaffPage() {
             : {
                 title: t("staff.emptyTitle"),
                 description: t("staff.emptyText"),
-                action: (
+                action: canInvite && (
                   <Button
                     type="primary"
                     icon={<UserAddOutlined />}
@@ -291,10 +308,14 @@ export function StaffPage() {
       <StaffDetailDrawer
         user={findUser(detailsId)}
         onClose={() => setDetailsId(null)}
-        onEdit={(u) => {
-          setDetailsId(null);
-          setEditId(u.id);
-        }}
+        onEdit={
+          canEdit
+            ? (u) => {
+                setDetailsId(null);
+                setEditId(u.id);
+              }
+            : undefined
+        }
       />
       <UserModal user={findUser(editId)} onClose={() => setEditId(null)} />
     </>

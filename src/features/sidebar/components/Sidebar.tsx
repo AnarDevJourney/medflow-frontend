@@ -41,6 +41,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import { findNavItem, NAV_ITEMS, type NavItem } from "@components/layout/navigation";
+import { useCan } from "@features/permissions/hooks/usePermissions";
 import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
 import {
   useSidebarSettings,
@@ -96,6 +97,7 @@ export function Sidebar() {
   const groupTitle = useGroupTitle();
   const { pathname } = useLocation();
   const { data: user } = useCurrentUser();
+  const can = useCan();
   const { settings, isReady } = useSidebarSettings(user?.id);
   const actions = useSidebarSettingsActions(user?.id);
 
@@ -105,8 +107,8 @@ export function Sidebar() {
   // Tooltips and popovers open away from the screen edge
   const side = position === "right" ? "left" : "right";
   const model = useMemo(
-    () => (settings && user ? buildSidebar(settings, user.role, activeKey) : null),
-    [settings, user, activeKey],
+    () => (settings && user ? buildSidebar(settings, can, activeKey) : null),
+    [settings, user, can, activeKey],
   );
   const favoriteKeys = useMemo(() => new Set(settings?.favorites ?? []), [settings]);
 

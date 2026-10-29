@@ -17,6 +17,7 @@ export const PATHS = {
   prices: "/settings/prices",
   staff: "/staff",
   departments: "/settings/departments",
+  permissions: "/settings/permissions",
   history: "/history",
   notifications: "/notifications",
   devTable: "/dev/table", // dev builds only

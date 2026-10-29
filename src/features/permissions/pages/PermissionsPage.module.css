@@ -1,0 +1,96 @@
+.page {
+  /* room for the save bar, so it never covers the last rows */
+  padding-bottom: 88px;
+}
+
+.notice {
+  margin-bottom: var(--space-4);
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.search {
+  width: 320px;
+  max-width: 100%;
+}
+
+.card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+}
+
+.skeleton {
+  padding: var(--space-6);
+}
+
+/* ── save bar: floats at the bottom while there are unsaved ticks ── */
+.saveBar {
+  position: sticky;
+  bottom: var(--space-4);
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-4);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    opacity var(--motion-base) var(--ease-out),
+    transform var(--motion-base) var(--ease-out);
+}
+
+.saveBarVisible {
+  pointer-events: auto;
+  opacity: 1;
+  transform: none;
+}
+
+.saveBarInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  width: min(720px, 100%);
+  padding: var(--space-3) var(--space-3) var(--space-3) var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  box-shadow: var(--shadow-float);
+}
+
+.saveIcon {
+  color: var(--color-primary);
+  font-size: var(--font-size-xl);
+}
+
+.saveText {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 180px;
+  line-height: 1.35;
+}
+
+.saveTitle {
+  color: var(--color-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.saveRoles {
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+}
+
+.saveActions {
+  display: flex;
+  gap: var(--space-2);
+  margin-left: auto;
+}

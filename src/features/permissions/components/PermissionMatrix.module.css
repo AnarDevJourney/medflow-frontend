@@ -1,0 +1,225 @@
+/* The page scrolls (not this box), so the role header can stick under the
+   64px app header. Narrow screens scroll the matrix sideways instead. */
+.scroller {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+}
+
+.roleCol {
+  width: 136px;
+}
+
+/* ── header ─────────────────────────────────────────── */
+.table thead th {
+  position: sticky;
+  top: 64px;
+  z-index: 2;
+  padding: var(--space-3) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-card);
+  font-weight: 500;
+}
+
+.table thead th:first-child {
+  border-top-left-radius: var(--radius-lg);
+}
+
+.table thead th:last-child {
+  border-top-right-radius: var(--radius-lg);
+}
+
+.table thead .corner {
+  padding-left: var(--space-4);
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+  text-align: left;
+  vertical-align: bottom;
+}
+
+.roleHead {
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.roleHeadInner {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  max-width: 100%;
+}
+
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  color: var(--color-muted);
+  font-size: var(--font-size-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+/* ── group rows ─────────────────────────────────────── */
+.groupRow th,
+.groupRow td {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-bg);
+}
+
+.section:first-of-type .groupRow th,
+.section:first-of-type .groupRow td {
+  border-top: 0;
+}
+
+.groupHead {
+  padding: 0;
+  text-align: left;
+}
+
+.groupToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2) var(--space-4);
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.groupToggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+
+.chevron {
+  color: var(--color-muted);
+  font-size: 10px;
+  transition: transform var(--motion-fast) var(--ease-out);
+}
+
+.chevronClosed {
+  transform: rotate(-90deg);
+}
+
+.groupName {
+  font-size: var(--font-size-md);
+  font-weight: 600;
+}
+
+.groupCount {
+  color: var(--color-muted);
+  font-size: var(--font-size-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.groupCell {
+  text-align: center;
+}
+
+/* ── permission rows ────────────────────────────────── */
+.row th,
+.row td {
+  border-top: 1px solid var(--color-border);
+  transition: background-color var(--motion-fast) var(--ease-out);
+}
+
+.row:hover th,
+.row:hover td {
+  background: var(--color-hover);
+}
+
+.permission {
+  padding: var(--space-3) var(--space-4) var(--space-3) calc(var(--space-4) + 18px);
+  font-weight: 400;
+  text-align: left;
+}
+
+.permissionLabel {
+  display: block;
+  color: var(--color-text);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.permissionText {
+  display: block;
+  margin-top: 2px;
+  color: var(--color-muted);
+  font-size: var(--font-size-sm);
+  line-height: 1.4;
+}
+
+.cell {
+  position: relative;
+  text-align: center;
+}
+
+/* Unsaved change: soft accent tint + a dot in the corner */
+.row .changed,
+.row:hover .changed {
+  background: var(--color-primary-soft);
+}
+
+.changed::after {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  content: "";
+}
+
+.locked {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.lockIcon {
+  color: var(--color-muted);
+  font-size: var(--font-size-xs);
+}
+
+.section:last-of-type .row:last-child th {
+  border-bottom-left-radius: var(--radius-lg);
+}
+
+.section:last-of-type .row:last-child td:last-child {
+  border-bottom-right-radius: var(--radius-lg);
+}
+
+@media (max-width: 960px) {
+  .scroller {
+    overflow-x: auto;
+  }
+
+  .table {
+    min-width: 900px;
+  }
+
+  .table thead th {
+    position: static;
+  }
+}

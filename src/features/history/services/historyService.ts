@@ -77,8 +77,9 @@ export const EVENT_TYPES = [
   "user.reactivated",
   "user.password_changed",
   "user.session_revoked",
+  "role_permissions.updated",
 ];
-export const ENTITY_TYPES = ["USER"];
+export const ENTITY_TYPES = ["USER", "ROLE"];
 export const EMAIL_TEMPLATES = [
   "staff-invite",
   "password-reset",

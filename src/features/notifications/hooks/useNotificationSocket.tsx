@@ -4,7 +4,15 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import { useSignOut } from "@features/auth/hooks/useAuthActions";
+import { currentUserQueryKey } from "@features/auth/hooks/useCurrentUser";
+import type { CurrentUser } from "@features/auth/services/authService";
+import {
+  myPermissionsKey,
+  permissionsMatrixKey,
+} from "@features/permissions/hooks/usePermissions";
+import type { MyPermissions } from "@features/permissions/services/permissionsService";
 import { api } from "@lib/api/client";
+import type { Permission } from "@models/permissions";
 import { useAppDispatch } from "@store/index";
 import { setUnreadCount } from "@store/uiSlice";
 import type { NotificationItem } from "../services/notificationsService";
@@ -19,6 +27,8 @@ type HandshakeError = Error & { data?: { code?: string } };
 //   notification:count → unread badge (the server owns the number)
 //   session:expired    → the access token ran out: refresh, reconnect
 //   session:revoked    → signed out elsewhere / password changed / deactivated
+//   permissions:updated → the admin changed this role's permissions: menus,
+//                         buttons and page guards follow without a reload
 export function useNotificationSocket() {
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
@@ -64,6 +74,19 @@ export function useNotificationSocket() {
     });
     socket.on("notification:count", ({ count }: { count: number }) =>
       dispatch(setUnreadCount(count)),
+    );
+    socket.on(
+      "permissions:updated",
+      ({ role, permissions }: { role: string; permissions: Permission[] }) => {
+        const user = queryClient.getQueryData<CurrentUser>(currentUserQueryKey);
+        if (user?.role === role) {
+          queryClient.setQueryData<MyPermissions>(myPermissionsKey(user.id), {
+            role: user.role,
+            permissions,
+          });
+        }
+        void queryClient.invalidateQueries({ queryKey: permissionsMatrixKey });
+      },
     );
     socket.on("session:expired", () => void refreshAndReconnect());
     // After changing the own password this session got new cookies before

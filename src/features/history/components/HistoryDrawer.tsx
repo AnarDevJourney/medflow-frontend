@@ -3,6 +3,7 @@ import {
   EditOutlined,
   HistoryOutlined,
   KeyOutlined,
+  SafetyCertificateOutlined,
   SafetyOutlined,
   SettingOutlined,
   StopOutlined,
@@ -40,6 +41,7 @@ const EVENT_LOOK: Record<string, { icon: ReactNode; tone: Tone }> = {
   "user.reactivated": { icon: <UndoOutlined />, tone: "success" },
   "user.password_changed": { icon: <KeyOutlined />, tone: "warning" },
   "user.session_revoked": { icon: <SafetyOutlined />, tone: "danger" },
+  "role_permissions.updated": { icon: <SafetyCertificateOutlined />, tone: "warning" },
 };
 const DEFAULT_LOOK = { icon: <HistoryOutlined />, tone: "primary" as Tone };
 
@@ -56,7 +58,7 @@ export function HistoryDrawer({
   onClose: () => void;
 }) {
   const { t } = useTranslation();
-  const { eventLabel, summary } = useHistoryText();
+  const { eventLabel, summary, permissionLabel } = useHistoryText();
   const entry = useLastDefined(selected);
 
   // metadata key → readable row; unknown keys get a humanized label
@@ -83,6 +85,14 @@ export function HistoryDrawer({
                   t(`history.fields.${String(field)}`, { defaultValue: String(field) }),
                 )
                 .join(", "),
+            }
+          : null;
+      case "added":
+      case "removed":
+        return Array.isArray(value) && value.length > 0
+          ? {
+              label: t(`history.meta.${key}`),
+              value: value.map(permissionLabel).join(", "),
             }
           : null;
       case "resent":

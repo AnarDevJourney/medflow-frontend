@@ -13,6 +13,12 @@ export function useHistoryText() {
     const eventLabel = (eventType: string) =>
       t(`history.eventTypes.${eventType}`, { defaultValue: eventType });
 
+    // 'users.read' → "View staff accounts"
+    const permissionLabel = (code: unknown) =>
+      t(`permissionCatalog.${String(code)}.label`, { defaultValue: String(code) });
+    const list = (value: unknown, prefix = "") =>
+      Array.isArray(value) ? value.map((code) => prefix + permissionLabel(code)) : [];
+
     const summary = (
       entry: Pick<HistoryEntry, "summary" | "summaryKey" | "summaryParams">,
     ) => {
@@ -32,11 +38,13 @@ export function useHistoryText() {
               )
               .join(", ")
           : "",
+        // permission changes: "+View patients, −Book appointments"
+        changes: [...list(p.added, "+"), ...list(p.removed, "−")].join(", "),
         // a key this build doesn't know yet → the stored sentence
         defaultValue: entry.summary,
       });
     };
 
-    return { eventLabel, summary };
+    return { eventLabel, summary, permissionLabel };
   }, [t]);
 }

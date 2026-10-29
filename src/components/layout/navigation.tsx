@@ -7,12 +7,13 @@ import {
   ExperimentOutlined,
   FieldTimeOutlined,
   FileTextOutlined,
+  SafetyCertificateOutlined,
   TagsOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { ReactNode } from "react";
-import { ALL_ROLES, Role, type Role as RoleType } from "@models/enums";
+import type { PermissionCheck } from "@features/permissions/hooks/usePermissions";
 import { PATHS } from "@router/paths";
 
 // Built-in sidebar groups. Users can rename, reorder, delete them and add
@@ -21,18 +22,17 @@ export const NAV_GROUP_IDS = ["main", "clinical", "finance", "admin"] as const;
 export type NavGroupId = (typeof NAV_GROUP_IDS)[number];
 
 // Sidebar entries (DOC 9.1). `key` is stored in the user's sidebar settings —
-// never rename one. `roles` = who sees the entry (the same roles the backend
-// allows); `group` = the built-in group it starts in.
+// never rename one. `permission` = what the entry needs (the backend checks
+// the same; a list = any of them, none = every signed-in user); `group` =
+// the built-in group it starts in.
 export interface NavItem {
   key: string;
   path: string;
   labelKey: string; // i18n key
   icon: ReactNode;
-  roles: readonly RoleType[];
+  permission?: PermissionCheck;
   group: NavGroupId;
 }
-
-const { ADMIN, DOCTOR, NURSE, RECEPTIONIST, ACCOUNTANT } = Role;
 
 export const NAV_ITEMS: NavItem[] = [
   {
@@ -40,7 +40,6 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.home,
     labelKey: "nav.dashboard",
     icon: <DashboardOutlined />,
-    roles: ALL_ROLES,
     group: "main",
   },
   {
@@ -48,7 +47,7 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.today,
     labelKey: "nav.today",
     icon: <FieldTimeOutlined />,
-    roles: [DOCTOR],
+    permission: "encounters.manage",
     group: "main",
   },
   {
@@ -56,7 +55,6 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.notifications,
     labelKey: "nav.notifications",
     icon: <BellOutlined />,
-    roles: ALL_ROLES,
     group: "main",
   },
   {
@@ -64,7 +62,7 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.patients,
     labelKey: "nav.patients",
     icon: <UserOutlined />,
-    roles: [ADMIN, DOCTOR, NURSE, RECEPTIONIST],
+    permission: "patients.read",
     group: "clinical",
   },
   {
@@ -72,7 +70,7 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.appointments,
     labelKey: "nav.appointments",
     icon: <CalendarOutlined />,
-    roles: [ADMIN, DOCTOR, NURSE, RECEPTIONIST],
+    permission: "appointments.read",
     group: "clinical",
   },
   {
@@ -80,7 +78,7 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.labQueue,
     labelKey: "nav.labQueue",
     icon: <ExperimentOutlined />,
-    roles: [NURSE],
+    permission: "lab.process",
     group: "clinical",
   },
   {
@@ -88,7 +86,7 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.invoices,
     labelKey: "nav.invoices",
     icon: <FileTextOutlined />,
-    roles: [ADMIN, RECEPTIONIST, ACCOUNTANT],
+    permission: "invoices.read",
     group: "finance",
   },
   {
@@ -96,7 +94,7 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.prices,
     labelKey: "nav.prices",
     icon: <TagsOutlined />,
-    roles: [ADMIN, ACCOUNTANT],
+    permission: "prices.read",
     group: "finance",
   },
   {
@@ -104,9 +102,9 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.staff,
     labelKey: "nav.staff",
     icon: <TeamOutlined />,
-    // F1: user management on auth /users (ADMIN only).
-    // TODO(phase 5): staff directory for every role (DOC 9.1).
-    roles: [ADMIN],
+    // F1: user management on auth /users.
+    // TODO(phase 5): staff directory for every role (DOC 9.1, staff.read).
+    permission: "users.read",
     group: "admin",
   },
   {
@@ -114,7 +112,7 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.departments,
     labelKey: "nav.departments",
     icon: <ClusterOutlined />,
-    roles: [ADMIN],
+    permission: "departments.manage",
     group: "admin",
   },
   {
@@ -122,13 +120,21 @@ export const NAV_ITEMS: NavItem[] = [
     path: PATHS.history,
     labelKey: "nav.history",
     icon: <AuditOutlined />,
-    roles: [ADMIN],
+    permission: ["history.read", "emails.read"],
+    group: "admin",
+  },
+  {
+    key: "permissions",
+    path: PATHS.permissions,
+    labelKey: "nav.permissions",
+    icon: <SafetyCertificateOutlined />,
+    permission: "permissions.read",
     group: "admin",
   },
 ];
 
-export const rolesFor = (key: string): readonly RoleType[] =>
-  NAV_ITEMS.find((item) => item.key === key)?.roles ?? ALL_ROLES;
+export const permissionFor = (key: string): PermissionCheck | undefined =>
+  NAV_ITEMS.find((item) => item.key === key)?.permission;
 
 // The nav entry a URL belongs to: longest matching path wins
 // ("/settings/prices/x" → prices, "/" only for exactly "/")

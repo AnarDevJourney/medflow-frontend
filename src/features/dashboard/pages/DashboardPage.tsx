@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { NAV_ITEMS } from "@components/layout/navigation";
 import { RoleTag } from "@components/ui/RoleTag";
 import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
+import { useCan } from "@features/permissions/hooks/usePermissions";
 import { toClinicTime } from "@lib/dayjs";
 import styles from "./DashboardPage.module.css";
 
@@ -17,11 +18,12 @@ const greetingKey = (hour: number) =>
 export function DashboardPage() {
   const { t } = useTranslation();
   const { data: user } = useCurrentUser();
+  const can = useCan();
   if (!user) return null;
 
   const now = toClinicTime(new Date());
   const pages = NAV_ITEMS.filter(
-    (item) => item.key !== "dashboard" && item.roles.includes(user.role),
+    (item) => item.key !== "dashboard" && can(item.permission),
   );
 
   return (

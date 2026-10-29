@@ -14,7 +14,8 @@
     "prices": "Price list",
     "staff": "Staff",
     "departments": "Departments",
-    "history": "Action history"
+    "history": "Action history",
+    "permissions": "Permissions"
   },
   "modal": {
     "discardTitle": "Discard changes?",
@@ -48,7 +49,7 @@
     "unexpected": "Something went wrong. Please try again.",
     "notFoundText": "The page may have moved, or the link is incorrect.",
     "forbiddenTitle": "You don't have access to this page",
-    "forbiddenText": "This page is for other roles. Ask an administrator if you think you should have access.",
+    "forbiddenText": "You don't have the permission this page needs. Ask an administrator if you think you should have access.",
     "serverTitle": "MedFlow can't be reached right now",
     "bannerTitle": "Some data couldn't be loaded",
     "bannerText": "A service didn't respond. What you see may be incomplete."
@@ -471,7 +472,8 @@
     },
     "system": "System",
     "entities": {
-      "USER": "User"
+      "USER": "User",
+      "ROLE": "Role"
     },
     "emailStatus": {
       "QUEUED": "Queued",
@@ -494,6 +496,9 @@
         "reactivated": "Account reactivated",
         "password_changed": "Password changed",
         "session_revoked": "Sessions revoked"
+      },
+      "role_permissions": {
+        "updated": "Permissions changed"
       }
     },
     "fields": {
@@ -513,7 +518,9 @@
       "resent": "Resent",
       "firstInvite": "First invitation",
       "via": "Method",
-      "reason": "Reason"
+      "reason": "Reason",
+      "added": "Granted",
+      "removed": "Revoked"
     },
     "via": {
       "RESET": "Reset with an email link",
@@ -529,7 +536,8 @@
       "appointment-service": "Appointments",
       "medical-record-service": "Medical records",
       "billing-service": "Billing",
-      "file-service": "Files"
+      "file-service": "Files",
+      "configurations-service": "Settings"
     },
     "emailDetailsTitle": "Email details",
     "emailSection": "Email",
@@ -557,6 +565,306 @@
       "sessionRevoked": "All sessions were revoked: a used refresh token was presented again (possible token theft)",
       "passwordReset": "{{name}} reset their password with an email link",
       "passwordChanged": "{{name}} changed their password"
+    },
+    "permissions": {
+      "updated": "{{actor}} changed the permissions of {{role}} ({{changes}})"
     }
+  },
+  "permissionCatalog": {
+    "users": {
+      "read": {
+        "label": "View staff accounts",
+        "description": "See the list of user accounts with their role and status."
+      },
+      "invite": {
+        "label": "Invite staff",
+        "description": "Invite new users and resend pending invitations."
+      },
+      "update": {
+        "label": "Edit accounts",
+        "description": "Change a user's name and role."
+      },
+      "deactivate": {
+        "label": "Deactivate accounts",
+        "description": "Close an account and reactivate it later."
+      }
+    },
+    "permissions": {
+      "read": {
+        "label": "View permissions",
+        "description": "Open this page and see what each role may do."
+      },
+      "manage": {
+        "label": "Manage permissions",
+        "description": "Grant and revoke permissions of any role."
+      }
+    },
+    "departments": {
+      "read": {
+        "label": "View departments",
+        "description": "See the clinic's departments."
+      },
+      "manage": {
+        "label": "Manage departments",
+        "description": "Create and edit departments."
+      }
+    },
+    "staff": {
+      "read": {
+        "label": "Staff directory",
+        "description": "See the profiles of all staff members."
+      },
+      "update": {
+        "label": "Edit staff profiles",
+        "description": "Change department, title and contact details."
+      }
+    },
+    "schedules": {
+      "read": {
+        "label": "View all schedules",
+        "description": "See any doctor's working hours and time off."
+      },
+      "read_own": {
+        "label": "View own schedule",
+        "description": "See only one's own working hours and time off."
+      },
+      "manage": {
+        "label": "Manage schedules",
+        "description": "Set working hours and time off."
+      }
+    },
+    "patients": {
+      "read": {
+        "label": "View patients",
+        "description": "Search patients and see their demographics."
+      },
+      "create": {
+        "label": "Register patients",
+        "description": "Register new patients."
+      },
+      "update": {
+        "label": "Edit patient details",
+        "description": "Change personal and contact details."
+      },
+      "deactivate": {
+        "label": "Deactivate patient records",
+        "description": "Move a patient record to the archive."
+      },
+      "clinical_read": {
+        "label": "View allergies and conditions",
+        "description": "See a patient's allergies and chronic conditions."
+      },
+      "clinical_manage": {
+        "label": "Manage allergies and conditions",
+        "description": "Add, change and remove allergies and chronic conditions."
+      },
+      "stats": {
+        "label": "Patient statistics",
+        "description": "Overall patient numbers."
+      }
+    },
+    "appointments": {
+      "read": {
+        "label": "View appointments",
+        "description": "See the appointment calendar and today's list."
+      },
+      "availability": {
+        "label": "Check availability",
+        "description": "See a doctor's free time slots."
+      },
+      "book": {
+        "label": "Book appointments",
+        "description": "Book, reschedule and cancel appointments."
+      },
+      "check_in": {
+        "label": "Check patients in",
+        "description": "Mark an arriving patient as checked in."
+      },
+      "stats": {
+        "label": "Appointment statistics",
+        "description": "Appointment numbers for the whole clinic."
+      },
+      "stats_own": {
+        "label": "Own appointment statistics",
+        "description": "A doctor's numbers for their own visits."
+      }
+    },
+    "encounters": {
+      "read": {
+        "label": "View visits",
+        "description": "Open visit (encounter) records."
+      },
+      "manage": {
+        "label": "Run visits",
+        "description": "Start, document, close and amend visits (own patients)."
+      }
+    },
+    "vitals": {
+      "record": {
+        "label": "Record vital signs",
+        "description": "Record blood pressure, pulse, temperature and more."
+      }
+    },
+    "diagnoses": {
+      "manage": {
+        "label": "Manage diagnoses",
+        "description": "Add and remove ICD-10 diagnoses."
+      }
+    },
+    "prescriptions": {
+      "manage": {
+        "label": "Manage prescriptions",
+        "description": "Prescribe and cancel medication."
+      }
+    },
+    "lab_orders": {
+      "manage": {
+        "label": "Order lab tests",
+        "description": "Order and cancel lab tests."
+      }
+    },
+    "records": {
+      "read": {
+        "label": "View medical history",
+        "description": "See a patient's visits, diagnoses, prescriptions and results."
+      },
+      "stats": {
+        "label": "Diagnosis statistics",
+        "description": "The most common diagnoses."
+      }
+    },
+    "lab": {
+      "process": {
+        "label": "Lab queue",
+        "description": "Collect samples and enter lab results."
+      },
+      "stats": {
+        "label": "Lab statistics",
+        "description": "Numbers about the lab workload."
+      }
+    },
+    "invoices": {
+      "read": {
+        "label": "View invoices",
+        "description": "See invoices and their payments."
+      },
+      "manage": {
+        "label": "Manage invoices",
+        "description": "Edit drafts, give discounts, issue and cancel invoices."
+      }
+    },
+    "payments": {
+      "create": {
+        "label": "Record payments",
+        "description": "Record a payment for an invoice."
+      },
+      "read": {
+        "label": "View payments",
+        "description": "See the list of all payments."
+      }
+    },
+    "prices": {
+      "read": {
+        "label": "View price list",
+        "description": "See the prices of services."
+      },
+      "manage": {
+        "label": "Manage price list",
+        "description": "Add services and change prices."
+      }
+    },
+    "billing": {
+      "stats": {
+        "label": "Revenue statistics",
+        "description": "Revenue reports for a period."
+      }
+    },
+    "files": {
+      "upload": {
+        "label": "Upload files",
+        "description": "Upload patient documents and images."
+      },
+      "patient_documents": {
+        "label": "View patient documents",
+        "description": "Open a patient's uploaded documents."
+      },
+      "lab_results": {
+        "label": "Lab result files",
+        "description": "Open and upload lab result files."
+      },
+      "delete_any": {
+        "label": "Delete any file",
+        "description": "Delete files uploaded by anyone."
+      }
+    },
+    "history": {
+      "read": {
+        "label": "Full action history",
+        "description": "See the audit log of everything that happened."
+      },
+      "entity_read": {
+        "label": "Record history",
+        "description": "See the change history of one appointment, invoice and so on."
+      },
+      "patient_read": {
+        "label": "Patient timeline",
+        "description": "See every action about one patient."
+      },
+      "user_read": {
+        "label": "User activity",
+        "description": "See the actions one staff member performed."
+      }
+    },
+    "emails": {
+      "read": {
+        "label": "Email log",
+        "description": "See sent emails and their delivery status."
+      }
+    }
+  },
+  "permissionGroups": {
+    "users": "User accounts",
+    "permissions": "Permissions",
+    "staff": "Staff and schedules",
+    "patients": "Patients",
+    "appointments": "Appointments",
+    "encounters": "Visits",
+    "records": "Medical records",
+    "lab": "Laboratory",
+    "billing": "Billing",
+    "files": "Files",
+    "history": "History and audit"
+  },
+  "permissionsPage": {
+    "title": "Permissions",
+    "subtitle": "Choose what each role can do. A change applies to everyone with that role right away.",
+    "search": "Search permissions",
+    "permissionColumn": "Permission",
+    "granted": "{{count}} / {{total}}",
+    "grantedLabel": "{{role}}: {{count}} of {{total}} permissions",
+    "locked": "Administrators always keep this — otherwise nobody could manage permissions.",
+    "groupToggle": "All \"{{group}}\" permissions for {{role}}",
+    "cellLabel": "{{role}}: {{permission}}",
+    "changed": "changed",
+    "readOnlyTitle": "View only",
+    "readOnlyText": "Changing permissions needs the \"Manage permissions\" permission.",
+    "unsaved_one": "{{count}} unsaved change",
+    "unsaved_other": "{{count}} unsaved changes",
+    "unsavedRoles": "Roles: {{roles}}",
+    "discard": "Discard",
+    "save": "Save changes",
+    "saved": "Permissions updated. Users with these roles see the change right away.",
+    "noMatchTitle": "No permissions match",
+    "noMatchText": "Try a different word.",
+    "errorTitle": "Permissions couldn't be loaded",
+    "retry": "Try again",
+    "leaveTitle": "Unsaved changes",
+    "leaveText": "If you leave this page, your changes will be lost.",
+    "leave": "Leave",
+    "stay": "Stay on page",
+    "expandGroup": "Expand section",
+    "collapseGroup": "Collapse section",
+    "groupCount_one": "{{count}} permission",
+    "groupCount_other": "{{count}} permissions"
   }
 }
