@@ -445,6 +445,62 @@
     "reactivateInvitedText": "They never set a password, so the account goes back to “Invited” — resend the invitation afterwards.",
     "reactivated": "{{name}} was reactivated"
   },
+  "departments": {
+    "title": "Departments",
+    "subtitle": "The clinic's departments and how to reach them.",
+    "addButton": "Add department",
+    "search": "Search by name, code or location",
+    "allStatuses": "All statuses",
+    "columns": {
+      "name": "Department",
+      "code": "Code",
+      "location": "Location",
+      "phone": "Phone",
+      "status": "Status",
+      "createdAt": "Added"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "emptyTitle": "No departments yet",
+    "emptyText": "Add the first department to assign staff to it.",
+    "noMatchTitle": "No department matches these filters",
+    "noMatchText": "Try another name or clear the filters.",
+    "createTitle": "Add a department",
+    "createText": "It becomes available across the system right after saving.",
+    "editTitle": "Edit department",
+    "editText": "Changes apply across the system right after saving.",
+    "name": "Name",
+    "namePlaceholder": "Cardiology",
+    "nameRequired": "Enter the department name",
+    "nameTaken": "A department with this name already exists",
+    "code": "Code",
+    "codeRequired": "Enter a code",
+    "codeTaken": "This code is already in use",
+    "codeHint": "A short code used in the price list. It can't be changed later.",
+    "codeLockedHint": "The price list uses this code, so it can't be changed.",
+    "location": "Location",
+    "locationPlaceholder": "Building A, Floor 2",
+    "phone": "Phone",
+    "phoneInvalid": "Enter a valid phone number",
+    "description": "Description",
+    "created": "{{name}} was added",
+    "saved": "Changes saved",
+    "edit": "Edit",
+    "deactivate": "Deactivate",
+    "deactivateTitle": "Deactivate {{name}}?",
+    "deactivateText": "It will no longer be offered for new staff and appointments. Existing records keep it, and you can reactivate it later.",
+    "deactivated": "{{name}} was deactivated",
+    "reactivate": "Reactivate",
+    "reactivateTitle": "Reactivate {{name}}?",
+    "reactivateText": "It will be offered for new staff and appointments again.",
+    "reactivated": "{{name}} was reactivated",
+    "detailsTitle": "Department",
+    "detailsSection": "Details",
+    "activitySection": "Activity",
+    "updatedAt": "Last updated"
+  },
   "history": {
     "title": "Action history",
     "subtitle": "Every change in the system — who did what, and when. The log can't be edited.",
@@ -473,7 +529,8 @@
     "system": "System",
     "entities": {
       "USER": "User",
-      "ROLE": "Role"
+      "ROLE": "Role",
+      "DEPARTMENT": "Department"
     },
     "emailStatus": {
       "QUEUED": "Queued",
@@ -499,6 +556,10 @@
       },
       "role_permissions": {
         "updated": "Permissions changed"
+      },
+      "department": {
+        "created": "Department created",
+        "updated": "Department updated"
       }
     },
     "fields": {
@@ -506,7 +567,11 @@
       "lastName": "last name",
       "role": "role",
       "email": "email",
-      "avatarFileId": "profile photo"
+      "avatarFileId": "profile photo",
+      "name": "name",
+      "description": "description",
+      "location": "location",
+      "phone": "phone"
     },
     "actorSection": "Performed by",
     "detailsSection": "Details",
@@ -520,7 +585,8 @@
       "via": "Method",
       "reason": "Reason",
       "added": "Granted",
-      "removed": "Revoked"
+      "removed": "Revoked",
+      "code": "Code"
     },
     "via": {
       "RESET": "Reset with an email link",
@@ -568,6 +634,12 @@
     },
     "permissions": {
       "updated": "{{actor}} changed the permissions of {{role}} ({{changes}})"
+    },
+    "department": {
+      "created": "{{actor}} created the department {{name}}",
+      "updated": "{{actor}} updated the department {{name}} ({{fields}})",
+      "deactivated": "{{actor}} deactivated the department {{name}}",
+      "reactivated": "{{actor}} reactivated the department {{name}}"
     }
   },
   "permissionCatalog": {

@@ -1,5 +1,6 @@
 import {
   CheckCircleOutlined,
+  ClusterOutlined,
   EditOutlined,
   HistoryOutlined,
   KeyOutlined,
@@ -42,6 +43,8 @@ const EVENT_LOOK: Record<string, { icon: ReactNode; tone: Tone }> = {
   "user.password_changed": { icon: <KeyOutlined />, tone: "warning" },
   "user.session_revoked": { icon: <SafetyOutlined />, tone: "danger" },
   "role_permissions.updated": { icon: <SafetyCertificateOutlined />, tone: "warning" },
+  "department.created": { icon: <ClusterOutlined />, tone: "success" },
+  "department.updated": { icon: <ClusterOutlined />, tone: "primary" },
 };
 const DEFAULT_LOOK = { icon: <HistoryOutlined />, tone: "primary" as Tone };
 

@@ -7,6 +7,7 @@ import { LoginPage } from "@features/auth/pages/LoginPage";
 import { ResetPasswordPage } from "@features/auth/pages/ResetPasswordPage";
 import { ComingSoonPage } from "@features/coming-soon/pages/ComingSoonPage";
 import { DashboardPage } from "@features/dashboard/pages/DashboardPage";
+import { DepartmentsPage } from "@features/departments/pages/DepartmentsPage";
 import { TableDemoPage } from "@features/dev/pages/TableDemoPage";
 import { NotFoundPage } from "@features/errors/pages/NotFoundPage";
 import { HistoryPage } from "@features/history/pages/HistoryPage";
@@ -20,7 +21,14 @@ import { RequireAuth } from "./RequireAuth";
 import { RequirePermission } from "./RequirePermission";
 
 // Pages that exist; every other nav entry shows its "coming soon" page
-const BUILT = new Set(["dashboard", "notifications", "staff", "history", "permissions"]);
+const BUILT = new Set([
+  "dashboard",
+  "notifications",
+  "staff",
+  "departments",
+  "history",
+  "permissions",
+]);
 
 // Signed-in pages need the same permission as their nav entry (and the backend)
 const gated = (key: string, element: React.ReactNode) => (
@@ -60,6 +68,7 @@ export const router = createBrowserRouter([
       { path: PATHS.profile, element: <ProfilePage /> },
       { path: PATHS.notifications, element: <NotificationsPage /> },
       { path: PATHS.staff, element: gated("staff", <StaffPage />) },
+      { path: PATHS.departments, element: gated("departments", <DepartmentsPage />) },
       { path: PATHS.history, element: gated("history", <HistoryPage />) },
       { path: PATHS.permissions, element: gated("permissions", <PermissionsPage />) },
       ...NAV_ITEMS.filter((item) => !BUILT.has(item.key)).map((item) => ({

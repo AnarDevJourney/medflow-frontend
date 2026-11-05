@@ -78,8 +78,10 @@ export const EVENT_TYPES = [
   "user.password_changed",
   "user.session_revoked",
   "role_permissions.updated",
+  "department.created",
+  "department.updated",
 ];
-export const ENTITY_TYPES = ["USER", "ROLE"];
+export const ENTITY_TYPES = ["USER", "ROLE", "DEPARTMENT"];
 export const EMAIL_TEMPLATES = [
   "staff-invite",
   "password-reset",

@@ -445,6 +445,62 @@
     "reactivateInvitedText": "Heç vaxt şifrə təyin etməyib, ona görə hesab “Dəvət edilib” halına qayıdır — sonra dəvəti yenidən göndərin.",
     "reactivated": "{{name}} aktivləşdirildi"
   },
+  "departments": {
+    "title": "Şöbələr",
+    "subtitle": "Klinikanın şöbələri və onların əlaqə məlumatları.",
+    "addButton": "Şöbə əlavə et",
+    "search": "Ad, kod və ya yerləşməyə görə axtar",
+    "allStatuses": "Bütün statuslar",
+    "columns": {
+      "name": "Şöbə",
+      "code": "Kod",
+      "location": "Yerləşmə",
+      "phone": "Telefon",
+      "status": "Status",
+      "createdAt": "Əlavə edilib"
+    },
+    "status": {
+      "active": "Aktiv",
+      "inactive": "Deaktiv"
+    },
+    "emptyTitle": "Hələ şöbə yoxdur",
+    "emptyText": "İşçiləri təyin etmək üçün ilk şöbəni əlavə edin.",
+    "noMatchTitle": "Bu filtrlərə uyğun şöbə yoxdur",
+    "noMatchText": "Başqa ad yoxlayın və ya filtrləri təmizləyin.",
+    "createTitle": "Şöbə əlavə et",
+    "createText": "Yadda saxlayan kimi bütün sistemdə əlçatan olacaq.",
+    "editTitle": "Şöbəni redaktə et",
+    "editText": "Dəyişikliklər yadda saxlayan kimi bütün sistemə tətbiq olunur.",
+    "name": "Ad",
+    "namePlaceholder": "Kardiologiya",
+    "nameRequired": "Şöbənin adını daxil edin",
+    "nameTaken": "Bu adda şöbə artıq mövcuddur",
+    "code": "Kod",
+    "codeRequired": "Kodu daxil edin",
+    "codeTaken": "Bu kod artıq istifadə olunur",
+    "codeHint": "Qiymət siyahısında istifadə olunan qısa kod. Sonradan dəyişdirilə bilməz.",
+    "codeLockedHint": "Qiymət siyahısı bu koddan istifadə edir, ona görə dəyişdirilə bilməz.",
+    "location": "Yerləşmə",
+    "locationPlaceholder": "A binası, 2-ci mərtəbə",
+    "phone": "Telefon",
+    "phoneInvalid": "Düzgün telefon nömrəsi daxil edin",
+    "description": "Təsvir",
+    "created": "{{name}} əlavə edildi",
+    "saved": "Dəyişikliklər yadda saxlanıldı",
+    "edit": "Redaktə et",
+    "deactivate": "Deaktiv et",
+    "deactivateTitle": "{{name}} deaktiv edilsin?",
+    "deactivateText": "Yeni işçilər və görüşlər üçün artıq təklif olunmayacaq. Mövcud qeydlərdə qalacaq, sonradan yenidən aktivləşdirə bilərsiniz.",
+    "deactivated": "{{name}} deaktiv edildi",
+    "reactivate": "Yenidən aktivləşdir",
+    "reactivateTitle": "{{name}} yenidən aktivləşdirilsin?",
+    "reactivateText": "Yeni işçilər və görüşlər üçün yenidən təklif olunacaq.",
+    "reactivated": "{{name}} yenidən aktivləşdirildi",
+    "detailsTitle": "Şöbə",
+    "detailsSection": "Məlumatlar",
+    "activitySection": "Fəaliyyət",
+    "updatedAt": "Son yenilənmə"
+  },
   "history": {
     "title": "Əməliyyat tarixçəsi",
     "subtitle": "Sistemdəki hər dəyişiklik — kim, nə vaxt, nə etdi. Jurnal redaktə edilə bilməz.",
@@ -473,7 +529,8 @@
     "system": "Sistem",
     "entities": {
       "USER": "İstifadəçi",
-      "ROLE": "Rol"
+      "ROLE": "Rol",
+      "DEPARTMENT": "Şöbə"
     },
     "emailStatus": {
       "QUEUED": "Növbədə",
@@ -499,6 +556,10 @@
       },
       "role_permissions": {
         "updated": "İcazələr dəyişdi"
+      },
+      "department": {
+        "created": "Şöbə yaradıldı",
+        "updated": "Şöbə yeniləndi"
       }
     },
     "fields": {
@@ -506,7 +567,11 @@
       "lastName": "soyad",
       "role": "rol",
       "email": "email",
-      "avatarFileId": "profil şəkli"
+      "avatarFileId": "profil şəkli",
+      "name": "ad",
+      "description": "təsvir",
+      "location": "yerləşmə",
+      "phone": "telefon"
     },
     "actorSection": "Əməliyyatı edən",
     "detailsSection": "Təfərrüatlar",
@@ -520,7 +585,8 @@
       "via": "Üsul",
       "reason": "Səbəb",
       "added": "Verilən icazələr",
-      "removed": "Alınan icazələr"
+      "removed": "Alınan icazələr",
+      "code": "Kod"
     },
     "via": {
       "RESET": "Email linki ilə sıfırlama",
@@ -568,6 +634,12 @@
     },
     "permissions": {
       "updated": "{{actor}} {{role}} rolunun icazələrini dəyişdi ({{changes}})"
+    },
+    "department": {
+      "created": "{{actor}} {{name}} şöbəsini yaratdı",
+      "updated": "{{actor}} {{name}} şöbəsini yenilədi ({{fields}})",
+      "deactivated": "{{actor}} {{name}} şöbəsini deaktiv etdi",
+      "reactivated": "{{actor}} {{name}} şöbəsini yenidən aktivləşdirdi"
     }
   },
   "permissionCatalog": {
