@@ -26,6 +26,8 @@ export function MedflowTableSync({ children }: { children: ReactNode }) {
       density: t("table.density"),
       compact: t("table.compact"),
       comfortable: t("table.comfortable"),
+      pageSizes: t("table.pageSizes"),
+      pageSizesHint: (max, count) => t("table.pageSizesHint", { max, count }),
       columns: t("table.columns"),
       visibleCount: (visible, total) => t("table.visibleCount", { visible, total }),
       columnsHint: t("table.columnsHint"),
