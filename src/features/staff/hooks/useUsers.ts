@@ -6,8 +6,10 @@ import {
 } from "@tanstack/react-query";
 import { App } from "antd";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
+import { refreshStaffSoon } from "./useStaff";
 import {
   deactivateUser,
+  getUser,
   inviteUser,
   listUsers,
   reactivateUser,
@@ -28,13 +30,25 @@ export function useUsers(query: UsersQuery) {
   });
 }
 
+// One account (users.read) — last sign-in and the facts staff-service lacks
+export function useUser(id: string | null, enabled = true) {
+  return useQuery({
+    queryKey: [...usersKey, "one", id],
+    queryFn: () => getUser(id!),
+    enabled: Boolean(id) && enabled,
+  });
+}
+
 // Every user action refreshes the lists; business errors show as a toast
 // (forms handle their own field errors)
 export function useUserActions() {
   const queryClient = useQueryClient();
   const { message } = App.useApp();
   const errorMessage = useErrorMessage();
-  const done = () => queryClient.invalidateQueries({ queryKey: usersKey });
+  const done = () => {
+    void queryClient.invalidateQueries({ queryKey: usersKey });
+    refreshStaffSoon(queryClient);
+  };
   const onError = (error: unknown) => void message.error(errorMessage(error));
 
   return {

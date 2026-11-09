@@ -394,7 +394,11 @@
     "preferencesTitle": "Preferences",
     "languageHint": "The language of the whole interface.",
     "appearanceHint": "Theme, colors, density and animations.",
-    "customizeAppearance": "Customize"
+    "customizeAppearance": "Customize",
+    "workTitle": "Work profile",
+    "workText": "How colleagues see you in the staff directory.",
+    "workSetByAdmin": "Department, title and licence are set by an administrator.",
+    "bioHint": "A few words for colleagues: experience, languages, interests."
   },
   "staff": {
     "accountSection": "Account",
@@ -445,7 +449,33 @@
     "reactivateTitle": "Reactivate {{name}}?",
     "reactivateText": "They will be able to sign in again with their existing password.",
     "reactivateInvitedText": "They never set a password, so the account goes back to “Invited” — resend the invitation afterwards.",
-    "reactivated": "{{name}} was reactivated"
+    "reactivated": "{{name}} was reactivated",
+    "directorySubtitle": "Colleagues across the clinic: departments, roles and contacts.",
+    "emptyDirectoryText": "Active colleagues will appear here.",
+    "allDepartments": "All departments",
+    "optional": "Optional",
+    "editProfile": "Edit work profile",
+    "editAccount": "Edit account",
+    "accountTitle": "Account",
+    "reactivateEitherText": "They will be able to sign in again with their existing password. If they never set one, the account goes back to “Invited” — resend the invitation afterwards.",
+    "profile": {
+      "workSection": "Work",
+      "contactSection": "Contact",
+      "department": "Department",
+      "chooseDepartment": "Choose a department",
+      "noDepartment": "No department",
+      "title": "Job title",
+      "titlePlaceholder": "e.g. Senior Cardiologist",
+      "specialization": "Specialization",
+      "licenseNumber": "Licence number",
+      "hireDate": "Hire date",
+      "phone": "Phone",
+      "phoneInvalid": "Enter a valid phone number",
+      "bio": "About",
+      "editTitle": "Work profile",
+      "licenseTaken": "Another staff member already has this licence number",
+      "departmentUnavailable": "This department is no longer available — choose another one"
+    }
   },
   "departments": {
     "title": "Departments",
@@ -501,7 +531,8 @@
     "detailsTitle": "Department",
     "detailsSection": "Details",
     "activitySection": "Activity",
-    "updatedAt": "Last updated"
+    "updatedAt": "Last updated",
+    "noneFound": "No departments found"
   },
   "history": {
     "title": "Action history",
@@ -532,7 +563,8 @@
     "entities": {
       "USER": "User",
       "ROLE": "Role",
-      "DEPARTMENT": "Department"
+      "DEPARTMENT": "Department",
+      "STAFF_MEMBER": "Staff profile"
     },
     "emailStatus": {
       "QUEUED": "Queued",
@@ -562,6 +594,9 @@
       "department": {
         "created": "Department created",
         "updated": "Department updated"
+      },
+      "staff": {
+        "updated": "Work profile updated"
       }
     },
     "fields": {
@@ -573,7 +608,13 @@
       "name": "name",
       "description": "description",
       "location": "location",
-      "phone": "phone"
+      "phone": "phone",
+      "departmentId": "department",
+      "title": "job title",
+      "specialization": "specialization",
+      "licenseNumber": "licence number",
+      "hireDate": "hire date",
+      "bio": "about"
     },
     "actorSection": "Performed by",
     "detailsSection": "Details",
@@ -588,7 +629,8 @@
       "reason": "Reason",
       "added": "Granted",
       "removed": "Revoked",
-      "code": "Code"
+      "code": "Code",
+      "department": "Department"
     },
     "via": {
       "RESET": "Reset with an email link",
@@ -642,6 +684,10 @@
       "updated": "{{actor}} updated the department {{name}} ({{fields}})",
       "deactivated": "{{actor}} deactivated the department {{name}}",
       "reactivated": "{{actor}} reactivated the department {{name}}"
+    },
+    "staff": {
+      "updated": "{{actor}} updated the work profile of {{name}} ({{fields}})",
+      "profileUpdated": "{{name}} updated their work profile ({{fields}})"
     }
   },
   "permissionCatalog": {

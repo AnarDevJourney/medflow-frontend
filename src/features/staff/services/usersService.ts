@@ -29,12 +29,20 @@ export interface InviteUserInput {
   firstName: string;
   lastName: string;
   role: Role;
+  // Not stored by auth: passed on to the staff profile (must be active)
+  departmentId?: string;
+  title?: string;
 }
 
 export type UpdateUserInput = Partial<Pick<StaffUser, "firstName" | "lastName" | "role">>;
 
 export async function listUsers(query: UsersQuery): Promise<Paginated<StaffUser>> {
   const { data } = await api.get<Paginated<StaffUser>>("/users", { params: query });
+  return data;
+}
+
+export async function getUser(id: string): Promise<StaffUser> {
+  const { data } = await api.get<StaffUser>(`/users/${id}`);
   return data;
 }
 

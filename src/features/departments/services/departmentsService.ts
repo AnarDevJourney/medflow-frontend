@@ -28,6 +28,12 @@ export type UpdateDepartmentInput = Partial<
   Pick<Department, "name" | "description" | "location" | "phone" | "isActive">
 >;
 
+// Active departments for pickers (every role, cached by the backend)
+export async function listActiveDepartments(): Promise<Department[]> {
+  const { data } = await api.get<Department[]>("/departments");
+  return data;
+}
+
 // Every department, inactive ones too (departments.manage)
 export async function listDepartments(
   query: DepartmentsQuery,

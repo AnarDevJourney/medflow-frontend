@@ -394,7 +394,11 @@
     "preferencesTitle": "Tərcihlər",
     "languageHint": "Bütün interfeysin dili.",
     "appearanceHint": "Tema, rənglər, sıxlıq və animasiyalar.",
-    "customizeAppearance": "Fərdiləşdir"
+    "customizeAppearance": "Fərdiləşdir",
+    "workTitle": "İş profili",
+    "workText": "Həmkarlarınız sizi əməkdaşlar siyahısında belə görür.",
+    "workSetByAdmin": "Şöbə, vəzifə və lisenziyanı administrator təyin edir.",
+    "bioHint": "Həmkarlarınız üçün bir neçə söz: təcrübə, dillər, maraqlar."
   },
   "staff": {
     "accountSection": "Hesab",
@@ -445,7 +449,33 @@
     "reactivateTitle": "{{name}} aktivləşdirilsin?",
     "reactivateText": "Mövcud şifrəsi ilə yenidən daxil ola biləcək.",
     "reactivateInvitedText": "Heç vaxt şifrə təyin etməyib, ona görə hesab “Dəvət edilib” halına qayıdır — sonra dəvəti yenidən göndərin.",
-    "reactivated": "{{name}} aktivləşdirildi"
+    "reactivated": "{{name}} aktivləşdirildi",
+    "directorySubtitle": "Klinikadakı həmkarlarınız: şöbələr, rollar və əlaqə məlumatları.",
+    "emptyDirectoryText": "Aktiv həmkarlarınız burada görünəcək.",
+    "allDepartments": "Bütün şöbələr",
+    "optional": "İstəyə bağlı",
+    "editProfile": "İş profilini redaktə et",
+    "editAccount": "Hesabı redaktə et",
+    "accountTitle": "Hesab",
+    "reactivateEitherText": "Mövcud şifrəsi ilə yenidən daxil ola biləcək. Əgər heç vaxt şifrə təyin etməyibsə, hesab “Dəvət edilib” halına qayıdır — sonra dəvəti yenidən göndərin.",
+    "profile": {
+      "workSection": "İş",
+      "contactSection": "Əlaqə",
+      "department": "Şöbə",
+      "chooseDepartment": "Şöbə seçin",
+      "noDepartment": "Şöbə yoxdur",
+      "title": "Vəzifə",
+      "titlePlaceholder": "məs. Baş kardioloq",
+      "specialization": "İxtisas",
+      "licenseNumber": "Lisenziya nömrəsi",
+      "hireDate": "İşə qəbul tarixi",
+      "phone": "Telefon",
+      "phoneInvalid": "Düzgün telefon nömrəsi daxil edin",
+      "bio": "Haqqında",
+      "editTitle": "İş profili",
+      "licenseTaken": "Bu lisenziya nömrəsi artıq başqa əməkdaşa məxsusdur",
+      "departmentUnavailable": "Bu şöbə artıq mövcud deyil — başqasını seçin"
+    }
   },
   "departments": {
     "title": "Şöbələr",
@@ -501,7 +531,8 @@
     "detailsTitle": "Şöbə",
     "detailsSection": "Məlumatlar",
     "activitySection": "Fəaliyyət",
-    "updatedAt": "Son yenilənmə"
+    "updatedAt": "Son yenilənmə",
+    "noneFound": "Şöbə tapılmadı"
   },
   "history": {
     "title": "Əməliyyat tarixçəsi",
@@ -532,7 +563,8 @@
     "entities": {
       "USER": "İstifadəçi",
       "ROLE": "Rol",
-      "DEPARTMENT": "Şöbə"
+      "DEPARTMENT": "Şöbə",
+      "STAFF_MEMBER": "İş profili"
     },
     "emailStatus": {
       "QUEUED": "Növbədə",
@@ -562,6 +594,9 @@
       "department": {
         "created": "Şöbə yaradıldı",
         "updated": "Şöbə yeniləndi"
+      },
+      "staff": {
+        "updated": "İş profili yeniləndi"
       }
     },
     "fields": {
@@ -573,7 +608,13 @@
       "name": "ad",
       "description": "təsvir",
       "location": "yerləşmə",
-      "phone": "telefon"
+      "phone": "telefon",
+      "departmentId": "şöbə",
+      "title": "vəzifə",
+      "specialization": "ixtisas",
+      "licenseNumber": "lisenziya nömrəsi",
+      "hireDate": "işə qəbul tarixi",
+      "bio": "haqqında"
     },
     "actorSection": "Əməliyyatı edən",
     "detailsSection": "Təfərrüatlar",
@@ -588,7 +629,8 @@
       "reason": "Səbəb",
       "added": "Verilən icazələr",
       "removed": "Alınan icazələr",
-      "code": "Kod"
+      "code": "Kod",
+      "department": "Şöbə"
     },
     "via": {
       "RESET": "Email linki ilə sıfırlama",
@@ -642,6 +684,10 @@
       "updated": "{{actor}} {{name}} şöbəsini yenilədi ({{fields}})",
       "deactivated": "{{actor}} {{name}} şöbəsini deaktiv etdi",
       "reactivated": "{{actor}} {{name}} şöbəsini yenidən aktivləşdirdi"
+    },
+    "staff": {
+      "updated": "{{actor}} {{name}} adlı əməkdaşın iş profilini yenilədi ({{fields}})",
+      "profileUpdated": "{{name}} öz iş profilini yenilədi ({{fields}})"
     }
   },
   "permissionCatalog": {

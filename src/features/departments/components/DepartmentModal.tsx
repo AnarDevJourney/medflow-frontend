@@ -11,6 +11,7 @@ import { useErrorMessage } from "@lib/api/useErrorMessage";
 import { useDepartmentActions } from "../hooks/useDepartments";
 import type { Department } from "../services/departmentsService";
 import styles from "./DepartmentModal.module.css";
+import { PHONE_PATTERN } from "@utils/phone";
 
 interface DepartmentValues {
   code: string;
@@ -35,9 +36,6 @@ const toValues = (department: Department): DepartmentValues => ({
   phone: department.phone ?? "",
   description: department.description ?? "",
 });
-
-// Same rules as the backend DTOs
-const PHONE_PATTERN = /^\+?[0-9 ()-]{5,19}$/;
 
 // Add (department = null) or edit one. The code is fixed after creation.
 export function DepartmentModal({

@@ -1,8 +1,17 @@
 import { App } from "antd";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import type { StaffUser } from "../services/usersService";
 import { useUserActions } from "./useUsers";
+
+// What the confirmations need: an auth user, or a staff row (id = userId,
+// no lastLoginAt — then the reactivate text covers both cases)
+export interface AccountRef {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  lastLoginAt?: string | null;
+}
 
 // Account actions with an explicit confirmation that states the consequence
 export function useConfirmUserAction() {
@@ -16,9 +25,9 @@ export function useConfirmUserAction() {
   // Stable between renders (mutate / mutateAsync are), so a table's
   // memoized columns that call these are not rebuilt on every render
   const confirm = useMemo(() => {
-    const name = (u: StaffUser) => `${u.firstName} ${u.lastName}`;
+    const name = (u: AccountRef) => `${u.firstName} ${u.lastName}`;
     return {
-      deactivate: (user: StaffUser) =>
+      deactivate: (user: AccountRef) =>
         modal.confirm({
           title: t("staff.deactivateTitle", { name: name(user) }),
           content: t("staff.deactivateText"),
@@ -30,11 +39,15 @@ export function useConfirmUserAction() {
               () => void message.success(t("staff.deactivated", { name: name(user) })),
             ),
         }),
-      reactivate: (user: StaffUser) =>
+      reactivate: (user: AccountRef) =>
         modal.confirm({
           title: t("staff.reactivateTitle", { name: name(user) }),
           content: t(
-            user.lastLoginAt ? "staff.reactivateText" : "staff.reactivateInvitedText",
+            user.lastLoginAt === undefined
+              ? "staff.reactivateEitherText"
+              : user.lastLoginAt
+                ? "staff.reactivateText"
+                : "staff.reactivateInvitedText",
           ),
           okText: t("staff.reactivate"),
           cancelText: t("common.cancel"),
@@ -43,7 +56,7 @@ export function useConfirmUserAction() {
               () => void message.success(t("staff.reactivated", { name: name(user) })),
             ),
         }),
-      resend: (user: StaffUser) =>
+      resend: (user: AccountRef) =>
         resend(user.id, {
           onSuccess: () =>
             void message.success(t("staff.inviteResent", { email: user.email })),

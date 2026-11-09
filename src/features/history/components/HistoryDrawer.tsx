@@ -3,6 +3,7 @@ import {
   ClusterOutlined,
   EditOutlined,
   HistoryOutlined,
+  IdcardOutlined,
   KeyOutlined,
   SafetyCertificateOutlined,
   SafetyOutlined,
@@ -45,6 +46,7 @@ const EVENT_LOOK: Record<string, { icon: ReactNode; tone: Tone }> = {
   "role_permissions.updated": { icon: <SafetyCertificateOutlined />, tone: "warning" },
   "department.created": { icon: <ClusterOutlined />, tone: "success" },
   "department.updated": { icon: <ClusterOutlined />, tone: "primary" },
+  "staff.updated": { icon: <IdcardOutlined />, tone: "primary" },
 };
 const DEFAULT_LOOK = { icon: <HistoryOutlined />, tone: "primary" as Tone };
 

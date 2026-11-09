@@ -1,11 +1,12 @@
 import {
+  EditOutlined,
+  IdcardOutlined,
   MailOutlined,
   StopOutlined,
   UndoOutlined,
   UserAddOutlined,
-  EditOutlined,
 } from "@ant-design/icons";
-import { Button, Select, Tooltip } from "antd";
+import { Button, Select } from "antd";
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -21,62 +22,72 @@ import { SearchInput } from "@components/ui/SearchInput";
 import { UserAvatar } from "@components/ui/UserAvatar";
 import { UserStatusTag } from "@components/ui/UserStatusTag";
 import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
+import { DepartmentSelect } from "@features/departments/components/DepartmentSelect";
 import { useCan } from "@features/permissions/hooks/usePermissions";
-import { formatDate, formatDateTime, fromNow } from "@lib/dayjs";
+import { formatDate, formatDay } from "@lib/dayjs";
 import { UserStatus, type Role } from "@models/enums";
 import { USER_STATUS_COLOR } from "@utils/statusColors";
 import { InviteUserModal } from "../components/InviteUserModal";
-import { StaffDetailDrawer } from "../components/StaffDetailDrawer";
 import { RoleSelect } from "../components/RoleSelect";
+import { StaffDetailDrawer } from "../components/StaffDetailDrawer";
+import { StaffProfileModal } from "../components/StaffProfileModal";
 import { UserModal } from "../components/UserModal";
 import { useConfirmUserAction } from "../hooks/useConfirmUserAction";
-import { useUsers } from "../hooks/useUsers";
-import type { StaffUser } from "../services/usersService";
+import { useStaff } from "../hooks/useStaff";
+import type { StaffMember } from "../services/staffService";
 import styles from "./StaffPage.module.css";
 
 // DataTable column key → API sort field
 const SORT_FIELDS: Record<string, string> = {
-  name: "lastName",
+  name: "name",
   email: "email",
-  lastLoginAt: "lastLoginAt",
+  department: "department",
+  status: "status",
+  hireDate: "hireDate",
   createdAt: "createdAt",
 };
 
-// User management on auth-service /users (users.read); each action shows
-// only with its permission.
-// TODO(phase 5): all-roles staff directory with department and title.
+// Staff directory for every role (staff-service, staff.read). Without
+// users.read only active people are listed and account status stays hidden;
+// account actions (invite, edit, deactivate) and the work profile edit show
+// only with their permissions.
 export function StaffPage() {
   const { t } = useTranslation();
   const { data: me } = useCurrentUser();
   const can = useCan();
+  const canReadAccounts = can("users.read");
   const canInvite = can("users.invite");
-  const canEdit = can("users.update");
+  const canEditAccount = canReadAccounts && can("users.update");
   const canDeactivate = can("users.deactivate");
+  const canEditProfile = can("staff.update");
   const { resend, deactivate, reactivate } = useConfirmUserAction();
   const [search, setSearch] = useState("");
   const [role, setRole] = useState<Role>();
+  const [departmentId, setDepartmentId] = useState<string>();
   const [status, setStatus] = useState<UserStatus>();
   const [sort, setSort] = useState<DataTableSort | null>(null);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
   const [inviteOpen, setInviteOpen] = useState(false);
   const [detailsId, setDetailsId] = useState<string | null>(null);
-  const [editId, setEditId] = useState<string | null>(null);
+  const [profileId, setProfileId] = useState<string | null>(null);
+  const [accountId, setAccountId] = useState<string | null>(null);
 
-  const users = useUsers({
+  const staff = useStaff({
     page,
     limit: pageSize,
     role,
-    status,
+    departmentId,
+    status: canReadAccounts ? status : undefined,
     search: search || undefined,
     sort: sort ? `${SORT_FIELDS[sort.key]}:${sort.order}` : undefined,
   });
   // Always the fresh row (the list refetches after every action)
-  const findUser = (id: string | null) =>
-    users.data?.items.find((u) => u.id === id) ?? null;
-  const filtersActive = Boolean(search || role || status);
+  const findStaff = (userId: string | null) =>
+    staff.data?.items.find((s) => s.userId === userId) ?? null;
+  const filtersActive = Boolean(search || role || departmentId || status);
 
-  const columns = useMemo<DataTableColumn<StaffUser>[]>(
+  const columns = useMemo<DataTableColumn<StaffMember>[]>(
     () => [
       {
         key: "name",
@@ -84,15 +95,17 @@ export function StaffPage() {
         width: 280,
         hideable: false,
         sortable: true,
-        render: (_, u) => (
+        render: (_, s) => (
           <span className={styles.person}>
-            <UserAvatar firstName={u.firstName} lastName={u.lastName} size={28} />
+            <UserAvatar firstName={s.firstName} lastName={s.lastName} size={28} />
             <span className={styles.personText}>
               <span className={styles.personName}>
-                {u.firstName} {u.lastName}
-                {u.id === me?.id && <span className={styles.you}>{t("staff.you")}</span>}
+                {s.firstName} {s.lastName}
+                {s.userId === me?.id && (
+                  <span className={styles.you}>{t("staff.you")}</span>
+                )}
               </span>
-              <span className={styles.personEmail}>{u.email}</span>
+              <span className={styles.personEmail}>{s.email}</span>
             </span>
           </span>
         ),
@@ -113,26 +126,59 @@ export function StaffPage() {
         render: (value) => <RoleTag role={value as Role} />,
       },
       {
-        key: "status",
-        title: t("staff.columns.status"),
-        dataIndex: "status",
-        width: 160,
-        render: (value) => <UserStatusTag status={value as UserStatus} />,
+        key: "department",
+        title: t("staff.profile.department"),
+        width: 190,
+        sortable: true,
+        render: (_, s) =>
+          s.department ? (
+            <span className={s.department.isActive ? undefined : styles.muted}>
+              {s.department.name}
+            </span>
+          ) : (
+            <span className={styles.muted}>—</span>
+          ),
       },
       {
-        key: "lastLoginAt",
-        title: t("staff.lastLogin"),
-        dataIndex: "lastLoginAt",
-        width: 170,
-        sortable: true,
+        key: "title",
+        title: t("staff.profile.title"),
+        dataIndex: "title",
+        width: 200,
         render: (value) =>
-          value ? (
-            <Tooltip title={formatDateTime(String(value))}>
-              <span>{fromNow(String(value))}</span>
-            </Tooltip>
-          ) : (
-            <span className={styles.muted}>{t("staff.never")}</span>
-          ),
+          value ? String(value) : <span className={styles.muted}>—</span>,
+      },
+      ...(canReadAccounts
+        ? [
+            {
+              key: "status",
+              title: t("staff.columns.status"),
+              dataIndex: "status",
+              width: 160,
+              sortable: true,
+              render: (value: unknown) => <UserStatusTag status={value as UserStatus} />,
+            } satisfies DataTableColumn<StaffMember>,
+          ]
+        : []),
+      {
+        key: "phone",
+        title: t("staff.profile.phone"),
+        dataIndex: "phone",
+        width: 170,
+        defaultHidden: true,
+        render: (value) =>
+          value ? String(value) : <span className={styles.muted}>—</span>,
+      },
+      {
+        key: "hireDate",
+        title: t("staff.profile.hireDate"),
+        dataIndex: "hireDate",
+        width: 150,
+        numeric: true,
+        align: "left",
+        sortable: true,
+        defaultHidden: true,
+        render: (value) =>
+          value ? formatDay(String(value)) : <span className={styles.muted}>—</span>,
       },
       {
         key: "createdAt",
@@ -142,24 +188,29 @@ export function StaffPage() {
         numeric: true,
         align: "left",
         sortable: true,
+        defaultHidden: !canReadAccounts,
         render: (value) => formatDate(String(value)),
       },
     ],
-    [t, me?.id],
+    [t, me?.id, canReadAccounts],
   );
 
   const resetFilters = () => {
     setSearch("");
     setRole(undefined);
+    setDepartmentId(undefined);
     setStatus(undefined);
     setPage(1);
   };
+
+  // The confirmations take the account id (= userId)
+  const account = (s: StaffMember) => ({ ...s, id: s.userId });
 
   return (
     <>
       <PageHeader
         title={t("staff.title")}
-        subtitle={t("staff.subtitle")}
+        subtitle={t(canInvite ? "staff.subtitle" : "staff.directorySubtitle")}
         actions={
           canInvite && (
             <Button
@@ -172,14 +223,14 @@ export function StaffPage() {
           )
         }
       />
-      <DataTable<StaffUser>
+      <DataTable<StaffMember>
         tableKey="staff"
         columns={columns}
-        data={users.data?.items}
-        rowKey="id"
-        loading={users.isFetching}
-        error={users.error}
-        onRetry={() => void users.refetch()}
+        data={staff.data?.items}
+        rowKey="userId"
+        loading={staff.isFetching}
+        error={staff.error}
+        onRetry={() => void staff.refetch()}
         sort={sort}
         onSortChange={(next) => {
           setSort(next);
@@ -188,58 +239,68 @@ export function StaffPage() {
         pagination={{
           page,
           pageSize,
-          total: users.data?.meta.total ?? 0,
+          total: staff.data?.meta.total ?? 0,
           onChange: (nextPage, nextSize) => {
             setPage(nextSize === pageSize ? nextPage : 1);
             setPageSize(nextSize);
           },
         }}
-        onRowClick={(u) => setDetailsId(u.id)}
-        onViewDetails={(u) => setDetailsId(u.id)}
-        rowLabel={(u) => `${u.firstName} ${u.lastName}`}
-        rowActions={(u) => {
+        onRowClick={(s) => setDetailsId(s.userId)}
+        onViewDetails={(s) => setDetailsId(s.userId)}
+        rowLabel={(s) => `${s.firstName} ${s.lastName}`}
+        rowActions={(s) => {
           const edits: DataTableRowAction[] = [
-            ...(canEdit
+            ...(canEditProfile
               ? [
                   {
-                    key: "edit",
-                    icon: <EditOutlined />,
-                    label: t("staff.edit"),
-                    onClick: () => setEditId(u.id),
+                    key: "profile",
+                    icon: <IdcardOutlined />,
+                    label: t("staff.editProfile"),
+                    onClick: () => setProfileId(s.userId),
                   },
                 ]
               : []),
-            ...(canInvite && u.status === "INVITED"
+            ...(canEditAccount
+              ? [
+                  {
+                    key: "account",
+                    icon: <EditOutlined />,
+                    label: t("staff.editAccount"),
+                    onClick: () => setAccountId(s.userId),
+                  },
+                ]
+              : []),
+            ...(canInvite && s.status === "INVITED"
               ? [
                   {
                     key: "resend",
                     icon: <MailOutlined />,
                     label: t("staff.resendInvite"),
-                    onClick: () => resend(u),
+                    onClick: () => resend(account(s)),
                   },
                 ]
               : []),
           ];
           if (!canDeactivate) return edits;
-          const status: DataTableRowAction =
-            u.status === "DEACTIVATED"
+          const statusAction: DataTableRowAction =
+            s.status === "DEACTIVATED"
               ? {
                   key: "reactivate",
                   icon: <UndoOutlined />,
                   label: t("staff.reactivate"),
-                  onClick: () => reactivate(u),
+                  onClick: () => reactivate(account(s)),
                 }
               : {
                   key: "deactivate",
                   icon: <StopOutlined />,
                   label: t("staff.deactivate"),
                   danger: true,
-                  disabled: u.id === me?.id,
-                  onClick: () => deactivate(u),
+                  disabled: s.userId === me?.id,
+                  onClick: () => deactivate(account(s)),
                 };
-          return edits.length > 0 ? [...edits, "divider", status] : [status];
+          return edits.length > 0 ? [...edits, "divider", statusAction] : [statusAction];
         }}
-        rowAccent={(u) => USER_STATUS_COLOR[u.status]}
+        rowAccent={canReadAccounts ? (s) => USER_STATUS_COLOR[s.status] : undefined}
         empty={
           filtersActive
             ? {
@@ -251,7 +312,9 @@ export function StaffPage() {
               }
             : {
                 title: t("staff.emptyTitle"),
-                description: t("staff.emptyText"),
+                description: t(
+                  canInvite ? "staff.emptyText" : "staff.emptyDirectoryText",
+                ),
                 action: canInvite && (
                   <Button
                     type="primary"
@@ -285,39 +348,65 @@ export function StaffPage() {
               className={styles.filter}
               aria-label={t("staff.role")}
             />
-            <Select<UserStatus>
+            <DepartmentSelect
               allowClear
-              placeholder={t("staff.allStatuses")}
-              value={status}
+              placeholder={t("staff.allDepartments")}
+              value={departmentId}
               onChange={(value) => {
-                setStatus(value);
+                setDepartmentId(value);
                 setPage(1);
               }}
-              options={Object.values(UserStatus).map((s) => ({
-                value: s,
-                label: t(`userStatus.${s}`),
-              }))}
               className={styles.filter}
-              aria-label={t("staff.columns.status")}
+              aria-label={t("staff.profile.department")}
             />
+            {canReadAccounts && (
+              <Select<UserStatus>
+                allowClear
+                placeholder={t("staff.allStatuses")}
+                value={status}
+                onChange={(value) => {
+                  setStatus(value);
+                  setPage(1);
+                }}
+                options={Object.values(UserStatus).map((s) => ({
+                  value: s,
+                  label: t(`userStatus.${s}`),
+                }))}
+                className={styles.filter}
+                aria-label={t("staff.columns.status")}
+              />
+            )}
             <ClearFiltersButton active={filtersActive} onClear={resetFilters} />
           </>
         }
       />
       <InviteUserModal open={inviteOpen} onClose={() => setInviteOpen(false)} />
       <StaffDetailDrawer
-        user={findUser(detailsId)}
+        staff={findStaff(detailsId)}
+        canReadAccount={canReadAccounts}
         onClose={() => setDetailsId(null)}
-        onEdit={
-          canEdit
-            ? (u) => {
+        onEditProfile={
+          canEditProfile
+            ? (s) => {
                 setDetailsId(null);
-                setEditId(u.id);
+                setProfileId(s.userId);
+              }
+            : undefined
+        }
+        onEditAccount={
+          canEditAccount
+            ? (s) => {
+                setDetailsId(null);
+                setAccountId(s.userId);
               }
             : undefined
         }
       />
-      <UserModal user={findUser(editId)} onClose={() => setEditId(null)} />
+      <StaffProfileModal
+        staff={findStaff(profileId)}
+        onClose={() => setProfileId(null)}
+      />
+      <UserModal userId={accountId} onClose={() => setAccountId(null)} />
     </>
   );
 }

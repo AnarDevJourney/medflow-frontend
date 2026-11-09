@@ -20,6 +20,10 @@ export const formatDateTime = (iso: string | Date) =>
 
 export const formatDate = (iso: string | Date) => toClinicTime(iso).format("DD MMM YYYY");
 
+// A calendar day from the API ("2024-09-01", e.g. a hire date): no time
+// zone conversion, the day is the same everywhere
+export const formatDay = (ymd: string) => dayjs(ymd).format("DD MMM YYYY");
+
 export const fromNow = (iso: string | Date) => dayjs(iso).fromNow();
 
 export default dayjs;

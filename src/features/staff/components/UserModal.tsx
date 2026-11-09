@@ -1,5 +1,5 @@
 import { MailOutlined, StopOutlined, UndoOutlined } from "@ant-design/icons";
-import { App, Button, Form, Input } from "antd";
+import { App, Button, Form, Input, Skeleton } from "antd";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -14,7 +14,7 @@ import { formatDateTime } from "@lib/dayjs";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
 import type { Role } from "@models/enums";
 import { useConfirmUserAction } from "../hooks/useConfirmUserAction";
-import type { StaffUser } from "../services/usersService";
+import { useUser } from "../hooks/useUsers";
 import { RoleSelect } from "./RoleSelect";
 import styles from "./StaffModals.module.css";
 
@@ -24,15 +24,18 @@ interface EditValues {
   role: Role;
 }
 
-// One account: facts, edit name / role, and the status actions
+// One account (auth-service, loaded by id): facts, edit name / role, and the
+// status actions. The work profile has its own modal (StaffProfileModal).
 export function UserModal({
-  user: selected,
+  userId,
   onClose,
 }: {
-  user: StaffUser | null;
+  userId: string | null;
   onClose: () => void;
 }) {
   const { t } = useTranslation();
+  const account = useUser(userId);
+  const selected = userId ? (account.data ?? null) : null;
   const { message } = App.useApp();
   const errorMessage = useErrorMessage();
   const { data: me } = useCurrentUser();
@@ -82,19 +85,20 @@ export function UserModal({
 
   return (
     <AppModal
-      open={Boolean(selected)}
+      open={Boolean(userId)}
       onClose={onClose}
       afterClose={() => setUser(null)}
-      title={t("staff.detailsTitle")}
+      title={t("staff.accountTitle")}
       onSubmit={(event) => void save(event)}
       dirty={formState.isDirty}
       cancelText={t("table.done")}
       primaryAction={{
         label: t("common.save"),
-        disabled: !formState.isDirty,
+        disabled: !user || !formState.isDirty,
         loading: confirm.actions.update.isPending,
       }}
     >
+      {!user && <Skeleton active avatar paragraph={{ rows: 4 }} />}
       {user && (
         <>
           <div className={styles.head}>

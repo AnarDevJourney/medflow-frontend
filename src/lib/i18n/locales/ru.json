@@ -394,7 +394,11 @@
     "preferencesTitle": "Настройки",
     "languageHint": "Язык всего интерфейса.",
     "appearanceHint": "Тема, цвета, плотность и анимации.",
-    "customizeAppearance": "Настроить"
+    "customizeAppearance": "Настроить",
+    "workTitle": "Рабочий профиль",
+    "workText": "Так вас видят коллеги в списке сотрудников.",
+    "workSetByAdmin": "Отделение, должность и лицензию указывает администратор.",
+    "bioHint": "Пара слов для коллег: опыт, языки, интересы."
   },
   "staff": {
     "accountSection": "Учётная запись",
@@ -445,7 +449,33 @@
     "reactivateTitle": "Активировать {{name}}?",
     "reactivateText": "Сотрудник снова сможет войти с прежним паролем.",
     "reactivateInvitedText": "Пароль так и не был задан, поэтому статус вернётся к «Приглашён» — затем отправьте приглашение повторно.",
-    "reactivated": "{{name}} активирован(а)"
+    "reactivated": "{{name}} активирован(а)",
+    "directorySubtitle": "Коллеги клиники: отделения, роли и контакты.",
+    "emptyDirectoryText": "Здесь появятся активные коллеги.",
+    "allDepartments": "Все отделения",
+    "optional": "Необязательно",
+    "editProfile": "Изменить рабочий профиль",
+    "editAccount": "Изменить учётную запись",
+    "accountTitle": "Учётная запись",
+    "reactivateEitherText": "Сотрудник снова сможет войти с прежним паролем. Если пароль так и не был задан, статус вернётся к «Приглашён» — затем отправьте приглашение повторно.",
+    "profile": {
+      "workSection": "Работа",
+      "contactSection": "Контакты",
+      "department": "Отделение",
+      "chooseDepartment": "Выберите отделение",
+      "noDepartment": "Без отделения",
+      "title": "Должность",
+      "titlePlaceholder": "напр. Старший кардиолог",
+      "specialization": "Специализация",
+      "licenseNumber": "Номер лицензии",
+      "hireDate": "Дата приёма на работу",
+      "phone": "Телефон",
+      "phoneInvalid": "Введите корректный номер телефона",
+      "bio": "О себе",
+      "editTitle": "Рабочий профиль",
+      "licenseTaken": "Этот номер лицензии уже указан у другого сотрудника",
+      "departmentUnavailable": "Это отделение больше недоступно — выберите другое"
+    }
   },
   "departments": {
     "title": "Отделения",
@@ -501,7 +531,8 @@
     "detailsTitle": "Отделение",
     "detailsSection": "Сведения",
     "activitySection": "Активность",
-    "updatedAt": "Последнее изменение"
+    "updatedAt": "Последнее изменение",
+    "noneFound": "Отделения не найдены"
   },
   "history": {
     "title": "История действий",
@@ -532,7 +563,8 @@
     "entities": {
       "USER": "Пользователь",
       "ROLE": "Роль",
-      "DEPARTMENT": "Отделение"
+      "DEPARTMENT": "Отделение",
+      "STAFF_MEMBER": "Рабочий профиль"
     },
     "emailStatus": {
       "QUEUED": "В очереди",
@@ -562,6 +594,9 @@
       "department": {
         "created": "Отделение создано",
         "updated": "Отделение изменено"
+      },
+      "staff": {
+        "updated": "Рабочий профиль изменён"
       }
     },
     "fields": {
@@ -573,7 +608,13 @@
       "name": "название",
       "description": "описание",
       "location": "расположение",
-      "phone": "телефон"
+      "phone": "телефон",
+      "departmentId": "отделение",
+      "title": "должность",
+      "specialization": "специализация",
+      "licenseNumber": "номер лицензии",
+      "hireDate": "дата приёма",
+      "bio": "о себе"
     },
     "actorSection": "Кто выполнил",
     "detailsSection": "Подробности",
@@ -588,7 +629,8 @@
       "reason": "Причина",
       "added": "Выданы",
       "removed": "Отозваны",
-      "code": "Код"
+      "code": "Код",
+      "department": "Отделение"
     },
     "via": {
       "RESET": "Сброс по ссылке из письма",
@@ -642,6 +684,10 @@
       "updated": "{{actor}} изменил(а) отделение «{{name}}» ({{fields}})",
       "deactivated": "{{actor}} деактивировал(а) отделение «{{name}}»",
       "reactivated": "{{actor}} восстановил(а) отделение «{{name}}»"
+    },
+    "staff": {
+      "updated": "{{actor}} изменил(а) рабочий профиль: {{name}} ({{fields}})",
+      "profileUpdated": "{{name}} изменил(а) свой рабочий профиль ({{fields}})"
     }
   },
   "permissionCatalog": {

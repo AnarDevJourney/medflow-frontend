@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import {
   createDepartment,
+  listActiveDepartments,
   listDepartments,
   updateDepartment,
   type CreateDepartmentInput,
@@ -20,6 +21,16 @@ export function useDepartments(query: DepartmentsQuery) {
     queryKey: [...departmentsKey, query],
     queryFn: () => listDepartments(query),
     placeholderData: keepPreviousData, // no empty flash between pages / filters
+  });
+}
+
+// Pickers: active departments, alphabetical. Changes rarely, so 5 minutes
+// fresh; every department change invalidates it (same key prefix).
+export function useActiveDepartments() {
+  return useQuery({
+    queryKey: [...departmentsKey, "active"],
+    queryFn: listActiveDepartments,
+    staleTime: 5 * 60 * 1000,
   });
 }
 

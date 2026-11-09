@@ -58,6 +58,15 @@ export const NAV_ITEMS: NavItem[] = [
     group: "main",
   },
   {
+    key: "staff",
+    path: PATHS.staff,
+    labelKey: "nav.staff",
+    icon: <TeamOutlined />,
+    // Staff directory for every role (DOC 9.1); admins also manage accounts
+    permission: "staff.read",
+    group: "main",
+  },
+  {
     key: "patients",
     path: PATHS.patients,
     labelKey: "nav.patients",
@@ -96,16 +105,6 @@ export const NAV_ITEMS: NavItem[] = [
     icon: <TagsOutlined />,
     permission: "prices.read",
     group: "finance",
-  },
-  {
-    key: "staff",
-    path: PATHS.staff,
-    labelKey: "nav.staff",
-    icon: <TeamOutlined />,
-    // F1: user management on auth /users.
-    // TODO(phase 5): staff directory for every role (DOC 9.1, staff.read).
-    permission: "users.read",
-    group: "admin",
   },
   {
     key: "departments",

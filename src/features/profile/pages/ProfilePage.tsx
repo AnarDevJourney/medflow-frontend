@@ -6,9 +6,11 @@ import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
 import { ChangePasswordCard } from "../components/ChangePasswordCard";
 import { PersonalInfoCard } from "../components/PersonalInfoCard";
 import { PreferencesCard } from "../components/PreferencesCard";
+import { WorkProfileCard } from "../components/WorkProfileCard";
 import styles from "./ProfilePage.module.css";
 
-// Own account: name, password, language and appearance (avatar: phase 10)
+// Own account: name, work profile, password, language and appearance
+// (avatar: phase 10)
 export function ProfilePage() {
   const { t } = useTranslation();
   const { data: user } = useCurrentUser();
@@ -28,6 +30,7 @@ export function ProfilePage() {
         </aside>
         <div className={styles.cards}>
           <PersonalInfoCard user={user} />
+          <WorkProfileCard />
           <ChangePasswordCard />
           <PreferencesCard />
         </div>

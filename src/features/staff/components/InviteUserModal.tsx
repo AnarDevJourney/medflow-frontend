@@ -4,6 +4,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AppModal } from "@components/modal";
 import { FormField } from "@components/ui/FormField";
+import { DepartmentSelect } from "@features/departments/components/DepartmentSelect";
 import { applyFieldErrors } from "@lib/api/formErrors";
 import { isApiError } from "@lib/api/errors";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
@@ -17,12 +18,22 @@ interface InviteValues {
   firstName: string;
   lastName: string;
   role: Role | undefined;
+  departmentId: string | undefined;
+  title: string;
 }
 
-const EMPTY: InviteValues = { email: "", firstName: "", lastName: "", role: undefined };
+const EMPTY: InviteValues = {
+  email: "",
+  firstName: "",
+  lastName: "",
+  role: undefined,
+  departmentId: undefined,
+  title: "",
+};
 
 // New staff member: an INVITED account + an email with a 72-hour link.
-// TODO(phase 5): department and title (staff profile).
+// Department and job title go to the staff profile, which staff-service
+// creates from the invite; both are optional.
 export function InviteUserModal({
   open,
   onClose,
@@ -51,6 +62,8 @@ export function InviteUserModal({
         firstName: v.firstName.trim(),
         lastName: v.lastName.trim(),
         role: v.role!,
+        departmentId: v.departmentId,
+        title: v.title.trim() || undefined,
       },
       {
         onSuccess: (user) => {
@@ -60,6 +73,10 @@ export function InviteUserModal({
         onError: (error) => {
           if (isApiError(error, "CONFLICT"))
             setError("email", { message: t("staff.emailTaken") });
+          else if (isApiError(error, "BUSINESS_RULE"))
+            setError("departmentId", {
+              message: t("staff.profile.departmentUnavailable"),
+            });
           else if (!applyFieldErrors(error, setError))
             void message.error(errorMessage(error));
         },
@@ -159,6 +176,46 @@ export function InviteUserModal({
             )}
           />
         </FormField>
+        <div className={styles.row}>
+          <FormField
+            label={t("staff.profile.department")}
+            error={formState.errors.departmentId}
+            extra={t("staff.optional")}
+            htmlFor="invite-department"
+          >
+            <Controller
+              name="departmentId"
+              control={control}
+              render={({ field }) => (
+                <DepartmentSelect
+                  {...field}
+                  id="invite-department"
+                  allowClear
+                  placeholder={t("staff.profile.chooseDepartment")}
+                />
+              )}
+            />
+          </FormField>
+          <FormField
+            label={t("staff.profile.title")}
+            error={formState.errors.title}
+            extra={t("staff.optional")}
+            htmlFor="invite-title"
+          >
+            <Controller
+              name="title"
+              control={control}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  id="invite-title"
+                  maxLength={100}
+                  placeholder={t("staff.profile.titlePlaceholder")}
+                />
+              )}
+            />
+          </FormField>
+        </div>
       </Form>
     </AppModal>
   );
