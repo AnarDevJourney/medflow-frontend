@@ -601,6 +601,10 @@
       },
       "schedule": {
         "updated": "Qrafik dəyişdi"
+      },
+      "time_off": {
+        "created": "İstirahət əlavə olundu",
+        "deleted": "İstirahət silindi"
       }
     },
     "fields": {
@@ -636,7 +640,10 @@
       "code": "Kod",
       "department": "Şöbə",
       "changedDays": "Dəyişən günlər",
-      "workingDays": "İş günləri"
+      "workingDays": "İş günləri",
+      "startDate": "İlk gün",
+      "endDate": "Son gün",
+      "days": "Günlər"
     },
     "via": {
       "RESET": "Email linki ilə sıfırlama",
@@ -698,6 +705,10 @@
     "schedule": {
       "updated": "{{actor}} {{name}} üçün həftəlik qrafiki dəyişdi ({{days}})",
       "cleared": "{{actor}} {{name}} üçün həftəlik qrafiki təmizlədi"
+    },
+    "timeOff": {
+      "created": "{{actor}} {{name}} üçün istirahət əlavə etdi: {{type}}, {{period}}",
+      "deleted": "{{actor}} {{name}} üçün istirahəti sildi: {{type}}, {{period}}"
     }
   },
   "permissionCatalog": {
@@ -1070,5 +1081,42 @@
     "edit": "Qrafiki redaktə et",
     "profileTitle": "Həftəlik qrafikim",
     "profileText": "İş saatlarınız. Onları administrator təyin edir; pasiyentlər bu saatlarda qəbula yazılır."
+  },
+  "timeOff": {
+    "title": "İstirahət günləri",
+    "subtitle": "Həkimin işdə olmadığı günlər. Bu günlərə qəbul yazılmır.",
+    "upcoming": "Qarşıdakı",
+    "past": "Keçmiş",
+    "addButton": "İstirahət əlavə et",
+    "addTitle": "İstirahət əlavə et",
+    "addText": "{{name}} üçün işdə olmayacağı dövr. Qəbul yazılışı bu günləri keçir.",
+    "type": "Növ",
+    "types": {
+      "VACATION": "Məzuniyyət",
+      "SICK_LEAVE": "Xəstəlik",
+      "DAY_OFF": "İstirahət günü",
+      "TRAINING": "Təlim"
+    },
+    "period": "Tarixlər",
+    "periodHint": "Hər iki gün daxildir.",
+    "periodRequired": "İlk və son günü seçin",
+    "tooLong": "Bir dövr ən çoxu {{max}} gün ola bilər",
+    "daysCount_one": "{{count}} gün",
+    "daysCount_other": "{{count}} gün",
+    "reason": "Qeyd",
+    "reasonHint": "İstəyə bağlıdır. Yalnız bu səhifədə görünür, action history-yə düşmür.",
+    "overlap": "Bu tarixlər həkimin başqa istirahət dövrü ilə üst-üstə düşür",
+    "added": "İstirahət əlavə olundu",
+    "removed": "İstirahət silindi",
+    "remove": "Sil",
+    "removeTitle": "Bu istirahət silinsin?",
+    "removeText": "{{type}}, {{period}}. Bu günlərə yenidən qəbul yazmaq mümkün olacaq.",
+    "now": "İndi",
+    "addedBy": "əlavə etdi: {{name}}",
+    "emptyUpcoming": "Qarşıdakı istirahət yoxdur",
+    "emptyPast": "Keçmiş istirahət yoxdur",
+    "errorTitle": "İstirahət günləri yüklənmədi",
+    "awayUntil": "{{date}} tarixinədək işdə deyil",
+    "nextPeriod": "növbəti: {{period}}"
   }
 }

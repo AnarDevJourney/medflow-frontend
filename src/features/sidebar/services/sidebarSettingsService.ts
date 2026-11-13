@@ -29,12 +29,7 @@ export interface SidebarSettings {
 export type SidebarSettingsPatch = Partial<
   Pick<
     SidebarSettings,
-    | "collapsed"
-    | "position"
-    | "groups"
-    | "favorites"
-    | "showFrequent"
-    | "showRecent"
+    "collapsed" | "position" | "groups" | "favorites" | "showFrequent" | "showRecent"
   >
 >;
 

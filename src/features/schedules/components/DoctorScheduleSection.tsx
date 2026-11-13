@@ -9,9 +9,10 @@ import type { StaffMember } from "@features/staff/services/staffService";
 import { staffSchedulePath } from "@router/paths";
 import { useSchedule } from "../hooks/useSchedule";
 import styles from "./Schedule.module.css";
+import { TimeOffStatus } from "./TimeOffStatus";
 import { WeekSummary } from "./WeekSummary";
 
-// The doctor's week inside the staff drawer, for those who may see it
+// The doctor's week (and current / next time off) inside the staff drawer, for those who may see it
 // (schedules.read, or schedules.read_own on one's own profile)
 export function DoctorScheduleSection({ staff }: { staff: StaffMember }) {
   const { t } = useTranslation();
@@ -27,6 +28,7 @@ export function DoctorScheduleSection({ staff }: { staff: StaffMember }) {
 
   return (
     <DetailSection title={t("schedules.drawerSection")}>
+      <TimeOffStatus userId={staff.userId} />
       {schedule.data ? (
         schedule.data.days.length > 0 ? (
           <WeekSummary days={schedule.data.days} />

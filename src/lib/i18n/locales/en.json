@@ -601,6 +601,10 @@
       },
       "schedule": {
         "updated": "Schedule changed"
+      },
+      "time_off": {
+        "created": "Time off added",
+        "deleted": "Time off removed"
       }
     },
     "fields": {
@@ -636,7 +640,10 @@
       "code": "Code",
       "department": "Department",
       "changedDays": "Changed days",
-      "workingDays": "Working days"
+      "workingDays": "Working days",
+      "startDate": "First day",
+      "endDate": "Last day",
+      "days": "Days"
     },
     "via": {
       "RESET": "Reset with an email link",
@@ -698,6 +705,10 @@
     "schedule": {
       "updated": "{{actor}} changed the weekly schedule of {{name}} ({{days}})",
       "cleared": "{{actor}} cleared the weekly schedule of {{name}}"
+    },
+    "timeOff": {
+      "created": "{{actor}} added time off for {{name}}: {{type}}, {{period}}",
+      "deleted": "{{actor}} removed time off of {{name}}: {{type}}, {{period}}"
     }
   },
   "permissionCatalog": {
@@ -1070,5 +1081,42 @@
     "edit": "Edit schedule",
     "profileTitle": "My weekly schedule",
     "profileText": "Your working hours. An administrator sets them; patients are booked inside these hours."
+  },
+  "timeOff": {
+    "title": "Time off",
+    "subtitle": "Days the doctor is away. Patients can't be booked on these days.",
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "addButton": "Add time off",
+    "addTitle": "Add time off",
+    "addText": "A period when {{name}} is away. Booking skips these days.",
+    "type": "Type",
+    "types": {
+      "VACATION": "Vacation",
+      "SICK_LEAVE": "Sick leave",
+      "DAY_OFF": "Day off",
+      "TRAINING": "Training"
+    },
+    "period": "Dates",
+    "periodHint": "Both days are included.",
+    "periodRequired": "Choose the first and the last day",
+    "tooLong": "A period may be at most {{max}} days long",
+    "daysCount_one": "{{count}} day",
+    "daysCount_other": "{{count}} days",
+    "reason": "Note",
+    "reasonHint": "Optional. Visible on this page only, not in the action history.",
+    "overlap": "These dates overlap another time off of this doctor",
+    "added": "Time off added",
+    "removed": "Time off removed",
+    "remove": "Remove",
+    "removeTitle": "Remove this time off?",
+    "removeText": "{{type}}, {{period}}. These days become bookable again.",
+    "now": "Now",
+    "addedBy": "added by {{name}}",
+    "emptyUpcoming": "No upcoming time off",
+    "emptyPast": "No past time off",
+    "errorTitle": "Time off couldn't be loaded",
+    "awayUntil": "away until {{date}}",
+    "nextPeriod": "next: {{period}}"
   }
 }

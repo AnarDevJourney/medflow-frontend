@@ -1,5 +1,6 @@
 import {
   CalendarOutlined,
+  CarryOutOutlined,
   CheckCircleOutlined,
   ClusterOutlined,
   EditOutlined,
@@ -27,8 +28,10 @@ import { RoleTag } from "@components/ui/RoleTag";
 import { UserAvatar } from "@components/ui/UserAvatar";
 import { UserStatusTag } from "@components/ui/UserStatusTag";
 import { useLastDefined } from "@hooks/useLastDefined";
-import { formatDateTime, fromNow } from "@lib/dayjs";
+import { formatDateTime, formatDay, fromNow } from "@lib/dayjs";
 import type { Role, UserStatus } from "@models/enums";
+import { TimeOffTypeTag } from "@features/schedules/components/TimeOffTypeTag";
+import type { TimeOffType } from "@features/schedules/services/timeOffService";
 import { useHistoryText } from "../hooks/useHistoryText";
 import type { HistoryEntry } from "../services/historyService";
 import styles from "./History.module.css";
@@ -49,6 +52,8 @@ const EVENT_LOOK: Record<string, { icon: ReactNode; tone: Tone }> = {
   "department.updated": { icon: <ClusterOutlined />, tone: "primary" },
   "staff.updated": { icon: <IdcardOutlined />, tone: "primary" },
   "schedule.updated": { icon: <CalendarOutlined />, tone: "primary" },
+  "time_off.created": { icon: <CarryOutOutlined />, tone: "warning" },
+  "time_off.deleted": { icon: <CarryOutOutlined />, tone: "danger" },
 };
 const DEFAULT_LOOK = { icon: <HistoryOutlined />, tone: "primary" as Tone };
 
@@ -101,6 +106,16 @@ export function HistoryDrawer({
               value: value.map((day) => t(`weekdays.long.${String(day)}`)).join(", "),
             }
           : null;
+      case "type":
+        return {
+          label: t("timeOff.type"),
+          value: <TimeOffTypeTag type={value as TimeOffType} />,
+        };
+      case "startDate":
+      case "endDate":
+        return { label: t(`history.meta.${key}`), value: formatDay(String(value)) };
+      case "days":
+        return { label: t("history.meta.days"), value: String(value) };
       case "workingDays":
         return { label: t("history.meta.workingDays"), value: String(value) };
       case "added":

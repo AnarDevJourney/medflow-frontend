@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { formatPeriod } from "@features/schedules/utils/timeOff";
 import type { HistoryEntry } from "../services/historyService";
 
 // History rows in the reader's language. The backend stores a key + data
@@ -42,6 +43,15 @@ export function useHistoryText() {
         days: Array.isArray(p.days)
           ? p.days.map((day) => t(`weekdays.short.${String(day)}`)).join(", ")
           : "",
+        // time off: type code → its name, dates → "15 Jul 2026 – 29 Jul 2026"
+        type:
+          typeof p.type === "string"
+            ? t(`timeOff.types.${p.type}`, { defaultValue: p.type })
+            : "",
+        period:
+          typeof p.start === "string" && typeof p.end === "string"
+            ? formatPeriod(p.start, p.end)
+            : "",
         // permission changes: "+View patients, −Book appointments"
         changes: [...list(p.added, "+"), ...list(p.removed, "−")].join(", "),
         // a key this build doesn't know yet → the stored sentence

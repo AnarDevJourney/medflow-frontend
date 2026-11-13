@@ -15,6 +15,7 @@ import { isApiError } from "@lib/api/errors";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
 import { PATHS } from "@router/paths";
 import { ScheduleEditor } from "../components/ScheduleEditor";
+import { TimeOffCard } from "../components/TimeOffCard";
 import { WeekSummary } from "../components/WeekSummary";
 import { useReplaceSchedule, useSchedule } from "../hooks/useSchedule";
 import { useScheduleText } from "../hooks/useScheduleText";
@@ -22,7 +23,7 @@ import type { ScheduleDay } from "../services/schedulesService";
 import { weekTotals } from "../utils/schedule";
 import styles from "./SchedulePage.module.css";
 
-// /staff/:userId/schedule — a doctor's weekly working hours. schedules.manage
+// /staff/:userId/schedule — a doctor's weekly working hours and time off. schedules.manage
 // edits (active or invited doctors); schedules.read sees anyone's week,
 // schedules.read_own only one's own (the backend answers 403 otherwise).
 export function SchedulePage() {
@@ -103,47 +104,56 @@ export function SchedulePage() {
         </div>
       ) : (
         <div className={styles.layout}>
-          <section className={styles.card}>
-            <header className={styles.cardHeader}>
-              <h2 className={styles.cardTitle}>{t("schedules.weekTitle")}</h2>
-              {!editable && isDoctor && (
-                <span className={styles.readOnly}>
-                  <LockOutlined /> {t("schedules.readOnly")}
-                </span>
+          <div className={styles.main}>
+            <section className={styles.card}>
+              <header className={styles.cardHeader}>
+                <h2 className={styles.cardTitle}>{t("schedules.weekTitle")}</h2>
+                {!editable && isDoctor && (
+                  <span className={styles.readOnly}>
+                    <LockOutlined /> {t("schedules.readOnly")}
+                  </span>
+                )}
+              </header>
+              {deactivated && isDoctor && (
+                <Alert
+                  type="warning"
+                  showIcon
+                  className={styles.alert}
+                  message={t("schedules.deactivatedNote")}
+                />
               )}
-            </header>
-            {deactivated && isDoctor && (
-              <Alert
-                type="warning"
-                showIcon
-                className={styles.alert}
-                message={t("schedules.deactivatedNote")}
+              {!isDoctor ? (
+                <EmptyState
+                  icon={<CalendarOutlined />}
+                  title={t("schedules.notDoctorTitle")}
+                  description={t("schedules.notDoctorText")}
+                />
+              ) : editable ? (
+                <ScheduleEditor
+                  key={version}
+                  days={days}
+                  saving={save.isPending}
+                  onSave={onSave}
+                  onChange={setPreview}
+                />
+              ) : days.length === 0 ? (
+                <EmptyState
+                  icon={<CalendarOutlined />}
+                  title={t("schedules.emptyTitle")}
+                  description={t("schedules.emptyText")}
+                />
+              ) : (
+                <WeekSummary days={days} />
+              )}
+            </section>
+            {isDoctor && (
+              <TimeOffCard
+                userId={person.userId}
+                doctorName={`${person.firstName} ${person.lastName}`}
+                editable={editable}
               />
             )}
-            {!isDoctor ? (
-              <EmptyState
-                icon={<CalendarOutlined />}
-                title={t("schedules.notDoctorTitle")}
-                description={t("schedules.notDoctorText")}
-              />
-            ) : editable ? (
-              <ScheduleEditor
-                key={version}
-                days={days}
-                saving={save.isPending}
-                onSave={onSave}
-                onChange={setPreview}
-              />
-            ) : days.length === 0 ? (
-              <EmptyState
-                icon={<CalendarOutlined />}
-                title={t("schedules.emptyTitle")}
-                description={t("schedules.emptyText")}
-              />
-            ) : (
-              <WeekSummary days={days} />
-            )}
-          </section>
+          </div>
 
           <aside className={styles.side}>
             <div className={`${styles.card} ${styles.person}`}>

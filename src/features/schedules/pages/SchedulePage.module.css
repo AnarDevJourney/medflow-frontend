@@ -9,6 +9,13 @@
   gap: var(--space-6);
 }
 
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
 .card {
   padding: var(--space-6);
   border: 1px solid var(--color-border);
