@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import "dayjs/locale/az";
 import "dayjs/locale/ru";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import relativeTime from "dayjs/plugin/relativeTime";
 import timezone from "dayjs/plugin/timezone";
 import utc from "dayjs/plugin/utc";
@@ -10,6 +11,7 @@ import utc from "dayjs/plugin/utc";
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(relativeTime);
+dayjs.extend(customParseFormat); // dayjs("09:30", "HH:mm") for time pickers
 
 export const CLINIC_TZ = "Asia/Baku";
 

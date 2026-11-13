@@ -16,9 +16,13 @@ export const PATHS = {
   invoices: "/invoices",
   prices: "/settings/prices",
   staff: "/staff",
+  staffSchedule: "/staff/:userId/schedule",
   departments: "/settings/departments",
   permissions: "/settings/permissions",
   history: "/history",
   notifications: "/notifications",
   devTable: "/dev/table", // dev builds only
 } as const;
+
+// A doctor's weekly schedule page
+export const staffSchedulePath = (userId: string) => `/staff/${userId}/schedule`;

@@ -7,6 +7,7 @@ import {
 } from "@tanstack/react-query";
 import {
   getMyStaffProfile,
+  getStaffMember,
   listStaff,
   updateMyStaffProfile,
   updateStaff,
@@ -23,6 +24,14 @@ export function useStaff(query: StaffQuery) {
     queryKey: [...staffKey, "list", query],
     queryFn: () => listStaff(query),
     placeholderData: keepPreviousData, // no empty flash between pages / filters
+  });
+}
+
+export function useStaffMember(userId: string | undefined) {
+  return useQuery({
+    queryKey: [...staffKey, "one", userId],
+    queryFn: () => getStaffMember(userId!),
+    enabled: Boolean(userId),
   });
 }
 

@@ -4,12 +4,13 @@ import { RoleTag } from "@components/ui/RoleTag";
 import { UserAvatar } from "@components/ui/UserAvatar";
 import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
 import { ChangePasswordCard } from "../components/ChangePasswordCard";
+import { MyScheduleCard } from "../components/MyScheduleCard";
 import { PersonalInfoCard } from "../components/PersonalInfoCard";
 import { PreferencesCard } from "../components/PreferencesCard";
 import { WorkProfileCard } from "../components/WorkProfileCard";
 import styles from "./ProfilePage.module.css";
 
-// Own account: name, work profile, password, language and appearance
+// Own account: name, work profile, weekly schedule (doctors), password, language and appearance
 // (avatar: phase 10)
 export function ProfilePage() {
   const { t } = useTranslation();
@@ -31,6 +32,7 @@ export function ProfilePage() {
         <div className={styles.cards}>
           <PersonalInfoCard user={user} />
           <WorkProfileCard />
+          <MyScheduleCard />
           <ChangePasswordCard />
           <PreferencesCard />
         </div>

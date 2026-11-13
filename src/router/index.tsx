@@ -14,6 +14,7 @@ import { HistoryPage } from "@features/history/pages/HistoryPage";
 import { NotificationsPage } from "@features/notifications/pages/NotificationsPage";
 import { PermissionsPage } from "@features/permissions/pages/PermissionsPage";
 import { ProfilePage } from "@features/profile/pages/ProfilePage";
+import { SchedulePage } from "@features/schedules/pages/SchedulePage";
 import { StaffPage } from "@features/staff/pages/StaffPage";
 import { PATHS } from "./paths";
 import { PublicOnly } from "./PublicOnly";
@@ -68,6 +69,14 @@ export const router = createBrowserRouter([
       { path: PATHS.profile, element: <ProfilePage /> },
       { path: PATHS.notifications, element: <NotificationsPage /> },
       { path: PATHS.staff, element: gated("staff", <StaffPage />) },
+      {
+        path: PATHS.staffSchedule,
+        element: (
+          <RequirePermission permission={["schedules.read", "schedules.read_own"]}>
+            <SchedulePage />
+          </RequirePermission>
+        ),
+      },
       { path: PATHS.departments, element: gated("departments", <DepartmentsPage />) },
       { path: PATHS.history, element: gated("history", <HistoryPage />) },
       { path: PATHS.permissions, element: gated("permissions", <PermissionsPage />) },

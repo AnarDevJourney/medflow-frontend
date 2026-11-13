@@ -1,4 +1,5 @@
 import {
+  CalendarOutlined,
   CheckCircleOutlined,
   ClusterOutlined,
   EditOutlined,
@@ -47,6 +48,7 @@ const EVENT_LOOK: Record<string, { icon: ReactNode; tone: Tone }> = {
   "department.created": { icon: <ClusterOutlined />, tone: "success" },
   "department.updated": { icon: <ClusterOutlined />, tone: "primary" },
   "staff.updated": { icon: <IdcardOutlined />, tone: "primary" },
+  "schedule.updated": { icon: <CalendarOutlined />, tone: "primary" },
 };
 const DEFAULT_LOOK = { icon: <HistoryOutlined />, tone: "primary" as Tone };
 
@@ -92,6 +94,15 @@ export function HistoryDrawer({
                 .join(", "),
             }
           : null;
+      case "changedDays":
+        return Array.isArray(value) && value.length > 0
+          ? {
+              label: t("history.meta.changedDays"),
+              value: value.map((day) => t(`weekdays.long.${String(day)}`)).join(", "),
+            }
+          : null;
+      case "workingDays":
+        return { label: t("history.meta.workingDays"), value: String(value) };
       case "added":
       case "removed":
         return Array.isArray(value) && value.length > 0

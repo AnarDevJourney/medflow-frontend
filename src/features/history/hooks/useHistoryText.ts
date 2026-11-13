@@ -38,6 +38,10 @@ export function useHistoryText() {
               )
               .join(", ")
           : "",
+        // weekly schedule: ISO weekday numbers → "Mon, Wed"
+        days: Array.isArray(p.days)
+          ? p.days.map((day) => t(`weekdays.short.${String(day)}`)).join(", ")
+          : "",
         // permission changes: "+View patients, −Book appointments"
         changes: [...list(p.added, "+"), ...list(p.removed, "−")].join(", "),
         // a key this build doesn't know yet → the stored sentence

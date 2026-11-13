@@ -81,6 +81,7 @@ export const EVENT_TYPES = [
   "department.created",
   "department.updated",
   "staff.updated",
+  "schedule.updated",
 ];
 export const ENTITY_TYPES = ["USER", "ROLE", "DEPARTMENT", "STAFF_MEMBER"];
 export const EMAIL_TEMPLATES = [

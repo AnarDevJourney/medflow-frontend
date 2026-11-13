@@ -58,6 +58,11 @@ export async function listStaff(query: StaffQuery): Promise<Paginated<StaffMembe
   return data;
 }
 
+export async function getStaffMember(userId: string): Promise<StaffMember> {
+  const { data } = await api.get<StaffMember>(`/staff/${userId}`);
+  return data;
+}
+
 export async function getMyStaffProfile(): Promise<StaffMember> {
   const { data } = await api.get<StaffMember>("/staff/me");
   return data;

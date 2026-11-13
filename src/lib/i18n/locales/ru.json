@@ -39,7 +39,8 @@
     "save": "Сохранить",
     "from": "С",
     "to": "По",
-    "period": "Период"
+    "period": "Период",
+    "retry": "Повторить"
   },
   "errors": {
     "notFound": "Такой страницы нет",
@@ -597,6 +598,9 @@
       },
       "staff": {
         "updated": "Рабочий профиль изменён"
+      },
+      "schedule": {
+        "updated": "График изменён"
       }
     },
     "fields": {
@@ -630,7 +634,9 @@
       "added": "Выданы",
       "removed": "Отозваны",
       "code": "Код",
-      "department": "Отделение"
+      "department": "Отделение",
+      "changedDays": "Изменённые дни",
+      "workingDays": "Рабочие дни"
     },
     "via": {
       "RESET": "Сброс по ссылке из письма",
@@ -688,6 +694,10 @@
     "staff": {
       "updated": "{{actor}} изменил(а) рабочий профиль: {{name}} ({{fields}})",
       "profileUpdated": "{{name}} изменил(а) свой рабочий профиль ({{fields}})"
+    },
+    "schedule": {
+      "updated": "{{actor}} изменил(а) недельный график: {{name}} ({{days}})",
+      "cleared": "{{actor}} очистил(а) недельный график: {{name}}"
     }
   },
   "permissionCatalog": {
@@ -990,5 +1000,85 @@
     "groupCount_few": "{{count}} права",
     "groupCount_many": "{{count}} прав",
     "groupCount_other": "{{count}} прав"
+  },
+  "weekdays": {
+    "long": {
+      "1": "Понедельник",
+      "2": "Вторник",
+      "3": "Среда",
+      "4": "Четверг",
+      "5": "Пятница",
+      "6": "Суббота",
+      "7": "Воскресенье"
+    },
+    "short": {
+      "1": "Пн",
+      "2": "Вт",
+      "3": "Ср",
+      "4": "Чт",
+      "5": "Пт",
+      "6": "Сб",
+      "7": "Вс"
+    }
+  },
+  "schedules": {
+    "title": "Недельный график",
+    "subtitleEdit": "Рабочие часы на каждый день недели. Пациентов можно записать только в эти часы.",
+    "subtitleView": "Рабочие часы на каждый день недели.",
+    "backToStaff": "Сотрудники",
+    "weekTitle": "Рабочая неделя",
+    "readOnly": "Только просмотр",
+    "deactivatedNote": "Эта учётная запись отключена, поэтому график изменить нельзя.",
+    "notDoctorTitle": "Нет недельного графика",
+    "notDoctorText": "Часы приёма бывают только у врачей.",
+    "emptyTitle": "Рабочие часы ещё не заданы",
+    "emptyText": "Администратор ещё не настроил неделю этого врача.",
+    "totalsTitle": "За неделю",
+    "totals": {
+      "days": "Рабочие дни",
+      "hours": "Часы",
+      "slots": "Приёмы"
+    },
+    "bookingHint": "Отпуска и выходные здесь не учитываются.",
+    "savedToast": "График сохранён",
+    "columns": {
+      "day": "День",
+      "hours": "Часы",
+      "slot": "Длительность приёма",
+      "appointments": "В день"
+    },
+    "start": "{{day}}: начало",
+    "end": "{{day}}: конец",
+    "minutes_one": "{{count}} мин",
+    "minutes_few": "{{count}} мин",
+    "minutes_many": "{{count}} мин",
+    "minutes_other": "{{count}} мин",
+    "appointments_one": "{{count}} приём",
+    "appointments_few": "{{count}} приёма",
+    "appointments_many": "{{count}} приёмов",
+    "appointments_other": "{{count}} приёма",
+    "slotsShort_one": "{{count}} приём · {{minutes}} мин",
+    "slotsShort_few": "{{count}} приёма · {{minutes}} мин",
+    "slotsShort_many": "{{count}} приёмов · {{minutes}} мин",
+    "slotsShort_other": "{{count}} приёма · {{minutes}} мин",
+    "dayOff": "Выходной",
+    "copyToAll": "Применить эти часы ко всем рабочим дням",
+    "problems": {
+      "endBeforeStart": "Конец раньше начала",
+      "partialSlot": "Не делится на целые приёмы"
+    },
+    "fixProblems": "Исправьте отмеченные дни, чтобы сохранить.",
+    "unsaved": "Есть несохранённые изменения.",
+    "saved": "Все изменения сохранены.",
+    "duration": {
+      "hours": "{{hours}} ч",
+      "minutes": "{{minutes}} мин",
+      "hoursMinutes": "{{hours}} ч {{minutes}} мин"
+    },
+    "drawerSection": "Недельный график",
+    "open": "Открыть график",
+    "edit": "Изменить график",
+    "profileTitle": "Мой недельный график",
+    "profileText": "Ваши рабочие часы. Их задаёт администратор; пациентов записывают в эти часы."
   }
 }

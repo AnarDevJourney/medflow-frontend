@@ -39,7 +39,8 @@
     "save": "Save",
     "from": "From",
     "to": "To",
-    "period": "Period"
+    "period": "Period",
+    "retry": "Try again"
   },
   "errors": {
     "notFound": "This page does not exist",
@@ -597,6 +598,9 @@
       },
       "staff": {
         "updated": "Work profile updated"
+      },
+      "schedule": {
+        "updated": "Schedule changed"
       }
     },
     "fields": {
@@ -630,7 +634,9 @@
       "added": "Granted",
       "removed": "Revoked",
       "code": "Code",
-      "department": "Department"
+      "department": "Department",
+      "changedDays": "Changed days",
+      "workingDays": "Working days"
     },
     "via": {
       "RESET": "Reset with an email link",
@@ -688,6 +694,10 @@
     "staff": {
       "updated": "{{actor}} updated the work profile of {{name}} ({{fields}})",
       "profileUpdated": "{{name}} updated their work profile ({{fields}})"
+    },
+    "schedule": {
+      "updated": "{{actor}} changed the weekly schedule of {{name}} ({{days}})",
+      "cleared": "{{actor}} cleared the weekly schedule of {{name}}"
     }
   },
   "permissionCatalog": {
@@ -986,5 +996,79 @@
     "collapseGroup": "Collapse section",
     "groupCount_one": "{{count}} permission",
     "groupCount_other": "{{count}} permissions"
+  },
+  "weekdays": {
+    "long": {
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday",
+      "7": "Sunday"
+    },
+    "short": {
+      "1": "Mon",
+      "2": "Tue",
+      "3": "Wed",
+      "4": "Thu",
+      "5": "Fri",
+      "6": "Sat",
+      "7": "Sun"
+    }
+  },
+  "schedules": {
+    "title": "Weekly schedule",
+    "subtitleEdit": "Working hours for every weekday. Patients can be booked only inside these hours.",
+    "subtitleView": "Working hours for every weekday.",
+    "backToStaff": "Staff",
+    "weekTitle": "Working week",
+    "readOnly": "View only",
+    "deactivatedNote": "This account is deactivated, so the schedule can't be changed.",
+    "notDoctorTitle": "No weekly schedule",
+    "notDoctorText": "Only doctors have working hours for appointments.",
+    "emptyTitle": "No working hours yet",
+    "emptyText": "An administrator hasn't set this doctor's week yet.",
+    "totalsTitle": "This week",
+    "totals": {
+      "days": "Working days",
+      "hours": "Hours",
+      "slots": "Appointments"
+    },
+    "bookingHint": "Time off is not counted here.",
+    "savedToast": "Schedule saved",
+    "columns": {
+      "day": "Day",
+      "hours": "Hours",
+      "slot": "Appointment length",
+      "appointments": "Per day"
+    },
+    "start": "{{day}} start time",
+    "end": "{{day}} end time",
+    "minutes_one": "{{count}} min",
+    "minutes_other": "{{count}} min",
+    "appointments_one": "{{count}} appointment",
+    "appointments_other": "{{count}} appointments",
+    "slotsShort_one": "{{count}} appointment · {{minutes}} min",
+    "slotsShort_other": "{{count}} appointments · {{minutes}} min",
+    "dayOff": "Day off",
+    "copyToAll": "Use these hours on every working day",
+    "problems": {
+      "endBeforeStart": "Ends before it starts",
+      "partialSlot": "Doesn't divide into whole appointments"
+    },
+    "fixProblems": "Fix the highlighted days to save.",
+    "unsaved": "You have unsaved changes.",
+    "saved": "All changes saved.",
+    "duration": {
+      "hours": "{{hours}} h",
+      "minutes": "{{minutes}} min",
+      "hoursMinutes": "{{hours}} h {{minutes}} min"
+    },
+    "drawerSection": "Weekly schedule",
+    "open": "Open schedule",
+    "edit": "Edit schedule",
+    "profileTitle": "My weekly schedule",
+    "profileText": "Your working hours. An administrator sets them; patients are booked inside these hours."
   }
 }

@@ -39,7 +39,8 @@
     "save": "Yadda saxla",
     "from": "Başlanğıc",
     "to": "Son",
-    "period": "Dövr"
+    "period": "Dövr",
+    "retry": "Yenidən cəhd et"
   },
   "errors": {
     "notFound": "Belə səhifə yoxdur",
@@ -597,6 +598,9 @@
       },
       "staff": {
         "updated": "İş profili yeniləndi"
+      },
+      "schedule": {
+        "updated": "Qrafik dəyişdi"
       }
     },
     "fields": {
@@ -630,7 +634,9 @@
       "added": "Verilən icazələr",
       "removed": "Alınan icazələr",
       "code": "Kod",
-      "department": "Şöbə"
+      "department": "Şöbə",
+      "changedDays": "Dəyişən günlər",
+      "workingDays": "İş günləri"
     },
     "via": {
       "RESET": "Email linki ilə sıfırlama",
@@ -688,6 +694,10 @@
     "staff": {
       "updated": "{{actor}} {{name}} adlı əməkdaşın iş profilini yenilədi ({{fields}})",
       "profileUpdated": "{{name}} öz iş profilini yenilədi ({{fields}})"
+    },
+    "schedule": {
+      "updated": "{{actor}} {{name}} üçün həftəlik qrafiki dəyişdi ({{days}})",
+      "cleared": "{{actor}} {{name}} üçün həftəlik qrafiki təmizlədi"
     }
   },
   "permissionCatalog": {
@@ -986,5 +996,79 @@
     "collapseGroup": "Bölməni bağla",
     "groupCount_one": "{{count}} icazə",
     "groupCount_other": "{{count}} icazə"
+  },
+  "weekdays": {
+    "long": {
+      "1": "Bazar ertəsi",
+      "2": "Çərşənbə axşamı",
+      "3": "Çərşənbə",
+      "4": "Cümə axşamı",
+      "5": "Cümə",
+      "6": "Şənbə",
+      "7": "Bazar"
+    },
+    "short": {
+      "1": "B.e.",
+      "2": "Ç.a.",
+      "3": "Ç.",
+      "4": "C.a.",
+      "5": "C.",
+      "6": "Ş.",
+      "7": "B."
+    }
+  },
+  "schedules": {
+    "title": "Həftəlik qrafik",
+    "subtitleEdit": "Həftənin hər günü üçün iş saatları. Pasiyentlər yalnız bu saatlarda qəbula yazıla bilər.",
+    "subtitleView": "Həftənin hər günü üçün iş saatları.",
+    "backToStaff": "Əməkdaşlar",
+    "weekTitle": "İş həftəsi",
+    "readOnly": "Yalnız baxış",
+    "deactivatedNote": "Bu hesab deaktiv edilib, ona görə qrafik dəyişdirilə bilməz.",
+    "notDoctorTitle": "Həftəlik qrafik yoxdur",
+    "notDoctorText": "Qəbul üçün iş saatları yalnız həkimlərdə olur.",
+    "emptyTitle": "Hələ iş saatları yoxdur",
+    "emptyText": "Administrator bu həkimin həftəsini hələ təyin etməyib.",
+    "totalsTitle": "Bu həftə",
+    "totals": {
+      "days": "İş günləri",
+      "hours": "Saatlar",
+      "slots": "Qəbullar"
+    },
+    "bookingHint": "Məzuniyyət və istirahət günləri burada nəzərə alınmır.",
+    "savedToast": "Qrafik yadda saxlandı",
+    "columns": {
+      "day": "Gün",
+      "hours": "Saatlar",
+      "slot": "Qəbul müddəti",
+      "appointments": "Gündə"
+    },
+    "start": "{{day}} başlama saatı",
+    "end": "{{day}} bitmə saatı",
+    "minutes_one": "{{count}} dəq",
+    "minutes_other": "{{count}} dəq",
+    "appointments_one": "{{count}} qəbul",
+    "appointments_other": "{{count}} qəbul",
+    "slotsShort_one": "{{count}} qəbul · {{minutes}} dəq",
+    "slotsShort_other": "{{count}} qəbul · {{minutes}} dəq",
+    "dayOff": "İstirahət günü",
+    "copyToAll": "Bu saatları bütün iş günlərinə tətbiq et",
+    "problems": {
+      "endBeforeStart": "Bitmə saatı başlamadan əvvəldir",
+      "partialSlot": "Tam qəbullara bölünmür"
+    },
+    "fixProblems": "Yadda saxlamaq üçün qırmızı günləri düzəldin.",
+    "unsaved": "Yadda saxlanmamış dəyişikliklər var.",
+    "saved": "Bütün dəyişikliklər yadda saxlanıb.",
+    "duration": {
+      "hours": "{{hours}} saat",
+      "minutes": "{{minutes}} dəq",
+      "hoursMinutes": "{{hours}} saat {{minutes}} dəq"
+    },
+    "drawerSection": "Həftəlik qrafik",
+    "open": "Qrafikə bax",
+    "edit": "Qrafiki redaktə et",
+    "profileTitle": "Həftəlik qrafikim",
+    "profileText": "İş saatlarınız. Onları administrator təyin edir; pasiyentlər bu saatlarda qəbula yazılır."
   }
 }

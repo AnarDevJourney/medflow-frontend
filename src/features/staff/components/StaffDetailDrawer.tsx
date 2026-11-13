@@ -10,6 +10,7 @@ import {
 import { RoleTag } from "@components/ui/RoleTag";
 import { UserAvatar } from "@components/ui/UserAvatar";
 import { UserStatusTag } from "@components/ui/UserStatusTag";
+import { DoctorScheduleSection } from "@features/schedules/components/DoctorScheduleSection";
 import { useLastDefined } from "@hooks/useLastDefined";
 import { formatDateTime, formatDay, fromNow } from "@lib/dayjs";
 import { useUser } from "../hooks/useUsers";
@@ -18,8 +19,8 @@ import styles from "./StaffModals.module.css";
 
 // Read-only view of one person. "Edit profile" (staff.update) opens
 // StaffProfileModal, "Edit account" (users.update) opens UserModal. The last
-// sign-in comes from auth-service, only for users.read.
-// TODO(phase 5.3): weekly schedule for doctors.
+// sign-in comes from auth-service, only for users.read. Doctors show their
+// weekly schedule to those who may see it.
 export function StaffDetailDrawer({
   staff: selected,
   canReadAccount,
@@ -119,6 +120,7 @@ export function StaffDetailDrawer({
               ]}
             />
           </DetailSection>
+          <DoctorScheduleSection staff={staff} />
           {staff.bio && (
             <DetailSection title={t("staff.profile.bio")}>
               <p className={styles.bio}>{staff.bio}</p>
