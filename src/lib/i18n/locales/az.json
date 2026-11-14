@@ -403,7 +403,6 @@
   },
   "staff": {
     "accountSection": "Hesab",
-    "activitySection": "Fəaliyyət",
     "title": "Əməkdaşlar",
     "subtitle": "Həmkarlarınızı dəvət edin, rolları və girişi idarə edin.",
     "inviteButton": "Əməkdaş dəvət et",
@@ -431,7 +430,6 @@
     "sendInvite": "Dəvət göndər",
     "invited": "Dəvət {{email}} ünvanına göndərildi",
     "emailTaken": "Bu email ilə istifadəçi artıq var",
-    "detailsTitle": "Əməkdaş",
     "editTitle": "Məlumatlar",
     "saved": "Dəyişikliklər yadda saxlanıldı",
     "ownRoleLocked": "Öz rolunuzu dəyişə bilməzsiniz.",
@@ -952,8 +950,8 @@
         "description": "Bir pasiyentlə bağlı bütün əməliyyatları görmək."
       },
       "user_read": {
-        "label": "İstifadəçinin fəaliyyəti",
-        "description": "Bir əməkdaşın etdiyi əməliyyatları görmək."
+        "label": "Əməkdaşın tarixçəsi",
+        "description": "Bir əməkdaşın etdiyi əməliyyatları və onunla bağlı dəyişiklikləri görmək."
       }
     },
     "emails": {
@@ -1032,7 +1030,6 @@
     "title": "Həftəlik qrafik",
     "subtitleEdit": "Həftənin hər günü üçün iş saatları. Pasiyentlər yalnız bu saatlarda qəbula yazıla bilər.",
     "subtitleView": "Həftənin hər günü üçün iş saatları.",
-    "backToStaff": "Əməkdaşlar",
     "weekTitle": "İş həftəsi",
     "readOnly": "Yalnız baxış",
     "deactivatedNote": "Bu hesab deaktiv edilib, ona görə qrafik dəyişdirilə bilməz.",
@@ -1076,11 +1073,11 @@
       "minutes": "{{minutes}} dəq",
       "hoursMinutes": "{{hours}} saat {{minutes}} dəq"
     },
-    "drawerSection": "Həftəlik qrafik",
     "open": "Qrafikə bax",
     "edit": "Qrafiki redaktə et",
     "profileTitle": "Həftəlik qrafikim",
-    "profileText": "İş saatlarınız. Onları administrator təyin edir; pasiyentlər bu saatlarda qəbula yazılır."
+    "profileText": "İş saatlarınız. Onları administrator təyin edir; pasiyentlər bu saatlarda qəbula yazılır.",
+    "backToProfile": "Əməkdaşın səhifəsi"
   },
   "timeOff": {
     "title": "İstirahət günləri",
@@ -1116,7 +1113,57 @@
     "emptyUpcoming": "Qarşıdakı istirahət yoxdur",
     "emptyPast": "Keçmiş istirahət yoxdur",
     "errorTitle": "İstirahət günləri yüklənmədi",
-    "awayUntil": "{{date}} tarixinədək işdə deyil",
-    "nextPeriod": "növbəti: {{period}}"
+    "awayUntil": "{{date}} tarixinədək işdə deyil"
+  },
+  "staffDetail": {
+    "back": "Əməkdaşlar",
+    "moreActions": "Digər əməliyyatlar",
+    "addedAt": "Sistemə əlavə edilib",
+    "noBio": "Hələ heç nə yazılmayıb.",
+    "tabs": {
+      "overview": "Ümumi",
+      "schedule": "Qrafik və istirahət",
+      "history": "Tarixçə"
+    },
+    "facts": {
+      "today": "Bu gün",
+      "noSchedule": "Qrafik təyin edilməyib",
+      "week": "Həftəlik",
+      "weekValue_one": "{{count}} gün · {{hours}}",
+      "weekValue_other": "{{count}} gün · {{hours}}",
+      "nextTimeOff": "Növbəti istirahət",
+      "noneScheduled": "Planlaşdırılmayıb",
+      "tenure": "Klinikada"
+    },
+    "tenure": {
+      "years_one": "{{count}} il",
+      "years_other": "{{count}} il",
+      "months_one": "{{count}} ay",
+      "months_other": "{{count}} ay",
+      "lessThanMonth": "1 aydan az",
+      "since": "{{date}} tarixindən",
+      "notStarted": "Hələ başlamayıb",
+      "startsOn": "{{date}} tarixində başlayır"
+    },
+    "week": {
+      "today": "Bu gün",
+      "range": "Bu həftə: {{period}}",
+      "totals": "{{days}} iş günü · {{hours}} · {{slots}} qəbul"
+    },
+    "history": {
+      "title": "Tarixçə",
+      "about": "Haqqında",
+      "activity": "Etdikləri",
+      "aboutHint": "Bu əməkdaşla bağlı dəyişikliklər: hesab, profil, qrafik, istirahət",
+      "activityHint": "Bu əməkdaşın sistemdə etdiyi əməliyyatlar",
+      "aboutEmpty": "Bu əməkdaşla bağlı hələ heç nə qeydə alınmayıb",
+      "activityEmpty": "Bu əməkdaş hələ heç bir əməliyyat etməyib",
+      "count_one": "{{count}} qeyd",
+      "count_other": "{{count}} qeyd",
+      "today": "Bu gün",
+      "yesterday": "Dünən",
+      "loadMore": "Daha çox göstər",
+      "error": "Tarixçə yüklənmədi"
+    }
   }
 }

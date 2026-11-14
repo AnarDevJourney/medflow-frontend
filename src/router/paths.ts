@@ -16,6 +16,7 @@ export const PATHS = {
   invoices: "/invoices",
   prices: "/settings/prices",
   staff: "/staff",
+  staffMember: "/staff/:userId",
   staffSchedule: "/staff/:userId/schedule",
   departments: "/settings/departments",
   permissions: "/settings/permissions",
@@ -23,6 +24,9 @@ export const PATHS = {
   notifications: "/notifications",
   devTable: "/dev/table", // dev builds only
 } as const;
+
+// One person's page
+export const staffMemberPath = (userId: string) => `/staff/${userId}`;
 
 // A doctor's weekly schedule page
 export const staffSchedulePath = (userId: string) => `/staff/${userId}/schedule`;

@@ -164,15 +164,3 @@
     grid-column: 1 / -1;
   }
 }
-
-/* ─── Drawer section ─────────────────────────────────────── */
-.sectionEmpty {
-  margin: 0;
-  color: var(--color-muted);
-  font-size: var(--font-size-sm);
-}
-
-.sectionLink {
-  display: inline-block;
-  margin-top: var(--space-3);
-}

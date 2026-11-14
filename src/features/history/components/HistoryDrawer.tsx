@@ -1,21 +1,5 @@
-import {
-  CalendarOutlined,
-  CarryOutOutlined,
-  CheckCircleOutlined,
-  ClusterOutlined,
-  EditOutlined,
-  HistoryOutlined,
-  IdcardOutlined,
-  KeyOutlined,
-  SafetyCertificateOutlined,
-  SafetyOutlined,
-  SettingOutlined,
-  StopOutlined,
-  UndoOutlined,
-  UserAddOutlined,
-} from "@ant-design/icons";
+import { SettingOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import {
   DetailDrawer,
@@ -33,29 +17,9 @@ import type { Role, UserStatus } from "@models/enums";
 import { TimeOffTypeTag } from "@features/schedules/components/TimeOffTypeTag";
 import type { TimeOffType } from "@features/schedules/services/timeOffService";
 import { useHistoryText } from "../hooks/useHistoryText";
+import { eventLook } from "./eventLook";
 import type { HistoryEntry } from "../services/historyService";
 import styles from "./History.module.css";
-
-type Tone = "primary" | "success" | "warning" | "danger";
-
-// Icon + color per event; each phase adds its events
-const EVENT_LOOK: Record<string, { icon: ReactNode; tone: Tone }> = {
-  "user.invited": { icon: <UserAddOutlined />, tone: "primary" },
-  "user.activated": { icon: <CheckCircleOutlined />, tone: "success" },
-  "user.updated": { icon: <EditOutlined />, tone: "primary" },
-  "user.deactivated": { icon: <StopOutlined />, tone: "danger" },
-  "user.reactivated": { icon: <UndoOutlined />, tone: "success" },
-  "user.password_changed": { icon: <KeyOutlined />, tone: "warning" },
-  "user.session_revoked": { icon: <SafetyOutlined />, tone: "danger" },
-  "role_permissions.updated": { icon: <SafetyCertificateOutlined />, tone: "warning" },
-  "department.created": { icon: <ClusterOutlined />, tone: "success" },
-  "department.updated": { icon: <ClusterOutlined />, tone: "primary" },
-  "staff.updated": { icon: <IdcardOutlined />, tone: "primary" },
-  "schedule.updated": { icon: <CalendarOutlined />, tone: "primary" },
-  "time_off.created": { icon: <CarryOutOutlined />, tone: "warning" },
-  "time_off.deleted": { icon: <CarryOutOutlined />, tone: "danger" },
-};
-const DEFAULT_LOOK = { icon: <HistoryOutlined />, tone: "primary" as Tone };
 
 // Ids are never shown (they mean nothing to a reader)
 const isIdKey = (key: string) => /id$/i.test(key);
@@ -151,7 +115,7 @@ export function HistoryDrawer({
     }
   };
 
-  const look = entry ? (EVENT_LOOK[entry.eventType] ?? DEFAULT_LOOK) : DEFAULT_LOOK;
+  const look = eventLook(entry?.eventType ?? "");
   const subject =
     entry &&
     (typeof entry.summaryParams.name === "string"

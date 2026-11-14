@@ -403,7 +403,6 @@
   },
   "staff": {
     "accountSection": "Учётная запись",
-    "activitySection": "Активность",
     "title": "Сотрудники",
     "subtitle": "Приглашайте коллег, управляйте ролями и доступом.",
     "inviteButton": "Пригласить сотрудника",
@@ -431,7 +430,6 @@
     "sendInvite": "Отправить приглашение",
     "invited": "Приглашение отправлено на {{email}}",
     "emailTaken": "Пользователь с такой почтой уже существует",
-    "detailsTitle": "Сотрудник",
     "editTitle": "Данные",
     "saved": "Изменения сохранены",
     "ownRoleLocked": "Нельзя изменить собственную роль.",
@@ -952,8 +950,8 @@
         "description": "Видеть все действия, связанные с пациентом."
       },
       "user_read": {
-        "label": "Действия пользователя",
-        "description": "Видеть действия конкретного сотрудника."
+        "label": "История сотрудника",
+        "description": "Видеть действия сотрудника и изменения, связанные с ним."
       }
     },
     "emails": {
@@ -1036,7 +1034,6 @@
     "title": "Недельный график",
     "subtitleEdit": "Рабочие часы на каждый день недели. Пациентов можно записать только в эти часы.",
     "subtitleView": "Рабочие часы на каждый день недели.",
-    "backToStaff": "Сотрудники",
     "weekTitle": "Рабочая неделя",
     "readOnly": "Только просмотр",
     "deactivatedNote": "Эта учётная запись отключена, поэтому график изменить нельзя.",
@@ -1086,11 +1083,11 @@
       "minutes": "{{minutes}} мин",
       "hoursMinutes": "{{hours}} ч {{minutes}} мин"
     },
-    "drawerSection": "Недельный график",
     "open": "Открыть график",
     "edit": "Изменить график",
     "profileTitle": "Мой недельный график",
-    "profileText": "Ваши рабочие часы. Их задаёт администратор; пациентов записывают в эти часы."
+    "profileText": "Ваши рабочие часы. Их задаёт администратор; пациентов записывают в эти часы.",
+    "backToProfile": "К профилю"
   },
   "timeOff": {
     "title": "Отсутствия",
@@ -1128,7 +1125,65 @@
     "emptyUpcoming": "Предстоящих отсутствий нет",
     "emptyPast": "Прошедших отсутствий нет",
     "errorTitle": "Не удалось загрузить отсутствия",
-    "awayUntil": "отсутствует до {{date}}",
-    "nextPeriod": "следующее: {{period}}"
+    "awayUntil": "отсутствует до {{date}}"
+  },
+  "staffDetail": {
+    "back": "Сотрудники",
+    "moreActions": "Другие действия",
+    "addedAt": "Добавлен в MedFlow",
+    "noBio": "Пока ничего не написано.",
+    "tabs": {
+      "overview": "Обзор",
+      "schedule": "График и отпуска",
+      "history": "История"
+    },
+    "facts": {
+      "today": "Сегодня",
+      "noSchedule": "График не задан",
+      "week": "В неделю",
+      "weekValue_one": "{{count}} день · {{hours}}",
+      "weekValue_few": "{{count}} дня · {{hours}}",
+      "weekValue_many": "{{count}} дней · {{hours}}",
+      "weekValue_other": "{{count}} дня · {{hours}}",
+      "nextTimeOff": "Ближайший отпуск",
+      "noneScheduled": "Не запланирован",
+      "tenure": "В клинике"
+    },
+    "tenure": {
+      "years_one": "{{count}} год",
+      "years_few": "{{count}} года",
+      "years_many": "{{count}} лет",
+      "years_other": "{{count}} года",
+      "months_one": "{{count}} месяц",
+      "months_few": "{{count}} месяца",
+      "months_many": "{{count}} месяцев",
+      "months_other": "{{count}} месяца",
+      "lessThanMonth": "Меньше месяца",
+      "since": "с {{date}}",
+      "notStarted": "Ещё не начал работу",
+      "startsOn": "начинает {{date}}"
+    },
+    "week": {
+      "today": "Сегодня",
+      "range": "Эта неделя: {{period}}",
+      "totals": "рабочих дней: {{days}} · {{hours}} · приёмов: {{slots}}"
+    },
+    "history": {
+      "title": "История",
+      "about": "О сотруднике",
+      "activity": "Действия",
+      "aboutHint": "Изменения, связанные с сотрудником: аккаунт, профиль, график, отпуска",
+      "activityHint": "Что сотрудник сделал в MedFlow",
+      "aboutEmpty": "О сотруднике пока ничего не записано",
+      "activityEmpty": "Сотрудник пока ничего не сделал",
+      "count_one": "{{count}} запись",
+      "count_few": "{{count}} записи",
+      "count_many": "{{count}} записей",
+      "count_other": "{{count}} записи",
+      "today": "Сегодня",
+      "yesterday": "Вчера",
+      "loadMore": "Показать ещё",
+      "error": "Не удалось загрузить историю"
+    }
   }
 }

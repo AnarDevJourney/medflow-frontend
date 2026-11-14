@@ -95,14 +95,3 @@
 .full {
   width: 100%;
 }
-
-.inactiveNote {
-  color: var(--color-muted);
-}
-
-.bio {
-  margin: 0;
-  color: var(--color-text);
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-}

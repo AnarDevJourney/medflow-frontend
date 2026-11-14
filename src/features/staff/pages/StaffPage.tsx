@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Select } from "antd";
 import { useMemo, useState } from "react";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   DataTable,
@@ -27,9 +28,9 @@ import { useCan } from "@features/permissions/hooks/usePermissions";
 import { formatDate, formatDay } from "@lib/dayjs";
 import { UserStatus, type Role } from "@models/enums";
 import { USER_STATUS_COLOR } from "@utils/statusColors";
+import { staffMemberPath } from "@router/paths";
 import { InviteUserModal } from "../components/InviteUserModal";
 import { RoleSelect } from "../components/RoleSelect";
-import { StaffDetailDrawer } from "../components/StaffDetailDrawer";
 import { StaffProfileModal } from "../components/StaffProfileModal";
 import { UserModal } from "../components/UserModal";
 import { useConfirmUserAction } from "../hooks/useConfirmUserAction";
@@ -47,6 +48,13 @@ const SORT_FIELDS: Record<string, string> = {
   createdAt: "createdAt",
 };
 
+const parseSort = (value: string | null): DataTableSort | null => {
+  const [key, order] = value?.split(":") ?? [];
+  return key && key in SORT_FIELDS && (order === "asc" || order === "desc")
+    ? { key, order }
+    : null;
+};
+
 // Staff directory for every role (staff-service, staff.read). Without
 // users.read only active people are listed and account status stays hidden;
 // account actions (invite, edit, deactivate) and the work profile edit show
@@ -61,15 +69,41 @@ export function StaffPage() {
   const canDeactivate = can("users.deactivate");
   const canEditProfile = can("staff.update");
   const { resend, deactivate, reactivate } = useConfirmUserAction();
-  const [search, setSearch] = useState("");
-  const [role, setRole] = useState<Role>();
-  const [departmentId, setDepartmentId] = useState<string>();
-  const [status, setStatus] = useState<UserStatus>();
-  const [sort, setSort] = useState<DataTableSort | null>(null);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
+  // Filters, sort and page live in the URL, so the person page's back link
+  // (and a reload) returns to the same list
+  const [params, setParams] = useSearchParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const search = params.get("q") ?? "";
+  const role = (params.get("role") as Role | null) ?? undefined;
+  const departmentId = params.get("department") ?? undefined;
+  const status = (params.get("status") as UserStatus | null) ?? undefined;
+  const sort = parseSort(params.get("sort"));
+  const page = Number(params.get("page")) || 1;
+  const pageSize = Number(params.get("size")) || 20;
+  // Writes the given keys (undefined removes one); filters go back to page 1
+  const update = (patch: Record<string, string | number | undefined>, keepPage = false) =>
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        for (const [key, value] of Object.entries(patch)) {
+          if (value === undefined || value === "") next.delete(key);
+          else next.set(key, String(value));
+        }
+        if (!keepPage) next.delete("page");
+        return next;
+      },
+      { replace: true },
+    );
+  const setSearch = (value: string) => update({ q: value });
+  const setRole = (value: Role | undefined) => update({ role: value });
+  const setDepartmentId = (value: string | undefined) => update({ department: value });
+  const setStatus = (value: UserStatus | undefined) => update({ status: value });
+  const setSort = (value: DataTableSort | null) =>
+    update({ sort: value ? `${value.key}:${value.order}` : undefined });
+  const openPerson = (s: StaffMember) =>
+    navigate(staffMemberPath(s.userId), { state: { from: location.search } });
   const [inviteOpen, setInviteOpen] = useState(false);
-  const [detailsId, setDetailsId] = useState<string | null>(null);
   const [profileId, setProfileId] = useState<string | null>(null);
   const [accountId, setAccountId] = useState<string | null>(null);
 
@@ -195,13 +229,8 @@ export function StaffPage() {
     [t, me?.id, canReadAccounts],
   );
 
-  const resetFilters = () => {
-    setSearch("");
-    setRole(undefined);
-    setDepartmentId(undefined);
-    setStatus(undefined);
-    setPage(1);
-  };
+  const resetFilters = () =>
+    update({ q: undefined, role: undefined, department: undefined, status: undefined });
 
   // The confirmations take the account id (= userId)
   const account = (s: StaffMember) => ({ ...s, id: s.userId });
@@ -232,21 +261,22 @@ export function StaffPage() {
         error={staff.error}
         onRetry={() => void staff.refetch()}
         sort={sort}
-        onSortChange={(next) => {
-          setSort(next);
-          setPage(1);
-        }}
+        onSortChange={setSort}
         pagination={{
           page,
           pageSize,
           total: staff.data?.meta.total ?? 0,
-          onChange: (nextPage, nextSize) => {
-            setPage(nextSize === pageSize ? nextPage : 1);
-            setPageSize(nextSize);
-          },
+          onChange: (nextPage, nextSize) =>
+            update(
+              {
+                page: nextSize === pageSize && nextPage > 1 ? nextPage : undefined,
+                size: nextSize === 20 ? undefined : nextSize,
+              },
+              true,
+            ),
         }}
-        onRowClick={(s) => setDetailsId(s.userId)}
-        onViewDetails={(s) => setDetailsId(s.userId)}
+        onRowClick={openPerson}
+        onViewDetails={openPerson}
         rowLabel={(s) => `${s.firstName} ${s.lastName}`}
         rowActions={(s) => {
           const edits: DataTableRowAction[] = [
@@ -331,20 +361,14 @@ export function StaffPage() {
             <SearchInput
               placeholder={t("staff.search")}
               value={search}
-              onChange={(value) => {
-                setSearch(value);
-                setPage(1);
-              }}
+              onChange={setSearch}
               className={styles.search}
             />
             <RoleSelect
               allowClear
               placeholder={t("staff.allRoles")}
               value={role}
-              onChange={(value) => {
-                setRole(value);
-                setPage(1);
-              }}
+              onChange={setRole}
               className={styles.filter}
               aria-label={t("staff.role")}
             />
@@ -352,10 +376,7 @@ export function StaffPage() {
               allowClear
               placeholder={t("staff.allDepartments")}
               value={departmentId}
-              onChange={(value) => {
-                setDepartmentId(value);
-                setPage(1);
-              }}
+              onChange={setDepartmentId}
               className={styles.filter}
               aria-label={t("staff.profile.department")}
             />
@@ -364,10 +385,7 @@ export function StaffPage() {
                 allowClear
                 placeholder={t("staff.allStatuses")}
                 value={status}
-                onChange={(value) => {
-                  setStatus(value);
-                  setPage(1);
-                }}
+                onChange={setStatus}
                 options={Object.values(UserStatus).map((s) => ({
                   value: s,
                   label: t(`userStatus.${s}`),
@@ -381,27 +399,6 @@ export function StaffPage() {
         }
       />
       <InviteUserModal open={inviteOpen} onClose={() => setInviteOpen(false)} />
-      <StaffDetailDrawer
-        staff={findStaff(detailsId)}
-        canReadAccount={canReadAccounts}
-        onClose={() => setDetailsId(null)}
-        onEditProfile={
-          canEditProfile
-            ? (s) => {
-                setDetailsId(null);
-                setProfileId(s.userId);
-              }
-            : undefined
-        }
-        onEditAccount={
-          canEditAccount
-            ? (s) => {
-                setDetailsId(null);
-                setAccountId(s.userId);
-              }
-            : undefined
-        }
-      />
       <StaffProfileModal
         staff={findStaff(profileId)}
         onClose={() => setProfileId(null)}

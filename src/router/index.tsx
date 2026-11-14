@@ -15,6 +15,7 @@ import { NotificationsPage } from "@features/notifications/pages/NotificationsPa
 import { PermissionsPage } from "@features/permissions/pages/PermissionsPage";
 import { ProfilePage } from "@features/profile/pages/ProfilePage";
 import { SchedulePage } from "@features/schedules/pages/SchedulePage";
+import { StaffDetailPage } from "@features/staff/pages/StaffDetailPage";
 import { StaffPage } from "@features/staff/pages/StaffPage";
 import { PATHS } from "./paths";
 import { PublicOnly } from "./PublicOnly";
@@ -69,6 +70,7 @@ export const router = createBrowserRouter([
       { path: PATHS.profile, element: <ProfilePage /> },
       { path: PATHS.notifications, element: <NotificationsPage /> },
       { path: PATHS.staff, element: gated("staff", <StaffPage />) },
+      { path: PATHS.staffMember, element: gated("staff", <StaffDetailPage />) },
       {
         path: PATHS.staffSchedule,
         element: (

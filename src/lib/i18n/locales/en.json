@@ -403,7 +403,6 @@
   },
   "staff": {
     "accountSection": "Account",
-    "activitySection": "Activity",
     "title": "Staff",
     "subtitle": "Invite colleagues, manage roles and access.",
     "inviteButton": "Invite staff member",
@@ -431,7 +430,6 @@
     "sendInvite": "Send invitation",
     "invited": "Invitation sent to {{email}}",
     "emailTaken": "A user with this email already exists",
-    "detailsTitle": "Staff member",
     "editTitle": "Details",
     "saved": "Changes saved",
     "ownRoleLocked": "You can't change your own role.",
@@ -952,8 +950,8 @@
         "description": "See every action about one patient."
       },
       "user_read": {
-        "label": "User activity",
-        "description": "See the actions one staff member performed."
+        "label": "Staff member history",
+        "description": "See what a staff member did and the changes made to them."
       }
     },
     "emails": {
@@ -1032,7 +1030,6 @@
     "title": "Weekly schedule",
     "subtitleEdit": "Working hours for every weekday. Patients can be booked only inside these hours.",
     "subtitleView": "Working hours for every weekday.",
-    "backToStaff": "Staff",
     "weekTitle": "Working week",
     "readOnly": "View only",
     "deactivatedNote": "This account is deactivated, so the schedule can't be changed.",
@@ -1076,11 +1073,11 @@
       "minutes": "{{minutes}} min",
       "hoursMinutes": "{{hours}} h {{minutes}} min"
     },
-    "drawerSection": "Weekly schedule",
     "open": "Open schedule",
     "edit": "Edit schedule",
     "profileTitle": "My weekly schedule",
-    "profileText": "Your working hours. An administrator sets them; patients are booked inside these hours."
+    "profileText": "Your working hours. An administrator sets them; patients are booked inside these hours.",
+    "backToProfile": "Back to profile"
   },
   "timeOff": {
     "title": "Time off",
@@ -1116,7 +1113,57 @@
     "emptyUpcoming": "No upcoming time off",
     "emptyPast": "No past time off",
     "errorTitle": "Time off couldn't be loaded",
-    "awayUntil": "away until {{date}}",
-    "nextPeriod": "next: {{period}}"
+    "awayUntil": "away until {{date}}"
+  },
+  "staffDetail": {
+    "back": "Staff",
+    "moreActions": "More actions",
+    "addedAt": "Added to MedFlow",
+    "noBio": "Nothing written yet.",
+    "tabs": {
+      "overview": "Overview",
+      "schedule": "Schedule & time off",
+      "history": "History"
+    },
+    "facts": {
+      "today": "Today",
+      "noSchedule": "No schedule set",
+      "week": "Weekly",
+      "weekValue_one": "{{count}} day · {{hours}}",
+      "weekValue_other": "{{count}} days · {{hours}}",
+      "nextTimeOff": "Next time off",
+      "noneScheduled": "None planned",
+      "tenure": "At the clinic"
+    },
+    "tenure": {
+      "years_one": "{{count}} year",
+      "years_other": "{{count}} years",
+      "months_one": "{{count}} month",
+      "months_other": "{{count}} months",
+      "lessThanMonth": "Less than a month",
+      "since": "since {{date}}",
+      "notStarted": "Not started yet",
+      "startsOn": "starts on {{date}}"
+    },
+    "week": {
+      "today": "Today",
+      "range": "This week: {{period}}",
+      "totals": "{{days}} working days · {{hours}} · {{slots}} appointments"
+    },
+    "history": {
+      "title": "History",
+      "about": "About",
+      "activity": "Activity",
+      "aboutHint": "Changes to this person: account, profile, schedule, time off",
+      "activityHint": "What this person did in MedFlow",
+      "aboutEmpty": "Nothing recorded about this person yet",
+      "activityEmpty": "This person hasn't done anything yet",
+      "count_one": "{{count}} entry",
+      "count_other": "{{count}} entries",
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "loadMore": "Show more",
+      "error": "History couldn't be loaded"
+    }
   }
 }

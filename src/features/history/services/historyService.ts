@@ -60,6 +60,32 @@ export async function listHistory(query: HistoryQuery): Promise<Paginated<Histor
   return data;
 }
 
+export type PersonHistoryQuery = Omit<Range, "sort">;
+
+// Everything that happened to one person: account, work profile, schedule,
+// time off (history.user_read)
+export async function listPersonHistory(
+  userId: string,
+  query: PersonHistoryQuery,
+): Promise<Paginated<HistoryEntry>> {
+  const { data } = await api.get<Paginated<HistoryEntry>>(
+    `/history/users/${userId}/about`,
+    { params: query },
+  );
+  return data;
+}
+
+// What one person did (history.user_read)
+export async function listUserActivity(
+  userId: string,
+  query: PersonHistoryQuery,
+): Promise<Paginated<HistoryEntry>> {
+  const { data } = await api.get<Paginated<HistoryEntry>>(`/history/users/${userId}`, {
+    params: query,
+  });
+  return data;
+}
+
 // Every email the system sent or tried to send (ADMIN)
 export async function listEmailLogs(query: EmailLogsQuery): Promise<Paginated<EmailLog>> {
   const { data } = await api.get<Paginated<EmailLog>>("/history/emails", {

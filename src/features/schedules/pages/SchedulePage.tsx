@@ -13,7 +13,7 @@ import { useCan } from "@features/permissions/hooks/usePermissions";
 import { useStaffMember } from "@features/staff/hooks/useStaff";
 import { isApiError } from "@lib/api/errors";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
-import { PATHS } from "@router/paths";
+import { staffMemberPath } from "@router/paths";
 import { ScheduleEditor } from "../components/ScheduleEditor";
 import { TimeOffCard } from "../components/TimeOffCard";
 import { WeekSummary } from "../components/WeekSummary";
@@ -63,8 +63,8 @@ export function SchedulePage() {
     });
 
   const back = (
-    <Link to={PATHS.staff}>
-      <Button icon={<ArrowLeftOutlined />}>{t("schedules.backToStaff")}</Button>
+    <Link to={staffMemberPath(userId ?? "")}>
+      <Button icon={<ArrowLeftOutlined />}>{t("schedules.backToProfile")}</Button>
     </Link>
   );
 
