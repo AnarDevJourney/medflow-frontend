@@ -563,7 +563,8 @@
       "USER": "İstifadəçi",
       "ROLE": "Rol",
       "DEPARTMENT": "Şöbə",
-      "STAFF_MEMBER": "İş profili"
+      "STAFF_MEMBER": "İş profili",
+      "PATIENT": "Pasiyent"
     },
     "emailStatus": {
       "QUEUED": "Növbədə",
@@ -603,7 +604,11 @@
       "time_off": {
         "created": "İstirahət əlavə olundu",
         "deleted": "İstirahət silindi"
-      }
+      },
+      "patient.registered": "Pasiyent qeydiyyata alındı",
+      "patient.updated": "Pasiyent məlumatları yeniləndi",
+      "patient.deactivated": "Pasiyent qeydi deaktiv edildi",
+      "patient.reactivated": "Pasiyent qeydi aktivləşdirildi"
     },
     "fields": {
       "firstName": "ad",
@@ -620,7 +625,17 @@
       "specialization": "ixtisas",
       "licenseNumber": "lisenziya nömrəsi",
       "hireDate": "işə qəbul tarixi",
-      "bio": "haqqında"
+      "bio": "haqqında",
+      "fatherName": "Ata adı",
+      "finCode": "FİN",
+      "dateOfBirth": "Doğum tarixi",
+      "gender": "Cins",
+      "bloodType": "Qan qrupu",
+      "address": "Ünvan",
+      "emergencyContactName": "Əlaqə şəxsi",
+      "emergencyContactPhone": "Əlaqə telefonu",
+      "emergencyContactRelation": "Qohumluq",
+      "notes": "Qeydlər"
     },
     "actorSection": "Əməliyyatı edən",
     "detailsSection": "Təfərrüatlar",
@@ -641,7 +656,8 @@
       "workingDays": "İş günləri",
       "startDate": "İlk gün",
       "endDate": "Son gün",
-      "days": "Günlər"
+      "days": "Günlər",
+      "mrn": "MRN"
     },
     "via": {
       "RESET": "Email linki ilə sıfırlama",
@@ -707,6 +723,12 @@
     "timeOff": {
       "created": "{{actor}} {{name}} üçün istirahət əlavə etdi: {{type}}, {{period}}",
       "deleted": "{{actor}} {{name}} üçün istirahəti sildi: {{type}}, {{period}}"
+    },
+    "patient": {
+      "registered": "{{actor}} {{name}} ({{mrn}}) pasiyentini qeydiyyata aldı",
+      "updated": "{{actor}} {{name}} ({{mrn}}) pasiyentinin məlumatlarını yenilədi: {{fields}}",
+      "deactivated": "{{actor}} {{name}} ({{mrn}}) qeydini deaktiv etdi",
+      "reactivated": "{{actor}} {{name}} ({{mrn}}) qeydini yenidən aktivləşdirdi"
     }
   },
   "permissionCatalog": {
@@ -1164,6 +1186,96 @@
       "yesterday": "Dünən",
       "loadMore": "Daha çox göstər",
       "error": "Tarixçə yüklənmədi"
+    }
+  },
+  "patients": {
+    "title": "Pasiyentlər",
+    "subtitle": "Qeydiyyatdan əvvəl axtarın: ad, MRN, FİN və ya telefonla.",
+    "registerButton": "Pasiyenti qeydiyyata al",
+    "search": "Ad, MRN, FİN və ya telefon",
+    "allGenders": "Bütün cinslər",
+    "statusFilter": {
+      "active": "Aktiv qeydlər",
+      "inactive": "Deaktiv qeydlər",
+      "all": "Bütün qeydlər"
+    },
+    "columns": {
+      "patient": "Pasiyent",
+      "age": "Yaş",
+      "status": "Status",
+      "registered": "Qeydiyyat"
+    },
+    "fields": {
+      "mrn": "MRN",
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "fatherName": "Ata adı",
+      "finCode": "FİN",
+      "dateOfBirth": "Doğum tarixi",
+      "gender": "Cins",
+      "bloodType": "Qan qrupu",
+      "phone": "Telefon",
+      "email": "E-poçt",
+      "address": "Ünvan",
+      "emergencyContactName": "Əlaqə şəxsi",
+      "emergencyContactPhone": "Əlaqə telefonu",
+      "emergencyContactRelation": "Qohumluq",
+      "notes": "Qeydlər"
+    },
+    "gender": {
+      "MALE": "Kişi",
+      "FEMALE": "Qadın"
+    },
+    "status": {
+      "active": "Aktiv",
+      "inactive": "Deaktiv"
+    },
+    "years_one": "{{count}} yaş",
+    "years_other": "{{count}} yaş",
+    "fatherOf": "Ata adı: {{name}}",
+    "emptyTitle": "Hələ pasiyent yoxdur",
+    "emptyText": "Qəbul yazmaq və müayinəyə başlamaq üçün ilk pasiyenti qeydiyyata alın.",
+    "emptyReadText": "Qeydiyyat şöbəsi pasiyentləri qeydiyyata aldıqca burada görünəcək.",
+    "noMatchTitle": "Uyğun pasiyent tapılmadı",
+    "noMatchText": "Yazılışı yoxlayın, MRN və ya telefonla axtarın, ya da filtrləri təmizləyin.",
+    "noMatchRegisterText": "Yazılışı yoxlayın və ya MRN, telefonla axtarın. Pasiyent yenidirsə, qeydiyyata alın.",
+    "edit": "Məlumatları redaktə et",
+    "saved": "Dəyişikliklər yadda saxlanıldı",
+    "registered": "{{name}} {{mrn}} nömrəsi ilə qeydiyyata alındı",
+    "deactivate": "Qeydi deaktiv et",
+    "deactivateTitle": "{{name}} ({{mrn}}) qeydi deaktiv edilsin?",
+    "deactivateText": "Dublikat və ya vəfat etmiş pasiyentin qeydi üçün istifadə edin. Qeyd bütün tarixçəsi ilə oxunaqlı qalır, amma redaktə edilə və qəbula yazıla bilməz. Sonra yenidən aktivləşdirə bilərsiniz.",
+    "deactivated": "{{name}} qeydi deaktiv edildi",
+    "reactivate": "Qeydi aktivləşdir",
+    "reactivateTitle": "{{name}} ({{mrn}}) qeydi yenidən aktivləşdirilsin?",
+    "reactivateText": "Qeyd yenidən redaktə edilə və qəbula yazıla bilər.",
+    "reactivated": "{{name}} qeydi yenidən aktivləşdirildi",
+    "form": {
+      "createTitle": "Pasiyent qeydiyyatı",
+      "createText": "Yadda saxlayanda MRN avtomatik verilir.",
+      "editTitle": "Pasiyent məlumatlarını redaktə et",
+      "register": "Qeydiyyata al",
+      "personal": "Şəxsi məlumatlar",
+      "contact": "Əlaqə",
+      "emergency": "Təcili əlaqə şəxsi",
+      "firstNameRequired": "Adı daxil edin",
+      "lastNameRequired": "Soyadı daxil edin",
+      "dobRequired": "Doğum tarixini daxil edin",
+      "dobInvalid": "Doğum tarixi gələcəkdə və ya 1900-dən əvvəl ola bilməz",
+      "genderRequired": "Cinsi seçin",
+      "bloodUnknown": "Məlum deyil",
+      "finInvalid": "FİN 7 hərf və ya rəqəmdən ibarətdir",
+      "finTaken": "Bu FİN {{name}} ({{mrn}}) pasiyentinə aiddir",
+      "finTakenInactive": "Bu FİN deaktiv qeydə aiddir: {{name}} ({{mrn}})",
+      "phoneRequired": "Telefon nömrəsini daxil edin",
+      "phoneInvalid": "Düzgün telefon nömrəsi daxil edin",
+      "emailInvalid": "Düzgün e-poçt daxil edin",
+      "relationPlaceholder": "Anası, həyat yoldaşı…",
+      "notesHint": "Yalnız qeydiyyat qeydləri (dil, xüsusi ehtiyaclar). Klinik məlumat yazmayın."
+    },
+    "similar": {
+      "title": "Bənzər pasiyentlər",
+      "hint": "Yadda saxlamazdan əvvəl pasiyentin artıq qeydiyyatda olmadığına əmin olun."
     }
   }
 }

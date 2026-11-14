@@ -563,7 +563,8 @@
       "USER": "User",
       "ROLE": "Role",
       "DEPARTMENT": "Department",
-      "STAFF_MEMBER": "Staff profile"
+      "STAFF_MEMBER": "Staff profile",
+      "PATIENT": "Patient"
     },
     "emailStatus": {
       "QUEUED": "Queued",
@@ -603,7 +604,11 @@
       "time_off": {
         "created": "Time off added",
         "deleted": "Time off removed"
-      }
+      },
+      "patient.registered": "Patient registered",
+      "patient.updated": "Patient updated",
+      "patient.deactivated": "Patient record deactivated",
+      "patient.reactivated": "Patient record reactivated"
     },
     "fields": {
       "firstName": "first name",
@@ -620,7 +625,17 @@
       "specialization": "specialization",
       "licenseNumber": "licence number",
       "hireDate": "hire date",
-      "bio": "about"
+      "bio": "about",
+      "fatherName": "Father's name",
+      "finCode": "FIN",
+      "dateOfBirth": "Date of birth",
+      "gender": "Sex",
+      "bloodType": "Blood type",
+      "address": "Address",
+      "emergencyContactName": "Contact person",
+      "emergencyContactPhone": "Contact phone",
+      "emergencyContactRelation": "Relation",
+      "notes": "Notes"
     },
     "actorSection": "Performed by",
     "detailsSection": "Details",
@@ -641,7 +656,8 @@
       "workingDays": "Working days",
       "startDate": "First day",
       "endDate": "Last day",
-      "days": "Days"
+      "days": "Days",
+      "mrn": "MRN"
     },
     "via": {
       "RESET": "Reset with an email link",
@@ -707,6 +723,12 @@
     "timeOff": {
       "created": "{{actor}} added time off for {{name}}: {{type}}, {{period}}",
       "deleted": "{{actor}} removed time off of {{name}}: {{type}}, {{period}}"
+    },
+    "patient": {
+      "registered": "{{actor}} registered the patient {{name}} ({{mrn}})",
+      "updated": "{{actor}} updated the details of {{name}} ({{mrn}}): {{fields}}",
+      "deactivated": "{{actor}} deactivated the record of {{name}} ({{mrn}})",
+      "reactivated": "{{actor}} reactivated the record of {{name}} ({{mrn}})"
     }
   },
   "permissionCatalog": {
@@ -1164,6 +1186,96 @@
       "yesterday": "Yesterday",
       "loadMore": "Show more",
       "error": "History couldn't be loaded"
+    }
+  },
+  "patients": {
+    "title": "Patients",
+    "subtitle": "Search before registering — by name, MRN, FIN or phone.",
+    "registerButton": "Register patient",
+    "search": "Name, MRN, FIN or phone",
+    "allGenders": "All genders",
+    "statusFilter": {
+      "active": "Active records",
+      "inactive": "Inactive records",
+      "all": "All records"
+    },
+    "columns": {
+      "patient": "Patient",
+      "age": "Age",
+      "status": "Status",
+      "registered": "Registered"
+    },
+    "fields": {
+      "mrn": "MRN",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "fatherName": "Father's name",
+      "finCode": "FIN",
+      "dateOfBirth": "Date of birth",
+      "gender": "Sex",
+      "bloodType": "Blood type",
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "emergencyContactName": "Contact person",
+      "emergencyContactPhone": "Contact phone",
+      "emergencyContactRelation": "Relation",
+      "notes": "Notes"
+    },
+    "gender": {
+      "MALE": "Male",
+      "FEMALE": "Female"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "years_one": "{{count}} year",
+    "years_other": "{{count}} years",
+    "fatherOf": "Father: {{name}}",
+    "emptyTitle": "No patients yet",
+    "emptyText": "Register the first patient to book appointments and start visits.",
+    "emptyReadText": "Patients appear here once the front desk registers them.",
+    "noMatchTitle": "No patient matches",
+    "noMatchText": "Check the spelling, try the MRN or phone, or clear the filters.",
+    "noMatchRegisterText": "Check the spelling or try the MRN or phone. If the patient is new, register them.",
+    "edit": "Edit details",
+    "saved": "Changes saved",
+    "registered": "{{name}} registered as {{mrn}}",
+    "deactivate": "Deactivate record",
+    "deactivateTitle": "Deactivate the record of {{name}} ({{mrn}})?",
+    "deactivateText": "Use this for duplicate or deceased records. The record stays readable with all its history, but it can't be edited or booked. You can reactivate it later.",
+    "deactivated": "The record of {{name}} was deactivated",
+    "reactivate": "Reactivate record",
+    "reactivateTitle": "Reactivate the record of {{name}} ({{mrn}})?",
+    "reactivateText": "The record can be edited and booked again.",
+    "reactivated": "The record of {{name}} was reactivated",
+    "form": {
+      "createTitle": "Register a patient",
+      "createText": "An MRN is assigned automatically when you save.",
+      "editTitle": "Edit patient details",
+      "register": "Register",
+      "personal": "Personal details",
+      "contact": "Contact",
+      "emergency": "Emergency contact",
+      "firstNameRequired": "Enter the first name",
+      "lastNameRequired": "Enter the last name",
+      "dobRequired": "Enter the date of birth",
+      "dobInvalid": "The date of birth can't be in the future or before 1900",
+      "genderRequired": "Choose the sex",
+      "bloodUnknown": "Unknown",
+      "finInvalid": "FIN is 7 letters or digits",
+      "finTaken": "This FIN belongs to {{name}} ({{mrn}})",
+      "finTakenInactive": "This FIN belongs to an inactive record: {{name}} ({{mrn}})",
+      "phoneRequired": "Enter a phone number",
+      "phoneInvalid": "Enter a valid phone number",
+      "emailInvalid": "Enter a valid email",
+      "relationPlaceholder": "Mother, spouse…",
+      "notesHint": "Front-desk notes only (language, accessibility) — not clinical information."
+    },
+    "similar": {
+      "title": "Possible matches",
+      "hint": "Make sure the patient isn't registered already before saving."
     }
   }
 }

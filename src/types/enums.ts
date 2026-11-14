@@ -31,3 +31,22 @@ export const UserStatus = {
   DEACTIVATED: "DEACTIVATED",
 } as const;
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus];
+
+// patient-service patients.gender / blood_type
+export const Gender = {
+  MALE: "MALE",
+  FEMALE: "FEMALE",
+} as const;
+export type Gender = (typeof Gender)[keyof typeof Gender];
+
+export const BloodType = {
+  A_POS: "A_POS",
+  A_NEG: "A_NEG",
+  B_POS: "B_POS",
+  B_NEG: "B_NEG",
+  AB_POS: "AB_POS",
+  AB_NEG: "AB_NEG",
+  O_POS: "O_POS",
+  O_NEG: "O_NEG",
+} as const;
+export type BloodType = (typeof BloodType)[keyof typeof BloodType];

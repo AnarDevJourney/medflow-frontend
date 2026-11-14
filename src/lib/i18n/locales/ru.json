@@ -563,7 +563,8 @@
       "USER": "Пользователь",
       "ROLE": "Роль",
       "DEPARTMENT": "Отделение",
-      "STAFF_MEMBER": "Рабочий профиль"
+      "STAFF_MEMBER": "Рабочий профиль",
+      "PATIENT": "Пациент"
     },
     "emailStatus": {
       "QUEUED": "В очереди",
@@ -603,7 +604,11 @@
       "time_off": {
         "created": "Отсутствие добавлено",
         "deleted": "Отсутствие удалено"
-      }
+      },
+      "patient.registered": "Пациент зарегистрирован",
+      "patient.updated": "Данные пациента изменены",
+      "patient.deactivated": "Запись пациента деактивирована",
+      "patient.reactivated": "Запись пациента активирована"
     },
     "fields": {
       "firstName": "имя",
@@ -620,7 +625,17 @@
       "specialization": "специализация",
       "licenseNumber": "номер лицензии",
       "hireDate": "дата приёма",
-      "bio": "о себе"
+      "bio": "о себе",
+      "fatherName": "Отчество",
+      "finCode": "FIN",
+      "dateOfBirth": "Дата рождения",
+      "gender": "Пол",
+      "bloodType": "Группа крови",
+      "address": "Адрес",
+      "emergencyContactName": "Контактное лицо",
+      "emergencyContactPhone": "Телефон контакта",
+      "emergencyContactRelation": "Кем приходится",
+      "notes": "Заметки"
     },
     "actorSection": "Кто выполнил",
     "detailsSection": "Подробности",
@@ -641,7 +656,8 @@
       "workingDays": "Рабочие дни",
       "startDate": "Первый день",
       "endDate": "Последний день",
-      "days": "Дни"
+      "days": "Дни",
+      "mrn": "MRN"
     },
     "via": {
       "RESET": "Сброс по ссылке из письма",
@@ -707,6 +723,12 @@
     "timeOff": {
       "created": "{{actor}} добавил(а) отсутствие: {{name}} — {{type}}, {{period}}",
       "deleted": "{{actor}} удалил(а) отсутствие: {{name}} — {{type}}, {{period}}"
+    },
+    "patient": {
+      "registered": "{{actor}} зарегистрировал(а) пациента {{name}} ({{mrn}})",
+      "updated": "{{actor}} изменил(а) данные пациента {{name}} ({{mrn}}): {{fields}}",
+      "deactivated": "{{actor}} деактивировал(а) запись {{name}} ({{mrn}})",
+      "reactivated": "{{actor}} снова активировал(а) запись {{name}} ({{mrn}})"
     }
   },
   "permissionCatalog": {
@@ -1184,6 +1206,98 @@
       "yesterday": "Вчера",
       "loadMore": "Показать ещё",
       "error": "Не удалось загрузить историю"
+    }
+  },
+  "patients": {
+    "title": "Пациенты",
+    "subtitle": "Перед регистрацией найдите пациента: по имени, MRN, FIN или телефону.",
+    "registerButton": "Зарегистрировать пациента",
+    "search": "Имя, MRN, FIN или телефон",
+    "allGenders": "Любой пол",
+    "statusFilter": {
+      "active": "Активные записи",
+      "inactive": "Неактивные записи",
+      "all": "Все записи"
+    },
+    "columns": {
+      "patient": "Пациент",
+      "age": "Возраст",
+      "status": "Статус",
+      "registered": "Регистрация"
+    },
+    "fields": {
+      "mrn": "MRN",
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "fatherName": "Отчество",
+      "finCode": "FIN",
+      "dateOfBirth": "Дата рождения",
+      "gender": "Пол",
+      "bloodType": "Группа крови",
+      "phone": "Телефон",
+      "email": "Эл. почта",
+      "address": "Адрес",
+      "emergencyContactName": "Контактное лицо",
+      "emergencyContactPhone": "Телефон контакта",
+      "emergencyContactRelation": "Кем приходится",
+      "notes": "Заметки"
+    },
+    "gender": {
+      "MALE": "Мужской",
+      "FEMALE": "Женский"
+    },
+    "status": {
+      "active": "Активна",
+      "inactive": "Неактивна"
+    },
+    "years_one": "{{count}} год",
+    "years_few": "{{count}} года",
+    "years_many": "{{count}} лет",
+    "years_other": "{{count}} года",
+    "fatherOf": "Отчество: {{name}}",
+    "emptyTitle": "Пациентов пока нет",
+    "emptyText": "Зарегистрируйте первого пациента, чтобы записывать на приём и начинать визиты.",
+    "emptyReadText": "Пациенты появятся здесь после регистрации в регистратуре.",
+    "noMatchTitle": "Пациент не найден",
+    "noMatchText": "Проверьте написание, попробуйте MRN или телефон либо сбросьте фильтры.",
+    "noMatchRegisterText": "Проверьте написание или попробуйте MRN, телефон. Если пациент новый — зарегистрируйте его.",
+    "edit": "Изменить данные",
+    "saved": "Изменения сохранены",
+    "registered": "{{name}}: зарегистрирован(а) под номером {{mrn}}",
+    "deactivate": "Деактивировать запись",
+    "deactivateTitle": "Деактивировать запись {{name}} ({{mrn}})?",
+    "deactivateText": "Для дубликатов и записей умерших пациентов. Запись остаётся доступной для чтения вместе с историей, но её нельзя изменить или записать на приём. Позже её можно снова активировать.",
+    "deactivated": "Запись {{name}} деактивирована",
+    "reactivate": "Активировать запись",
+    "reactivateTitle": "Снова активировать запись {{name}} ({{mrn}})?",
+    "reactivateText": "Запись снова можно будет изменять и записывать на приём.",
+    "reactivated": "Запись {{name}} снова активна",
+    "form": {
+      "createTitle": "Регистрация пациента",
+      "createText": "MRN присваивается автоматически при сохранении.",
+      "editTitle": "Изменить данные пациента",
+      "register": "Зарегистрировать",
+      "personal": "Личные данные",
+      "contact": "Контакты",
+      "emergency": "Экстренный контакт",
+      "firstNameRequired": "Введите имя",
+      "lastNameRequired": "Введите фамилию",
+      "dobRequired": "Введите дату рождения",
+      "dobInvalid": "Дата рождения не может быть в будущем или раньше 1900 года",
+      "genderRequired": "Выберите пол",
+      "bloodUnknown": "Неизвестна",
+      "finInvalid": "FIN — 7 букв или цифр",
+      "finTaken": "Этот FIN принадлежит пациенту {{name}} ({{mrn}})",
+      "finTakenInactive": "Этот FIN принадлежит неактивной записи: {{name}} ({{mrn}})",
+      "phoneRequired": "Введите номер телефона",
+      "phoneInvalid": "Введите корректный номер телефона",
+      "emailInvalid": "Введите корректный адрес почты",
+      "relationPlaceholder": "Мать, супруг…",
+      "notesHint": "Только заметки регистратуры (язык, особые потребности) — не клиническая информация."
+    },
+    "similar": {
+      "title": "Похожие пациенты",
+      "hint": "Перед сохранением убедитесь, что пациент ещё не зарегистрирован."
     }
   }
 }

@@ -110,8 +110,12 @@ export const EVENT_TYPES = [
   "schedule.updated",
   "time_off.created",
   "time_off.deleted",
+  "patient.registered",
+  "patient.updated",
+  "patient.deactivated",
+  "patient.reactivated",
 ];
-export const ENTITY_TYPES = ["USER", "ROLE", "DEPARTMENT", "STAFF_MEMBER"];
+export const ENTITY_TYPES = ["USER", "ROLE", "DEPARTMENT", "STAFF_MEMBER", "PATIENT"];
 export const EMAIL_TEMPLATES = [
   "staff-invite",
   "password-reset",
