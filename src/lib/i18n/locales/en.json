@@ -1382,5 +1382,31 @@
     "diagnosedOn": "Since {{date}}",
     "editAllergyTitle": "Edit allergy",
     "allergySaved": "Changes saved"
+  },
+  "patientStats": {
+    "title": "Patients",
+    "openList": "Open the list",
+    "active": "Active patients",
+    "inactive": "Inactive records",
+    "newThisMonth": "New this month",
+    "newLastMonth": "New last month",
+    "moreThanLast_one": "{{count}} more than last month",
+    "moreThanLast_other": "{{count}} more than last month",
+    "lessThanLast_one": "{{count}} fewer than last month",
+    "lessThanLast_other": "{{count}} fewer than last month",
+    "sameAsLastMonth": "Same as last month",
+    "perMonth": "New patients per month",
+    "newCount_one": "{{count}} new patient",
+    "newCount_other": "{{count}} new patients",
+    "bySex": "By sex (active)",
+    "byAge": "By age (active)",
+    "ageGroups": {
+      "0-17": "0–17",
+      "18-39": "18–39",
+      "40-64": "40–64",
+      "65+": "65+"
+    },
+    "emptyTitle": "No patients yet",
+    "emptyText": "Statistics appear once the first patient is registered."
   }
 }

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { NAV_ITEMS } from "@components/layout/navigation";
 import { RoleTag } from "@components/ui/RoleTag";
 import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
+import { PatientStatsCard } from "@features/patients/components/stats/PatientStatsCard";
 import { useCan } from "@features/permissions/hooks/usePermissions";
 import { toClinicTime } from "@lib/dayjs";
 import styles from "./DashboardPage.module.css";
@@ -12,9 +13,9 @@ import styles from "./DashboardPage.module.css";
 const greetingKey = (hour: number) =>
   hour < 5 ? "evening" : hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening";
 
-// Role-shaped home page (DOC 9.2). The role widgets (today's queue,
-// revenue, lab orders …) arrive with their backend phases; for now: a
-// welcome and quick access to this role's pages.
+// Role-shaped home page (DOC 9.2). The role widgets arrive with their
+// backend phases: so far the patient statistics (patients.stats); today's
+// queue, revenue, lab orders … follow. Plus a welcome and quick access.
 export function DashboardPage() {
   const { t } = useTranslation();
   const { data: user } = useCurrentUser();
@@ -38,6 +39,8 @@ export function DashboardPage() {
         </div>
         <RoleTag role={user.role} />
       </section>
+
+      {can("patients.stats") && <PatientStatsCard />}
 
       <section>
         <h2 className={styles.heading}>{t("dashboard.quickAccess")}</h2>

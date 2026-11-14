@@ -189,3 +189,23 @@ export async function removeCondition(
 ): Promise<void> {
   await api.delete(`/patients/${patientId}/conditions/${conditionId}`);
 }
+
+// GET /patients/stats (patients.stats, ADMIN)
+export type AgeGroup = "0-17" | "18-39" | "40-64" | "65+";
+
+export interface PatientStats {
+  totals: {
+    active: number;
+    inactive: number;
+    newThisMonth: number;
+    newLastMonth: number;
+  };
+  monthly: { month: string; count: number }[]; // last 12 months, 'YYYY-MM', oldest first
+  gender: { MALE: number; FEMALE: number }; // active patients
+  ageGroups: { group: AgeGroup; count: number }[]; // active patients
+}
+
+export async function getPatientStats(): Promise<PatientStats> {
+  const { data } = await api.get<PatientStats>("/patients/stats");
+  return data;
+}

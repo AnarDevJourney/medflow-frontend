@@ -9,6 +9,7 @@ import {
   addCondition,
   createPatient,
   getPatient,
+  getPatientStats,
   listPatients,
   removeAllergy,
   removeCondition,
@@ -38,6 +39,14 @@ export function usePatient(id: string | undefined) {
     queryKey: [...patientsKey, "one", id],
     queryFn: () => getPatient(id!),
     enabled: Boolean(id),
+  });
+}
+
+export function usePatientStats(enabled = true) {
+  return useQuery({
+    queryKey: [...patientsKey, "stats"],
+    queryFn: getPatientStats,
+    enabled,
   });
 }
 

@@ -1382,5 +1382,31 @@
     "diagnosedOn": "{{date}} tarixindən",
     "editAllergyTitle": "Allergiyanı redaktə et",
     "allergySaved": "Dəyişikliklər yadda saxlanıldı"
+  },
+  "patientStats": {
+    "title": "Pasiyentlər",
+    "openList": "Siyahını aç",
+    "active": "Aktiv pasiyentlər",
+    "inactive": "Deaktiv qeydlər",
+    "newThisMonth": "Bu ay yeni",
+    "newLastMonth": "Keçən ay yeni",
+    "moreThanLast_one": "keçən aydan {{count}} çox",
+    "moreThanLast_other": "keçən aydan {{count}} çox",
+    "lessThanLast_one": "keçən aydan {{count}} az",
+    "lessThanLast_other": "keçən aydan {{count}} az",
+    "sameAsLastMonth": "Keçən ayla eyni",
+    "perMonth": "Aylıq yeni pasiyentlər",
+    "newCount_one": "{{count}} yeni pasiyent",
+    "newCount_other": "{{count}} yeni pasiyent",
+    "bySex": "Cinsə görə (aktiv)",
+    "byAge": "Yaşa görə (aktiv)",
+    "ageGroups": {
+      "0-17": "0–17",
+      "18-39": "18–39",
+      "40-64": "40–64",
+      "65+": "65+"
+    },
+    "emptyTitle": "Hələ pasiyent yoxdur",
+    "emptyText": "İlk pasiyent qeydiyyata alınandan sonra statistika görünəcək."
   }
 }

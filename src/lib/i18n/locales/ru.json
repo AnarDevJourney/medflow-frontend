@@ -1406,5 +1406,37 @@
     "diagnosedOn": "С {{date}}",
     "editAllergyTitle": "Изменить аллергию",
     "allergySaved": "Изменения сохранены"
+  },
+  "patientStats": {
+    "title": "Пациенты",
+    "openList": "Открыть список",
+    "active": "Активные пациенты",
+    "inactive": "Неактивные записи",
+    "newThisMonth": "Новых в этом месяце",
+    "newLastMonth": "Новых в прошлом месяце",
+    "moreThanLast_one": "на {{count}} больше, чем в прошлом месяце",
+    "moreThanLast_few": "на {{count}} больше, чем в прошлом месяце",
+    "moreThanLast_many": "на {{count}} больше, чем в прошлом месяце",
+    "moreThanLast_other": "на {{count}} больше, чем в прошлом месяце",
+    "lessThanLast_one": "на {{count}} меньше, чем в прошлом месяце",
+    "lessThanLast_few": "на {{count}} меньше, чем в прошлом месяце",
+    "lessThanLast_many": "на {{count}} меньше, чем в прошлом месяце",
+    "lessThanLast_other": "на {{count}} меньше, чем в прошлом месяце",
+    "sameAsLastMonth": "Как в прошлом месяце",
+    "perMonth": "Новые пациенты по месяцам",
+    "newCount_one": "{{count}} новый пациент",
+    "newCount_few": "{{count}} новых пациента",
+    "newCount_many": "{{count}} новых пациентов",
+    "newCount_other": "{{count}} новых пациента",
+    "bySex": "По полу (активные)",
+    "byAge": "По возрасту (активные)",
+    "ageGroups": {
+      "0-17": "0–17",
+      "18-39": "18–39",
+      "40-64": "40–64",
+      "65+": "65+"
+    },
+    "emptyTitle": "Пациентов пока нет",
+    "emptyText": "Статистика появится после регистрации первого пациента."
   }
 }
