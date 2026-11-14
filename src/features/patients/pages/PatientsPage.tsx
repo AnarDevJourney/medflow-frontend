@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Flex, Select } from "antd";
 import { useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   DataTable,
@@ -29,6 +29,7 @@ import { useConfirmPatientAction } from "../hooks/useConfirmPatientAction";
 import { usePatients } from "../hooks/usePatients";
 import type { Patient } from "../services/patientsService";
 import { ageOf, bloodTypeLabel, fullName } from "../utils/patient";
+import { patientPath } from "@router/paths";
 import styles from "./PatientsPage.module.css";
 
 // DataTable column key → API sort field
@@ -88,6 +89,11 @@ export function PatientsPage() {
       },
       { replace: true },
     );
+  const navigate = useNavigate();
+  const location = useLocation();
+  // The profile's back link returns to this list with the same filters
+  const openPatient = (p: { id: string }) =>
+    navigate(patientPath(p.id), { state: { from: location.search } });
   const [createOpen, setCreateOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
 
@@ -261,6 +267,8 @@ export function PatientsPage() {
               true,
             ),
         }}
+        onRowClick={openPatient}
+        onViewDetails={openPatient}
         rowLabel={(p) => `${fullName(p)} ${p.mrn}`}
         rowActions={(p) => {
           const edits: DataTableRowAction[] =
@@ -353,6 +361,7 @@ export function PatientsPage() {
       <PatientModal
         open={createOpen || Boolean(editId)}
         patient={findPatient(editId)}
+        onCreated={openPatient}
         onClose={() => {
           setCreateOpen(false);
           setEditId(null);

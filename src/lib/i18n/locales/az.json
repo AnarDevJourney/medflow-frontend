@@ -1275,7 +1275,23 @@
     },
     "similar": {
       "title": "Bənzər pasiyentlər",
-      "hint": "Yadda saxlamazdan əvvəl pasiyentin artıq qeydiyyatda olmadığına əmin olun."
+      "hint": "Yadda saxlamazdan əvvəl pasiyentin artıq qeydiyyatda olmadığına əmin olun.",
+      "open": "Aç",
+      "openRecord": "Bu qeydi aç",
+      "discardAndOpen": "Ləğv et və aç"
+    }
+  },
+  "patientDetail": {
+    "back": "Pasiyentlər",
+    "notGiven": "Göstərilməyib",
+    "noNotes": "Qeyd yoxdur.",
+    "noEmergency": "Təcili əlaqə şəxsi əlavə edilməyib.",
+    "inactiveTitle": "Bu qeyd deaktivdir",
+    "inactiveText": "Tarixçəsi ilə birlikdə oxunaqlı qalır, amma redaktə edilə və qəbula yazıla bilməz.",
+    "history": {
+      "title": "Tarixçə",
+      "hint": "Bu pasiyent haqqında qeydə alınan hər şey",
+      "empty": "Bu pasiyent haqqında hələ heç nə qeydə alınmayıb"
     }
   }
 }

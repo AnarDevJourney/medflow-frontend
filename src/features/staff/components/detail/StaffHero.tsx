@@ -8,7 +8,6 @@ import {
   UndoOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, type MenuProps } from "antd";
-import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { RoleTag } from "@components/ui/RoleTag";
 import { UserAvatar } from "@components/ui/UserAvatar";
@@ -16,16 +15,11 @@ import { UserStatusTag } from "@components/ui/UserStatusTag";
 import { useCan } from "@features/permissions/hooks/usePermissions";
 import { useConfirmUserAction } from "../../hooks/useConfirmUserAction";
 import type { StaffMember } from "../../services/staffService";
-import styles from "./StaffDetail.module.css";
-
-export interface HeroFact {
-  key: string;
-  icon: ReactNode;
-  label: string;
-  value: ReactNode;
-  sub?: ReactNode;
-  tone?: "success" | "warning" | "muted";
-}
+import {
+  HeroFacts,
+  type HeroFact,
+  detailStyles as styles,
+} from "@components/detail-page";
 
 // Who this is and the few facts people look for first; the actions the
 // viewer may take on the account and the work profile
@@ -136,26 +130,7 @@ export function StaffHero({
         )}
       </div>
 
-      {facts.length > 0 && (
-        <dl className={styles.facts}>
-          {facts.map((fact) => (
-            <div key={fact.key} className={styles.fact}>
-              <dt>
-                <span className={styles.factIcon} aria-hidden="true">
-                  {fact.icon}
-                </span>
-                {fact.label}
-              </dt>
-              <dd>
-                <span className={styles.factValue} data-tone={fact.tone}>
-                  {fact.value}
-                </span>
-                {fact.sub && <span className={styles.factSub}>{fact.sub}</span>}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      )}
+      <HeroFacts facts={facts} />
     </section>
   );
 }

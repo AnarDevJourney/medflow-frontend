@@ -86,6 +86,18 @@ export async function listUserActivity(
   return data;
 }
 
+// Everything recorded about one patient (history.patient_read)
+export async function listPatientHistory(
+  patientId: string,
+  query: PersonHistoryQuery,
+): Promise<Paginated<HistoryEntry>> {
+  const { data } = await api.get<Paginated<HistoryEntry>>(
+    `/history/patients/${patientId}`,
+    { params: query },
+  );
+  return data;
+}
+
 // Every email the system sent or tried to send (ADMIN)
 export async function listEmailLogs(query: EmailLogsQuery): Promise<Paginated<EmailLog>> {
   const { data } = await api.get<Paginated<EmailLog>>("/history/emails", {

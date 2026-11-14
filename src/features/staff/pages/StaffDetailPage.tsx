@@ -23,14 +23,15 @@ import { useErrorMessage } from "@lib/api/useErrorMessage";
 import dayjs, { formatDateTime, formatDay, fromNow } from "@lib/dayjs";
 import { PATHS } from "@router/paths";
 import { useState } from "react";
-import { StaffHero, type HeroFact } from "../components/detail/StaffHero";
+import { StaffHero } from "../components/detail/StaffHero";
+import type { HeroFact } from "@components/detail-page";
 import { StaffOverview } from "../components/detail/StaffOverview";
 import { StaffScheduleTab } from "../components/detail/StaffScheduleTab";
 import { StaffProfileModal } from "../components/StaffProfileModal";
 import { UserModal } from "../components/UserModal";
 import { useStaffMember } from "../hooks/useStaff";
 import { useUser } from "../hooks/useUsers";
-import styles from "../components/detail/StaffDetail.module.css";
+import { detailStyles as styles } from "@components/detail-page";
 
 type TabKey = "overview" | "schedule" | "history";
 

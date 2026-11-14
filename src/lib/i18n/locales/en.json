@@ -1275,7 +1275,23 @@
     },
     "similar": {
       "title": "Possible matches",
-      "hint": "Make sure the patient isn't registered already before saving."
+      "hint": "Make sure the patient isn't registered already before saving.",
+      "open": "Open",
+      "openRecord": "Open this record",
+      "discardAndOpen": "Discard and open"
+    }
+  },
+  "patientDetail": {
+    "back": "Patients",
+    "notGiven": "Not given",
+    "noNotes": "No notes.",
+    "noEmergency": "No emergency contact added.",
+    "inactiveTitle": "This record is inactive",
+    "inactiveText": "It stays readable with its history, but it can't be edited or booked.",
+    "history": {
+      "title": "History",
+      "hint": "Everything recorded about this patient",
+      "empty": "Nothing recorded about this patient yet"
     }
   }
 }

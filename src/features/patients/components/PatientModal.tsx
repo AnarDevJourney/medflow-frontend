@@ -1,6 +1,7 @@
 import { UserAddOutlined, EditOutlined } from "@ant-design/icons";
 import { App, DatePicker, Form, Input, Radio, Select } from "antd";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import { useNavigate } from "react-router-dom";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AppModal } from "@components/modal";
@@ -10,6 +11,7 @@ import { isApiError } from "@lib/api/errors";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
 import dayjs from "@lib/dayjs";
 import { BloodType, Gender } from "@models/enums";
+import { patientPath } from "@router/paths";
 import { PHONE_PATTERN } from "@utils/phone";
 import { usePatientActions } from "../hooks/usePatients";
 import type {
@@ -129,9 +131,15 @@ export function PatientModal({
   onCreated?: (patient: Patient) => void;
 }) {
   const { t } = useTranslation();
-  const { message } = App.useApp();
+  const { message, modal } = App.useApp();
+  const navigate = useNavigate();
   const errorMessage = useErrorMessage();
   const { create, update } = usePatientActions();
+  // The patient who already has the FIN that was just rejected
+  const [conflict, setConflict] = useState<{
+    fin: string;
+    patient: ExistingPatientRef;
+  } | null>(null);
   // The last edited patient stays rendered while the modal animates out
   const [patient, setPatient] = useState(selected);
   if (selected && selected !== patient) setPatient(selected);
@@ -146,13 +154,31 @@ export function PatientModal({
     name: ["firstName", "lastName", "finCode"],
   });
 
-  const finTaken = (existing: ExistingPatientRef) =>
+  // Leave the form for an existing record (what was typed is lost)
+  const openExisting = (existing: { id: string }) => {
+    const go = () => {
+      onClose();
+      navigate(patientPath(existing.id));
+    };
+    if (!formState.isDirty) return go();
+    modal.confirm({
+      title: t("modal.discardTitle"),
+      content: t("modal.discardText"),
+      okText: t("patients.similar.discardAndOpen"),
+      cancelText: t("modal.keepEditing"),
+      onOk: go,
+    });
+  };
+
+  const finTaken = (existing: ExistingPatientRef) => {
+    setConflict({ fin: finCode.trim().toUpperCase(), patient: existing });
     setError("finCode", {
       message: t(
         existing.isActive ? "patients.form.finTaken" : "patients.form.finTakenInactive",
         { name: fullName(existing), mrn: existing.mrn },
       ),
     });
+  };
 
   const onError = (error: unknown) => {
     if (isApiError(error, "CONFLICT")) {
@@ -205,6 +231,7 @@ export function PatientModal({
       patternMessage?: string;
       autoComplete?: string;
       upper?: boolean;
+      extra?: ReactNode;
     },
   ) => (
     <FormField
@@ -212,6 +239,7 @@ export function PatientModal({
       required={Boolean(options.required)}
       error={formState.errors[name]}
       htmlFor={`patient-${name}`}
+      extra={options.extra}
     >
       <Controller
         name={name}
@@ -254,6 +282,7 @@ export function PatientModal({
       onClose={onClose}
       afterClose={() => {
         setPatient(null);
+        setConflict(null);
         reset(EMPTY);
       }}
       title={t(editing ? "patients.form.editTitle" : "patients.form.createTitle")}
@@ -284,7 +313,12 @@ export function PatientModal({
           {text("fatherName", t("patients.fields.fatherName"), { maxLength: 100 })}
         </div>
         {!editing && (
-          <SimilarPatients firstName={firstName} lastName={lastName} finCode={finCode} />
+          <SimilarPatients
+            firstName={firstName}
+            lastName={lastName}
+            finCode={finCode}
+            onOpen={openExisting}
+          />
         )}
         <div className={styles.rowIdentity}>
           <FormField
@@ -368,6 +402,15 @@ export function PatientModal({
             pattern: FIN_PATTERN,
             patternMessage: t("patients.form.finInvalid"),
             upper: true,
+            extra: conflict && conflict.fin === finCode.trim().toUpperCase() && (
+              <button
+                type="button"
+                className={styles.finLink}
+                onClick={() => openExisting(conflict.patient)}
+              >
+                {t("patients.similar.openRecord")}
+              </button>
+            ),
           })}
         </div>
 

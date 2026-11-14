@@ -11,6 +11,7 @@ export const PATHS = {
   profile: "/profile",
   today: "/today",
   patients: "/patients",
+  patient: "/patients/:id",
   appointments: "/appointments",
   labQueue: "/lab-queue",
   invoices: "/invoices",
@@ -24,6 +25,9 @@ export const PATHS = {
   notifications: "/notifications",
   devTable: "/dev/table", // dev builds only
 } as const;
+
+// One patient's profile
+export const patientPath = (id: string) => `/patients/${id}`;
 
 // One person's page
 export const staffMemberPath = (userId: string) => `/staff/${userId}`;

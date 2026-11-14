@@ -1,8 +1,9 @@
-import { WarningOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, WarningOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import { useDebouncedValue } from "@hooks/useDebouncedValue";
 import { formatDay } from "@lib/dayjs";
 import { usePatients } from "../hooks/usePatients";
+import type { Patient } from "../services/patientsService";
 import { FIN_PATTERN, fullName } from "../utils/patient";
 import { PatientStatusTag } from "./PatientStatusTag";
 import styles from "./PatientModal.module.css";
@@ -13,10 +14,12 @@ export function SimilarPatients({
   firstName,
   lastName,
   finCode,
+  onOpen,
 }: {
   firstName: string;
   lastName: string;
   finCode: string;
+  onOpen: (patient: Patient) => void;
 }) {
   const { t } = useTranslation();
   const fin = finCode.trim().toUpperCase();
@@ -42,12 +45,17 @@ export function SimilarPatients({
       </header>
       <ul className={styles.similarList}>
         {items.map((p) => (
-          <li key={p.id} className={styles.similarRow}>
-            <span className={styles.similarName}>{fullName(p)}</span>
-            <span className={styles.mrn}>{p.mrn}</span>
-            <span className={styles.similarMeta}>{formatDay(p.dateOfBirth)}</span>
-            <span className={styles.similarMeta}>{p.phone}</span>
-            {!p.isActive && <PatientStatusTag isActive={false} />}
+          <li key={p.id}>
+            <button type="button" className={styles.similarRow} onClick={() => onOpen(p)}>
+              <span className={styles.similarName}>{fullName(p)}</span>
+              <span className={styles.mrn}>{p.mrn}</span>
+              <span className={styles.similarMeta}>{formatDay(p.dateOfBirth)}</span>
+              <span className={styles.similarMeta}>{p.phone}</span>
+              {!p.isActive && <PatientStatusTag isActive={false} />}
+              <span className={styles.similarOpen}>
+                {t("patients.similar.open")} <ArrowRightOutlined aria-hidden="true" />
+              </span>
+            </button>
           </li>
         ))}
       </ul>

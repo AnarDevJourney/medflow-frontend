@@ -12,8 +12,8 @@ import { weekTotals } from "@features/schedules/utils/schedule";
 import { staffSchedulePath } from "@router/paths";
 import dayjs from "@lib/dayjs";
 import type { StaffMember } from "../../services/staffService";
-import { InfoCard } from "./StaffOverview";
-import styles from "./StaffDetail.module.css";
+import { InfoCard } from "@components/detail-page";
+import { detailStyles as styles } from "@components/detail-page";
 
 // A doctor's week (this week's dates, time off marked) and every leave
 // period. Hours are edited on the schedule page.

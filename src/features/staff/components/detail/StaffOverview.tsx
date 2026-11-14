@@ -4,7 +4,6 @@ import {
   ReadOutlined,
   SafetyOutlined,
 } from "@ant-design/icons";
-import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { DetailList } from "@components/drawer";
 import { RoleTag } from "@components/ui/RoleTag";
@@ -12,34 +11,7 @@ import { UserStatusTag } from "@components/ui/UserStatusTag";
 import { formatDateTime, formatDay, fromNow } from "@lib/dayjs";
 import type { StaffUser } from "../../services/usersService";
 import type { StaffMember } from "../../services/staffService";
-import styles from "./StaffDetail.module.css";
-
-export function InfoCard({
-  icon,
-  title,
-  action,
-  children,
-}: {
-  icon: ReactNode;
-  title: ReactNode;
-  action?: ReactNode;
-  children: ReactNode;
-}) {
-  return (
-    <section className={styles.card}>
-      <header className={styles.cardHeader}>
-        <h2 className={styles.cardTitle}>
-          <span className={styles.cardIcon} aria-hidden="true">
-            {icon}
-          </span>
-          {title}
-        </h2>
-        {action}
-      </header>
-      {children}
-    </section>
-  );
-}
+import { InfoCard, detailStyles as styles } from "@components/detail-page";
 
 // Work profile, contacts, bio and (users.read) the account
 export function StaffOverview({

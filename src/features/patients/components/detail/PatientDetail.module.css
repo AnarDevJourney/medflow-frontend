@@ -1,0 +1,15 @@
+.mrn {
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-hover);
+  font-size: var(--font-size-sm);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.inactive {
+  margin-bottom: var(--space-4);
+}

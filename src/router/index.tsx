@@ -12,6 +12,7 @@ import { TableDemoPage } from "@features/dev/pages/TableDemoPage";
 import { NotFoundPage } from "@features/errors/pages/NotFoundPage";
 import { HistoryPage } from "@features/history/pages/HistoryPage";
 import { NotificationsPage } from "@features/notifications/pages/NotificationsPage";
+import { PatientDetailPage } from "@features/patients/pages/PatientDetailPage";
 import { PatientsPage } from "@features/patients/pages/PatientsPage";
 import { PermissionsPage } from "@features/permissions/pages/PermissionsPage";
 import { ProfilePage } from "@features/profile/pages/ProfilePage";
@@ -72,6 +73,7 @@ export const router = createBrowserRouter([
       { path: PATHS.profile, element: <ProfilePage /> },
       { path: PATHS.notifications, element: <NotificationsPage /> },
       { path: PATHS.patients, element: gated("patients", <PatientsPage />) },
+      { path: PATHS.patient, element: gated("patients", <PatientDetailPage />) },
       { path: PATHS.staff, element: gated("staff", <StaffPage />) },
       { path: PATHS.staffMember, element: gated("staff", <StaffDetailPage />) },
       {
