@@ -5,11 +5,19 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import {
+  addAllergy,
+  addCondition,
   createPatient,
   getPatient,
   listPatients,
+  removeAllergy,
+  removeCondition,
   setPatientActive,
+  updateAllergy,
+  updateCondition,
   updatePatient,
+  type AllergyInput,
+  type ConditionInput,
   type PatientInput,
   type PatientsQuery,
 } from "../services/patientsService";
@@ -50,6 +58,43 @@ export function usePatientActions() {
     setActive: useMutation({
       mutationFn: ({ id, isActive }: { id: string; isActive: boolean }) =>
         setPatientActive(id, isActive),
+      onSettled: done,
+    }),
+  };
+}
+
+// Allergies and conditions of one patient; the profile (GET /patients/:id)
+// carries both lists, so every change refetches it
+export function useClinicalActions(patientId: string) {
+  const queryClient = useQueryClient();
+  const done = () =>
+    queryClient.invalidateQueries({ queryKey: [...patientsKey, "one", patientId] });
+
+  return {
+    addAllergy: useMutation({
+      mutationFn: (input: AllergyInput) => addAllergy(patientId, input),
+      onSettled: done,
+    }),
+    updateAllergy: useMutation({
+      mutationFn: ({ id, input }: { id: string; input: Partial<AllergyInput> }) =>
+        updateAllergy(patientId, id, input),
+      onSettled: done,
+    }),
+    removeAllergy: useMutation({
+      mutationFn: (allergyId: string) => removeAllergy(patientId, allergyId),
+      onSettled: done,
+    }),
+    addCondition: useMutation({
+      mutationFn: (input: ConditionInput) => addCondition(patientId, input),
+      onSettled: done,
+    }),
+    updateCondition: useMutation({
+      mutationFn: ({ id, input }: { id: string; input: Partial<ConditionInput> }) =>
+        updateCondition(patientId, id, input),
+      onSettled: done,
+    }),
+    removeCondition: useMutation({
+      mutationFn: (conditionId: string) => removeCondition(patientId, conditionId),
       onSettled: done,
     }),
   };

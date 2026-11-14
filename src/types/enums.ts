@@ -50,3 +50,25 @@ export const BloodType = {
   O_NEG: "O_NEG",
 } as const;
 export type BloodType = (typeof BloodType)[keyof typeof BloodType];
+
+// patient-service clinical summary
+export const AllergyCategory = {
+  DRUG: "DRUG",
+  FOOD: "FOOD",
+  ENVIRONMENTAL: "ENVIRONMENTAL",
+  OTHER: "OTHER",
+} as const;
+export type AllergyCategory = (typeof AllergyCategory)[keyof typeof AllergyCategory];
+
+export const AllergySeverity = {
+  SEVERE: "SEVERE",
+  MODERATE: "MODERATE",
+  MILD: "MILD",
+} as const;
+export type AllergySeverity = (typeof AllergySeverity)[keyof typeof AllergySeverity];
+
+export const ConditionStatus = {
+  ACTIVE: "ACTIVE",
+  RESOLVED: "RESOLVED",
+} as const;
+export type ConditionStatus = (typeof ConditionStatus)[keyof typeof ConditionStatus];

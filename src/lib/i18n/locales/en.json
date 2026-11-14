@@ -608,7 +608,13 @@
       "patient.registered": "Patient registered",
       "patient.updated": "Patient updated",
       "patient.deactivated": "Patient record deactivated",
-      "patient.reactivated": "Patient record reactivated"
+      "patient.reactivated": "Patient record reactivated",
+      "patient.allergy_added": "Allergy added",
+      "patient.allergy_removed": "Allergy removed",
+      "patient.condition_added": "Chronic condition added",
+      "patient.condition_updated": "Chronic condition updated",
+      "patient.condition_removed": "Chronic condition removed",
+      "patient.allergy_updated": "Allergy updated"
     },
     "fields": {
       "firstName": "first name",
@@ -635,7 +641,14 @@
       "emergencyContactName": "Contact person",
       "emergencyContactPhone": "Contact phone",
       "emergencyContactRelation": "Relation",
-      "notes": "Notes"
+      "notes": "Notes",
+      "icd10Code": "ICD-10 code",
+      "diagnosedOn": "Diagnosis date",
+      "status": "Status",
+      "allergen": "Allergen",
+      "category": "Type",
+      "severity": "Severity",
+      "reaction": "Reaction"
     },
     "actorSection": "Performed by",
     "detailsSection": "Details",
@@ -728,7 +741,13 @@
       "registered": "{{actor}} registered the patient {{name}} ({{mrn}})",
       "updated": "{{actor}} updated the details of {{name}} ({{mrn}}): {{fields}}",
       "deactivated": "{{actor}} deactivated the record of {{name}} ({{mrn}})",
-      "reactivated": "{{actor}} reactivated the record of {{name}} ({{mrn}})"
+      "reactivated": "{{actor}} reactivated the record of {{name}} ({{mrn}})",
+      "allergyAdded": "{{actor}} added an allergy to the record of {{name}} ({{mrn}})",
+      "allergyRemoved": "{{actor}} removed an allergy from the record of {{name}} ({{mrn}})",
+      "conditionAdded": "{{actor}} added a chronic condition to the record of {{name}} ({{mrn}})",
+      "conditionUpdated": "{{actor}} updated a chronic condition of {{name}} ({{mrn}}): {{fields}}",
+      "conditionRemoved": "{{actor}} removed a chronic condition from the record of {{name}} ({{mrn}})",
+      "allergyUpdated": "{{actor}} updated an allergy of {{name}} ({{mrn}}): {{fields}}"
     }
   },
   "permissionCatalog": {
@@ -1292,6 +1311,76 @@
       "title": "History",
       "hint": "Everything recorded about this patient",
       "empty": "Nothing recorded about this patient yet"
+    },
+    "tabs": {
+      "clinical": "Clinical summary"
     }
+  },
+  "clinical": {
+    "allergies": "Allergies",
+    "conditions": "Chronic conditions",
+    "add": "Add",
+    "edit": "Edit",
+    "remove": "Remove",
+    "noAllergies": "No allergies recorded.",
+    "noConditions": "No chronic conditions recorded.",
+    "severity": {
+      "SEVERE": "Severe",
+      "MODERATE": "Moderate",
+      "MILD": "Mild"
+    },
+    "category": {
+      "DRUG": "Drug",
+      "FOOD": "Food",
+      "ENVIRONMENTAL": "Environmental",
+      "OTHER": "Other"
+    },
+    "conditionStatus": {
+      "ACTIVE": "Active",
+      "RESOLVED": "Resolved"
+    },
+    "fields": {
+      "allergen": "Allergen",
+      "category": "Type",
+      "severity": "Severity",
+      "reaction": "Reaction",
+      "condition": "Condition",
+      "icd10Code": "ICD-10 code",
+      "diagnosedOn": "Diagnosed on",
+      "status": "Status",
+      "notes": "Notes"
+    },
+    "banner": {
+      "title_one": "Allergy",
+      "title_other": "Allergies",
+      "none": "No allergies recorded"
+    },
+    "addAllergyTitle": "Add an allergy",
+    "allergenPlaceholder": "Penicillin, peanuts, latex…",
+    "allergenRequired": "Enter the allergen",
+    "categoryPlaceholder": "Choose a type",
+    "categoryRequired": "Choose the type",
+    "severityRequired": "Choose the severity",
+    "reactionPlaceholder": "Skin rash, anaphylaxis…",
+    "allergyExists": "This allergy is already recorded",
+    "allergyAdded": "{{name}} added to the allergies",
+    "allergyRemoved": "{{name}} removed from the allergies",
+    "removeAllergyTitle": "Remove the {{name}} allergy?",
+    "removeAllergyText": "It will no longer show in the allergy banner or be checked when prescriptions are written.",
+    "addConditionTitle": "Add a chronic condition",
+    "editConditionTitle": "Edit chronic condition",
+    "conditionPlaceholder": "Type 2 diabetes mellitus",
+    "conditionRequired": "Enter the condition",
+    "icdInvalid": "Use a code like E11 or J45.909",
+    "diagnosedOnFuture": "The diagnosis date can't be in the future",
+    "notesPlaceholder": "Treatment, how it is controlled…",
+    "conditionAdded": "{{name}} added",
+    "conditionSaved": "Changes saved",
+    "conditionRemoved": "{{name}} removed",
+    "removeConditionTitle": "Remove {{name}}?",
+    "removeConditionText": "Only for a condition entered by mistake — to record that it is over, set it to Resolved instead.",
+    "diagnosedOn": "Since {{date}}",
+    "editAllergyTitle": "Edit allergy",
+    "allergySaved": "Changes saved"
   }
 }

@@ -608,7 +608,13 @@
       "patient.registered": "Pasiyent qeydiyyata alındı",
       "patient.updated": "Pasiyent məlumatları yeniləndi",
       "patient.deactivated": "Pasiyent qeydi deaktiv edildi",
-      "patient.reactivated": "Pasiyent qeydi aktivləşdirildi"
+      "patient.reactivated": "Pasiyent qeydi aktivləşdirildi",
+      "patient.allergy_added": "Allergiya əlavə edildi",
+      "patient.allergy_removed": "Allergiya silindi",
+      "patient.condition_added": "Xroniki xəstəlik əlavə edildi",
+      "patient.condition_updated": "Xroniki xəstəlik yeniləndi",
+      "patient.condition_removed": "Xroniki xəstəlik silindi",
+      "patient.allergy_updated": "Allergiya yeniləndi"
     },
     "fields": {
       "firstName": "ad",
@@ -635,7 +641,14 @@
       "emergencyContactName": "Əlaqə şəxsi",
       "emergencyContactPhone": "Əlaqə telefonu",
       "emergencyContactRelation": "Qohumluq",
-      "notes": "Qeydlər"
+      "notes": "Qeydlər",
+      "icd10Code": "ICD-10 kodu",
+      "diagnosedOn": "Diaqnoz tarixi",
+      "status": "Status",
+      "allergen": "Allergen",
+      "category": "Növ",
+      "severity": "Dərəcə",
+      "reaction": "Reaksiya"
     },
     "actorSection": "Əməliyyatı edən",
     "detailsSection": "Təfərrüatlar",
@@ -728,7 +741,13 @@
       "registered": "{{actor}} {{name}} ({{mrn}}) pasiyentini qeydiyyata aldı",
       "updated": "{{actor}} {{name}} ({{mrn}}) pasiyentinin məlumatlarını yenilədi: {{fields}}",
       "deactivated": "{{actor}} {{name}} ({{mrn}}) qeydini deaktiv etdi",
-      "reactivated": "{{actor}} {{name}} ({{mrn}}) qeydini yenidən aktivləşdirdi"
+      "reactivated": "{{actor}} {{name}} ({{mrn}}) qeydini yenidən aktivləşdirdi",
+      "allergyAdded": "{{actor}} {{name}} ({{mrn}}) qeydinə allergiya əlavə etdi",
+      "allergyRemoved": "{{actor}} {{name}} ({{mrn}}) qeydindən allergiya sildi",
+      "conditionAdded": "{{actor}} {{name}} ({{mrn}}) qeydinə xroniki xəstəlik əlavə etdi",
+      "conditionUpdated": "{{actor}} {{name}} ({{mrn}}) pasiyentinin xroniki xəstəliyini yenilədi: {{fields}}",
+      "conditionRemoved": "{{actor}} {{name}} ({{mrn}}) qeydindən xroniki xəstəlik sildi",
+      "allergyUpdated": "{{actor}} {{name}} ({{mrn}}) pasiyentinin allergiyasını yenilədi: {{fields}}"
     }
   },
   "permissionCatalog": {
@@ -1292,6 +1311,76 @@
       "title": "Tarixçə",
       "hint": "Bu pasiyent haqqında qeydə alınan hər şey",
       "empty": "Bu pasiyent haqqında hələ heç nə qeydə alınmayıb"
+    },
+    "tabs": {
+      "clinical": "Klinik xülasə"
     }
+  },
+  "clinical": {
+    "allergies": "Allergiyalar",
+    "conditions": "Xroniki xəstəliklər",
+    "add": "Əlavə et",
+    "edit": "Redaktə et",
+    "remove": "Sil",
+    "noAllergies": "Allergiya qeyd edilməyib.",
+    "noConditions": "Xroniki xəstəlik qeyd edilməyib.",
+    "severity": {
+      "SEVERE": "Ağır",
+      "MODERATE": "Orta",
+      "MILD": "Yüngül"
+    },
+    "category": {
+      "DRUG": "Dərman",
+      "FOOD": "Qida",
+      "ENVIRONMENTAL": "Ətraf mühit",
+      "OTHER": "Digər"
+    },
+    "conditionStatus": {
+      "ACTIVE": "Aktiv",
+      "RESOLVED": "Sağalıb"
+    },
+    "fields": {
+      "allergen": "Allergen",
+      "category": "Növ",
+      "severity": "Dərəcə",
+      "reaction": "Reaksiya",
+      "condition": "Xəstəlik",
+      "icd10Code": "ICD-10 kodu",
+      "diagnosedOn": "Diaqnoz tarixi",
+      "status": "Status",
+      "notes": "Qeydlər"
+    },
+    "banner": {
+      "title_one": "Allergiya",
+      "title_other": "Allergiyalar",
+      "none": "Allergiya qeyd edilməyib"
+    },
+    "addAllergyTitle": "Allergiya əlavə et",
+    "allergenPlaceholder": "Penisillin, fıstıq, lateks…",
+    "allergenRequired": "Allergeni daxil edin",
+    "categoryPlaceholder": "Növü seçin",
+    "categoryRequired": "Növü seçin",
+    "severityRequired": "Dərəcəni seçin",
+    "reactionPlaceholder": "Dəri səpgisi, anafilaksiya…",
+    "allergyExists": "Bu allergiya artıq qeyd olunub",
+    "allergyAdded": "{{name}} allergiyalara əlavə edildi",
+    "allergyRemoved": "{{name}} allergiyalardan silindi",
+    "removeAllergyTitle": "{{name}} allergiyası silinsin?",
+    "removeAllergyText": "Artıq allergiya bannerində görünməyəcək və resept yazılanda yoxlanmayacaq.",
+    "addConditionTitle": "Xroniki xəstəlik əlavə et",
+    "editConditionTitle": "Xroniki xəstəliyi redaktə et",
+    "conditionPlaceholder": "2-ci tip şəkərli diabet",
+    "conditionRequired": "Xəstəliyi daxil edin",
+    "icdInvalid": "E11 və ya J45.909 kimi kod yazın",
+    "diagnosedOnFuture": "Diaqnoz tarixi gələcəkdə ola bilməz",
+    "notesPlaceholder": "Müalicə, necə nəzarət olunur…",
+    "conditionAdded": "{{name}} əlavə edildi",
+    "conditionSaved": "Dəyişikliklər yadda saxlanıldı",
+    "conditionRemoved": "{{name}} silindi",
+    "removeConditionTitle": "{{name}} silinsin?",
+    "removeConditionText": "Yalnız səhvən yazılmış xəstəlik üçün. Xəstəliyin bitdiyini qeyd etmək üçün statusu \"Sağalıb\" edin.",
+    "diagnosedOn": "{{date}} tarixindən",
+    "editAllergyTitle": "Allergiyanı redaktə et",
+    "allergySaved": "Dəyişikliklər yadda saxlanıldı"
   }
 }

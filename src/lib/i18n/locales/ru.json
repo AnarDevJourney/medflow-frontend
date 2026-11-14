@@ -608,7 +608,13 @@
       "patient.registered": "Пациент зарегистрирован",
       "patient.updated": "Данные пациента изменены",
       "patient.deactivated": "Запись пациента деактивирована",
-      "patient.reactivated": "Запись пациента активирована"
+      "patient.reactivated": "Запись пациента активирована",
+      "patient.allergy_added": "Аллергия добавлена",
+      "patient.allergy_removed": "Аллергия удалена",
+      "patient.condition_added": "Хроническое заболевание добавлено",
+      "patient.condition_updated": "Хроническое заболевание изменено",
+      "patient.condition_removed": "Хроническое заболевание удалено",
+      "patient.allergy_updated": "Аллергия изменена"
     },
     "fields": {
       "firstName": "имя",
@@ -635,7 +641,14 @@
       "emergencyContactName": "Контактное лицо",
       "emergencyContactPhone": "Телефон контакта",
       "emergencyContactRelation": "Кем приходится",
-      "notes": "Заметки"
+      "notes": "Заметки",
+      "icd10Code": "Код МКБ-10",
+      "diagnosedOn": "Дата диагноза",
+      "status": "Статус",
+      "allergen": "Аллерген",
+      "category": "Тип",
+      "severity": "Тяжесть",
+      "reaction": "Реакция"
     },
     "actorSection": "Кто выполнил",
     "detailsSection": "Подробности",
@@ -728,7 +741,13 @@
       "registered": "{{actor}} зарегистрировал(а) пациента {{name}} ({{mrn}})",
       "updated": "{{actor}} изменил(а) данные пациента {{name}} ({{mrn}}): {{fields}}",
       "deactivated": "{{actor}} деактивировал(а) запись {{name}} ({{mrn}})",
-      "reactivated": "{{actor}} снова активировал(а) запись {{name}} ({{mrn}})"
+      "reactivated": "{{actor}} снова активировал(а) запись {{name}} ({{mrn}})",
+      "allergyAdded": "{{actor}} добавил(а) аллергию в запись {{name}} ({{mrn}})",
+      "allergyRemoved": "{{actor}} удалил(а) аллергию из записи {{name}} ({{mrn}})",
+      "conditionAdded": "{{actor}} добавил(а) хроническое заболевание в запись {{name}} ({{mrn}})",
+      "conditionUpdated": "{{actor}} изменил(а) хроническое заболевание пациента {{name}} ({{mrn}}): {{fields}}",
+      "conditionRemoved": "{{actor}} удалил(а) хроническое заболевание из записи {{name}} ({{mrn}})",
+      "allergyUpdated": "{{actor}} изменил(а) аллергию пациента {{name}} ({{mrn}}): {{fields}}"
     }
   },
   "permissionCatalog": {
@@ -1314,6 +1333,78 @@
       "title": "История",
       "hint": "Всё, что записано об этом пациенте",
       "empty": "Об этом пациенте пока ничего не записано"
+    },
+    "tabs": {
+      "clinical": "Клиническая сводка"
     }
+  },
+  "clinical": {
+    "allergies": "Аллергии",
+    "conditions": "Хронические заболевания",
+    "add": "Добавить",
+    "edit": "Изменить",
+    "remove": "Удалить",
+    "noAllergies": "Аллергии не записаны.",
+    "noConditions": "Хронические заболевания не записаны.",
+    "severity": {
+      "SEVERE": "Тяжёлая",
+      "MODERATE": "Средняя",
+      "MILD": "Лёгкая"
+    },
+    "category": {
+      "DRUG": "Лекарство",
+      "FOOD": "Пища",
+      "ENVIRONMENTAL": "Окружающая среда",
+      "OTHER": "Другое"
+    },
+    "conditionStatus": {
+      "ACTIVE": "Активно",
+      "RESOLVED": "Излечено"
+    },
+    "fields": {
+      "allergen": "Аллерген",
+      "category": "Тип",
+      "severity": "Тяжесть",
+      "reaction": "Реакция",
+      "condition": "Заболевание",
+      "icd10Code": "Код МКБ-10",
+      "diagnosedOn": "Дата диагноза",
+      "status": "Статус",
+      "notes": "Заметки"
+    },
+    "banner": {
+      "title_one": "Аллергия",
+      "title_few": "Аллергии",
+      "title_many": "Аллергии",
+      "title_other": "Аллергии",
+      "none": "Аллергии не записаны"
+    },
+    "addAllergyTitle": "Добавить аллергию",
+    "allergenPlaceholder": "Пенициллин, арахис, латекс…",
+    "allergenRequired": "Введите аллерген",
+    "categoryPlaceholder": "Выберите тип",
+    "categoryRequired": "Выберите тип",
+    "severityRequired": "Выберите тяжесть",
+    "reactionPlaceholder": "Сыпь, анафилаксия…",
+    "allergyExists": "Эта аллергия уже записана",
+    "allergyAdded": "{{name}}: аллергия добавлена",
+    "allergyRemoved": "{{name}}: аллергия удалена",
+    "removeAllergyTitle": "Удалить аллергию на {{name}}?",
+    "removeAllergyText": "Она больше не будет показана в баннере аллергий и не будет проверяться при назначении лекарств.",
+    "addConditionTitle": "Добавить хроническое заболевание",
+    "editConditionTitle": "Изменить хроническое заболевание",
+    "conditionPlaceholder": "Сахарный диабет 2 типа",
+    "conditionRequired": "Введите заболевание",
+    "icdInvalid": "Введите код вида E11 или J45.909",
+    "diagnosedOnFuture": "Дата диагноза не может быть в будущем",
+    "notesPlaceholder": "Лечение, как контролируется…",
+    "conditionAdded": "{{name}}: добавлено",
+    "conditionSaved": "Изменения сохранены",
+    "conditionRemoved": "{{name}}: удалено",
+    "removeConditionTitle": "Удалить «{{name}}»?",
+    "removeConditionText": "Только для заболевания, записанного по ошибке. Чтобы отметить, что оно прошло, выберите статус «Излечено».",
+    "diagnosedOn": "С {{date}}",
+    "editAllergyTitle": "Изменить аллергию",
+    "allergySaved": "Изменения сохранены"
   }
 }

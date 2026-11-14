@@ -1,4 +1,5 @@
 import {
+  AlertOutlined,
   CalendarOutlined,
   CarryOutOutlined,
   CheckCircleOutlined,
@@ -7,6 +8,7 @@ import {
   HistoryOutlined,
   IdcardOutlined,
   KeyOutlined,
+  MedicineBoxOutlined,
   SafetyCertificateOutlined,
   SafetyOutlined,
   StopOutlined,
@@ -38,6 +40,12 @@ const EVENT_LOOK: Record<string, { icon: ReactNode; tone: EventTone }> = {
   "patient.updated": { icon: <UserOutlined />, tone: "primary" },
   "patient.deactivated": { icon: <StopOutlined />, tone: "danger" },
   "patient.reactivated": { icon: <UndoOutlined />, tone: "success" },
+  "patient.allergy_added": { icon: <AlertOutlined />, tone: "danger" },
+  "patient.allergy_updated": { icon: <AlertOutlined />, tone: "primary" },
+  "patient.allergy_removed": { icon: <AlertOutlined />, tone: "warning" },
+  "patient.condition_added": { icon: <MedicineBoxOutlined />, tone: "primary" },
+  "patient.condition_updated": { icon: <MedicineBoxOutlined />, tone: "primary" },
+  "patient.condition_removed": { icon: <MedicineBoxOutlined />, tone: "warning" },
 };
 const DEFAULT_LOOK = { icon: <HistoryOutlined />, tone: "primary" as EventTone };
 

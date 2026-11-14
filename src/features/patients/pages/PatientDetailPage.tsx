@@ -20,6 +20,8 @@ import { isApiError } from "@lib/api/errors";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
 import { formatDate, formatDay, fromNow } from "@lib/dayjs";
 import { PATHS } from "@router/paths";
+import { AllergyBanner } from "../components/clinical/AllergyBanner";
+import { ClinicalTab } from "../components/clinical/ClinicalTab";
 import { PatientHero } from "../components/detail/PatientHero";
 import { PatientOverview } from "../components/detail/PatientOverview";
 import local from "../components/detail/PatientDetail.module.css";
@@ -28,12 +30,13 @@ import { useConfirmPatientAction } from "../hooks/useConfirmPatientAction";
 import { usePatient } from "../hooks/usePatients";
 import { ageOf, bloodTypeLabel } from "../utils/patient";
 
-type TabKey = "overview" | "history";
+type TabKey = "overview" | "clinical" | "history";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-// /patients/:id — everything about one patient. Today: demographics and the
-// history; later phases add appointments, visits, lab results, documents and
+// /patients/:id — everything about one patient. Today: demographics, the
+// clinical summary (allergy banner + allergies / conditions tab, clinical
+// readers only) and the history; later phases add appointments, visits, lab results, documents and
 // invoices as tabs. The open tab lives in ?tab= so links and reloads keep it.
 export function PatientDetailPage() {
   const { t } = useTranslation();
@@ -51,6 +54,7 @@ export function PatientDetailPage() {
   const canUpdate = can("patients.update");
   const canChangeStatus = can("patients.deactivate");
   const showHistory = can("history.patient_read");
+  const showClinical = can("patients.clinical_read");
 
   // Back to the list with the filters it had (PatientsPage passes its query)
   const from = (location.state as { from?: string } | null)?.from ?? "";
@@ -137,6 +141,20 @@ export function PatientDetailPage() {
       label: t("staffDetail.tabs.overview"),
       children: <PatientOverview patient={patient} />,
     },
+    ...(showClinical
+      ? [
+          {
+            key: "clinical",
+            label: t("patientDetail.tabs.clinical"),
+            children: (
+              <ClinicalTab
+                patient={patient}
+                canManage={can("patients.clinical_manage")}
+              />
+            ),
+          },
+        ]
+      : []),
     ...(showHistory
       ? [
           {
@@ -168,6 +186,9 @@ export function PatientDetailPage() {
             )
           }
         />
+      )}
+      {showClinical && patient.allergies && (
+        <AllergyBanner allergies={patient.allergies} />
       )}
       <PatientHero
         patient={patient}

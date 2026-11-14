@@ -42,3 +42,12 @@
   background: var(--color-hover);
   color: var(--color-muted);
 }
+
+.danger {
+  border-color: transparent;
+  background: color-mix(in srgb, var(--color-error) 12%, transparent);
+}
+
+.danger > span:first-child {
+  color: var(--color-error);
+}

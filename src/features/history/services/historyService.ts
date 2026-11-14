@@ -126,6 +126,12 @@ export const EVENT_TYPES = [
   "patient.updated",
   "patient.deactivated",
   "patient.reactivated",
+  "patient.allergy_added",
+  "patient.allergy_updated",
+  "patient.allergy_removed",
+  "patient.condition_added",
+  "patient.condition_updated",
+  "patient.condition_removed",
 ];
 export const ENTITY_TYPES = ["USER", "ROLE", "DEPARTMENT", "STAFF_MEMBER", "PATIENT"];
 export const EMAIL_TEMPLATES = [

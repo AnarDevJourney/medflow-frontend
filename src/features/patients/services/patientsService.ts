@@ -1,6 +1,12 @@
 import { api } from "@lib/api/client";
 import type { Paginated } from "@models/api";
-import type { BloodType, Gender } from "@models/enums";
+import type {
+  AllergyCategory,
+  AllergySeverity,
+  BloodType,
+  ConditionStatus,
+  Gender,
+} from "@models/enums";
 
 // A patient from patient-service. MRN is the number staff say out loud;
 // the id only travels in URLs and API calls.
@@ -24,6 +30,46 @@ export interface Patient {
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
+  // Only for clinical readers (patients.clinical_read); missing otherwise
+  allergies?: Allergy[]; // most severe first
+  conditions?: Condition[]; // active first
+}
+
+export interface Allergy {
+  id: string;
+  allergen: string;
+  category: AllergyCategory;
+  severity: AllergySeverity;
+  reaction: string | null;
+  recordedByName: string | null;
+  createdAt: string;
+}
+
+export interface Condition {
+  id: string;
+  name: string;
+  icd10Code: string | null;
+  diagnosedOn: string | null; // YYYY-MM-DD
+  status: ConditionStatus;
+  notes: string | null;
+  recordedByName: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface AllergyInput {
+  allergen: string;
+  category: AllergyCategory;
+  severity: AllergySeverity;
+  reaction?: string | null;
+}
+
+export interface ConditionInput {
+  name: string;
+  icd10Code?: string | null;
+  diagnosedOn?: string | null;
+  status?: ConditionStatus;
+  notes?: string | null;
 }
 
 export interface PatientsQuery {
@@ -90,4 +136,56 @@ export async function setPatientActive(id: string, isActive: boolean): Promise<P
     `/patients/${id}/${isActive ? "reactivate" : "deactivate"}`,
   );
   return data;
+}
+
+// Clinical summary (patients.clinical_manage)
+export async function addAllergy(
+  patientId: string,
+  input: AllergyInput,
+): Promise<Allergy> {
+  const { data } = await api.post<Allergy>(`/patients/${patientId}/allergies`, input);
+  return data;
+}
+
+export async function updateAllergy(
+  patientId: string,
+  allergyId: string,
+  input: Partial<AllergyInput>,
+): Promise<Allergy> {
+  const { data } = await api.patch<Allergy>(
+    `/patients/${patientId}/allergies/${allergyId}`,
+    input,
+  );
+  return data;
+}
+
+export async function removeAllergy(patientId: string, allergyId: string): Promise<void> {
+  await api.delete(`/patients/${patientId}/allergies/${allergyId}`);
+}
+
+export async function addCondition(
+  patientId: string,
+  input: ConditionInput,
+): Promise<Condition> {
+  const { data } = await api.post<Condition>(`/patients/${patientId}/conditions`, input);
+  return data;
+}
+
+export async function updateCondition(
+  patientId: string,
+  conditionId: string,
+  input: Partial<ConditionInput>,
+): Promise<Condition> {
+  const { data } = await api.patch<Condition>(
+    `/patients/${patientId}/conditions/${conditionId}`,
+    input,
+  );
+  return data;
+}
+
+export async function removeCondition(
+  patientId: string,
+  conditionId: string,
+): Promise<void> {
+  await api.delete(`/patients/${patientId}/conditions/${conditionId}`);
 }
