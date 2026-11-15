@@ -183,3 +183,39 @@ export async function checkInAppointment(id: string): Promise<Appointment> {
   const { data } = await api.patch<Appointment>(`/appointments/${id}/check-in`);
   return data;
 }
+
+// Calendar: the doctors' days of a range + its appointments (one request)
+export type RangeDay =
+  | { date: string; working: true; start: string; end: string; slotMinutes: number }
+  | { date: string; working: false; reason: NotWorkingReason };
+
+export interface DoctorDays {
+  userId: string;
+  doctorName: string;
+  departmentId: string | null;
+  departmentName: string | null;
+  departmentCode: string | null;
+  days: RangeDay[];
+}
+
+export interface CalendarData {
+  from: string;
+  to: string;
+  doctors: DoctorDays[];
+  appointments: Appointment[];
+}
+
+export interface CalendarQuery {
+  from: string; // YYYY-MM-DD, inclusive, ≤ 14 days
+  to: string;
+  departmentId?: string;
+  doctorId?: string;
+  includeCancelled?: boolean;
+}
+
+export async function getCalendar(query: CalendarQuery): Promise<CalendarData> {
+  const { data } = await api.get<CalendarData>("/appointments/calendar", {
+    params: query,
+  });
+  return data;
+}

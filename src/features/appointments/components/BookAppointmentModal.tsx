@@ -1,7 +1,7 @@
 import { AlertOutlined, CalendarOutlined } from "@ant-design/icons";
 import { App, DatePicker, Form, Input, Radio, Select } from "antd";
 import type { Dayjs } from "dayjs";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Controller, useForm, useWatch, type FieldError } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { AppModal } from "@components/modal";
@@ -38,12 +38,23 @@ interface BookValues {
 
 const clinicToday = () => dayjs().tz(CLINIC_TZ).startOf("day");
 
-const emptyValues = (patient: PatientRef | null): BookValues => ({
+// A slot chosen beforehand (a click on the calendar)
+export interface PresetSlot {
+  doctorId: string;
+  departmentId: string | null;
+  date: string; // YYYY-MM-DD
+  startsAt: string;
+}
+
+const emptyValues = (
+  patient: PatientRef | null,
+  slot?: PresetSlot | null,
+): BookValues => ({
   patient,
-  departmentId: null,
-  doctorId: null,
-  date: clinicToday(),
-  startsAt: null,
+  departmentId: slot?.departmentId ?? null,
+  doctorId: slot?.doctorId ?? null,
+  date: slot ? dayjs(slot.date) : clinicToday(),
+  startsAt: slot?.startsAt ?? null,
   type: AppointmentType.CONSULTATION,
   reason: "",
   notes: "",
@@ -57,12 +68,15 @@ export function BookAppointmentModal({
   open,
   onClose,
   patient: initialPatient = null,
+  slot = null,
   onBooked,
 }: {
   open: boolean;
   onClose: () => void;
   // Booking from a patient's profile starts with that patient
   patient?: PatientRef | null;
+  // Booking from a calendar slot starts with that doctor, day and time
+  slot?: PresetSlot | null;
   onBooked?: (appointment: Appointment) => void;
 }) {
   const { t } = useTranslation();
@@ -75,9 +89,15 @@ export function BookAppointmentModal({
       mode: "onSubmit",
       defaultValues: emptyValues(initialPatient),
     });
-  const [patient, departmentId, doctorId, date] = useWatch({
+  // Opened from a calendar slot: that doctor (and department) is fixed
+  const locked = Boolean(slot);
+  // Every opening starts from the given patient / slot
+  useEffect(() => {
+    if (open) reset(emptyValues(initialPatient, slot));
+  }, [open, reset, initialPatient, slot]);
+  const [patient, departmentId, doctorId, date, startsAt] = useWatch({
     control,
-    name: ["patient", "departmentId", "doctorId", "date"],
+    name: ["patient", "departmentId", "doctorId", "date", "startsAt"],
   });
 
   const doctors = useDoctors(departmentId ?? undefined, open);
@@ -96,6 +116,31 @@ export function BookAppointmentModal({
   const availability = useAvailability(
     open && doctorId && day ? { doctorId, date: day, patientId: patient?.id } : null,
   );
+
+  // The slots changed (another patient chosen, refetch): a chosen time that
+  // is no longer free is dropped, with the reason under the slots
+  const chosenSlot =
+    startsAt && availability.data?.working
+      ? availability.data.slots.find(
+          (s) => new Date(s.startsAt).getTime() === new Date(startsAt).getTime(),
+        )
+      : undefined;
+  const blockedReason =
+    chosenSlot && !chosenSlot.available ? chosenSlot.reason : undefined;
+  useEffect(() => {
+    if (!blockedReason) return;
+    setValue("startsAt", null);
+    setError("startsAt", {
+      type: "slot",
+      message: t(
+        blockedReason === "PATIENT_BUSY"
+          ? "appointments.book.patientBusy"
+          : blockedReason === "TAKEN"
+            ? "appointments.book.slotTaken"
+            : "appointments.book.timeRequired",
+      ),
+    });
+  }, [blockedReason, setValue, setError, t]);
 
   // Clinical readers see the allergies of the chosen patient at a glance
   const profile = usePatient(
@@ -209,8 +254,9 @@ export function BookAppointmentModal({
                 id="book-patient"
                 value={field.value}
                 onChange={(next) => {
+                  // The chosen time stays; it is dropped below only if this
+                  // patient turns out to be busy then
                   field.onChange(next);
-                  setValue("startsAt", null); // the patient's own bookings change the slots
                 }}
                 status={fieldState.error ? "error" : undefined}
               />
@@ -242,6 +288,7 @@ export function BookAppointmentModal({
               render={({ field }) => (
                 <DepartmentSelect
                   id="book-dept"
+                  disabled={locked}
                   allowClear
                   placeholder={t("appointments.book.anyDepartment")}
                   value={field.value ?? undefined}
@@ -271,6 +318,7 @@ export function BookAppointmentModal({
               render={({ field, fieldState }) => (
                 <Select<string>
                   id="book-doctor"
+                  disabled={locked}
                   showSearch={{ optionFilterProp: "search" }}
                   placeholder={t("appointments.book.doctorPlaceholder")}
                   loading={doctors.isLoading}

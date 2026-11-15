@@ -1575,6 +1575,38 @@
       "edit": "Edit",
       "reschedule": "Reschedule",
       "checkIn": "Check in"
+    },
+    "views": {
+      "label": "View",
+      "list": "List",
+      "day": "Day",
+      "week": "Week"
+    },
+    "calendar": {
+      "label": "Appointment calendar",
+      "previous": "Previous",
+      "next": "Next",
+      "pickDoctor": "Choose a doctor",
+      "pickDoctorTitle": "Choose a doctor for the week view",
+      "pickDoctorText": "The week view shows one doctor's seven days. Pick the doctor above.",
+      "showCancelled": "Show cancelled",
+      "emptyTitle": "No doctor works on this day",
+      "emptyText": "Pick another day or another department.",
+      "noSchedule": "No schedule",
+      "bookAt": "Book {{time}} with {{doctor}}",
+      "draggable": "draggable appointment",
+      "moveTitle": "Move appointment?",
+      "notWorking": "Not working",
+      "off": {
+        "NOT_A_DOCTOR": "Not a doctor",
+        "DEACTIVATED": "Deactivated",
+        "VACATION": "Vacation",
+        "SICK_LEAVE": "Sick leave",
+        "TRAINING": "Training",
+        "DAY_OFF": "Day off",
+        "NOT_SCHEDULED": "Not working",
+        "NO_DEPARTMENT": "No department"
+      }
     }
   }
 }

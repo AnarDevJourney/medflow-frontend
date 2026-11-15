@@ -1575,6 +1575,38 @@
       "edit": "Redaktə et",
       "reschedule": "Vaxtı dəyiş",
       "checkIn": "Gəldi"
+    },
+    "views": {
+      "label": "Görünüş",
+      "list": "Siyahı",
+      "day": "Gün",
+      "week": "Həftə"
+    },
+    "calendar": {
+      "label": "Qəbul təqvimi",
+      "previous": "Əvvəlki",
+      "next": "Sonrakı",
+      "pickDoctor": "Həkim seçin",
+      "pickDoctorTitle": "Həftə görünüşü üçün həkim seçin",
+      "pickDoctorText": "Həftə görünüşü bir həkimin yeddi gününü göstərir. Yuxarıdan həkimi seçin.",
+      "showCancelled": "Ləğv olunanları göstər",
+      "emptyTitle": "Bu gün heç bir həkim işləmir",
+      "emptyText": "Başqa gün və ya başqa şöbə seçin.",
+      "noSchedule": "Cədvəl yoxdur",
+      "bookAt": "{{time}} vaxtına {{doctor}} həkimə yaz",
+      "draggable": "sürüklənən qəbul",
+      "moveTitle": "Qəbul köçürülsün?",
+      "notWorking": "İşləmir",
+      "off": {
+        "NOT_A_DOCTOR": "Həkim deyil",
+        "DEACTIVATED": "Deaktivdir",
+        "VACATION": "Məzuniyyət",
+        "SICK_LEAVE": "Xəstəlik məzuniyyəti",
+        "TRAINING": "Təlim",
+        "DAY_OFF": "İstirahət günü",
+        "NOT_SCHEDULED": "İşləmir",
+        "NO_DEPARTMENT": "Şöbə yoxdur"
+      }
     }
   }
 }

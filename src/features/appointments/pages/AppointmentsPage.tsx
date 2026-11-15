@@ -1,5 +1,8 @@
 import {
+  AppstoreOutlined,
   CalendarOutlined,
+  ScheduleOutlined,
+  UnorderedListOutlined,
   EditOutlined,
   FieldTimeOutlined,
   LoginOutlined,
@@ -32,7 +35,11 @@ import { AppointmentStatus, Role } from "@models/enums";
 import { STATUS_COLOR } from "@utils/statusColors";
 import type { DayRange } from "@utils/dayRange";
 import { AppointmentDrawer } from "../components/AppointmentDrawer";
-import { BookAppointmentModal } from "../components/BookAppointmentModal";
+import { CalendarPanel } from "../components/calendar/CalendarPanel";
+import {
+  BookAppointmentModal,
+  type PresetSlot,
+} from "../components/BookAppointmentModal";
 import { CancelAppointmentModal } from "../components/CancelAppointmentModal";
 import { EditAppointmentModal } from "../components/EditAppointmentModal";
 import { RescheduleModal } from "../components/RescheduleModal";
@@ -57,6 +64,33 @@ const parseSort = (value: string | null): DataTableSort | null => {
 
 const DAY = "YYYY-MM-DD";
 const clinicToday = () => dayjs().tz(CLINIC_TZ).format(DAY);
+
+const VIEWS = ["list", "day", "week"] as const;
+type AppointmentsView = (typeof VIEWS)[number];
+const VIEW_ICONS: Record<AppointmentsView, React.ReactNode> = {
+  list: <UnorderedListOutlined />,
+  day: <AppstoreOutlined />,
+  week: <ScheduleOutlined />,
+};
+const VIEW_KEY = "medflow-appointments-view";
+
+// Day view by default; storage can be blocked (private mode) — then default
+function readStoredView(): AppointmentsView {
+  try {
+    const stored = localStorage.getItem(VIEW_KEY) as AppointmentsView | null;
+    return stored && VIEWS.includes(stored) ? stored : "day";
+  } catch {
+    return "day";
+  }
+}
+
+function storeView(view: AppointmentsView) {
+  try {
+    localStorage.setItem(VIEW_KEY, view);
+  } catch {
+    // not remembered — the URL still holds it
+  }
+}
 
 // Appointments list (DOC 9.1; the calendar view comes in 7.3). From today
 // on by default; filters, sort and page live in the URL. A doctor sees
@@ -102,6 +136,18 @@ export function AppointmentsPage() {
     );
 
   const [bookOpen, setBookOpen] = useState(false);
+  const [bookSlot, setBookSlot] = useState<PresetSlot | null>(null);
+  // List / day / week: the URL wins, else the last choice on this browser
+  const viewParam = params.get("view") as AppointmentsView | null;
+  const view: AppointmentsView =
+    viewParam && VIEWS.includes(viewParam) ? viewParam : readStoredView();
+  const changeView = (next: AppointmentsView) => {
+    storeView(next);
+    update({ view: next }, true);
+  };
+  const calendarDate = params.get("date") ?? clinicToday();
+  // A doctor's week starts with their own
+  const calendarDoctor = doctorId ?? (view === "week" && isDoctor ? me?.id : undefined);
   const [moveRow, setMoveRow] = useState<Appointment | null>(null);
   const [editRow, setEditRow] = useState<Appointment | null>(null);
   const [cancelRow, setCancelRow] = useState<Appointment | null>(null);
@@ -315,7 +361,14 @@ export function AppointmentsPage() {
   );
 
   const bookButton = canBook && (
-    <Button type="primary" icon={<CalendarOutlined />} onClick={() => setBookOpen(true)}>
+    <Button
+      type="primary"
+      icon={<CalendarOutlined />}
+      onClick={() => {
+        setBookSlot(null);
+        setBookOpen(true);
+      }}
+    >
       {t("appointments.bookButton")}
     </Button>
   );
@@ -325,127 +378,177 @@ export function AppointmentsPage() {
       <PageHeader
         title={t("appointments.title")}
         subtitle={t("appointments.subtitle")}
-        actions={bookButton}
-      />
-      <DataTable<Appointment>
-        tableKey="appointments"
-        columns={columns}
-        data={appointments.data?.items}
-        rowKey="id"
-        loading={appointments.isFetching}
-        error={appointments.error}
-        onRetry={() => void appointments.refetch()}
-        sort={sort}
-        onSortChange={(value) =>
-          update({ sort: value ? `${value.key}:${value.order}` : undefined })
-        }
-        pagination={{
-          page,
-          pageSize,
-          total: appointments.data?.meta.total ?? 0,
-          onChange: (nextPage, nextSize) =>
-            update(
-              {
-                page: nextSize === pageSize && nextPage > 1 ? nextPage : undefined,
-                size: nextSize === 20 ? undefined : nextSize,
-              },
-              true,
-            ),
-        }}
-        onRowClick={setOpenRow}
-        onViewDetails={setOpenRow}
-        rowLabel={(a) => `${a.patientName} ${timeRange(a.startsAt, a.endsAt)}`}
-        rowActions={rowActions}
-        rowAccent={(a) => STATUS_COLOR[a.status]}
-        empty={
-          filtersActive
-            ? {
-                title: t("appointments.noMatchTitle"),
-                description: t("appointments.noMatchText"),
-                action: (
-                  <Flex gap="small" wrap justify="center">
-                    <Button onClick={resetFilters}>{t("common.clearFilters")}</Button>
-                    {bookButton}
-                  </Flex>
-                ),
-              }
-            : {
-                title: t("appointments.emptyTitle"),
-                description: t(
-                  canBook ? "appointments.emptyText" : "appointments.emptyReadText",
-                ),
-                action: bookButton,
-              }
-        }
-        toolbar={
+        actions={
           <>
-            <SearchInput
-              placeholder={t("appointments.search")}
-              value={search}
-              onChange={(value) => update({ q: value })}
-              className={styles.search}
-            />
-            {isDoctor && (
-              <Segmented
-                value={everyone ? "all" : "mine"}
-                onChange={(value) =>
-                  update({ scope: value === "all" ? "all" : undefined })
-                }
-                options={[
-                  { value: "mine", label: t("appointments.scope.mine") },
-                  { value: "all", label: t("appointments.scope.all") },
-                ]}
-              />
-            )}
-            <Button
-              type={showingToday ? "primary" : "default"}
-              ghost={showingToday}
-              onClick={showToday}
-              aria-pressed={showingToday}
-            >
-              {t("appointments.today")}
-            </Button>
-            <DateRangeFilter value={range} onChange={onRange} />
-            <DepartmentSelect
-              allowClear
-              placeholder={t("appointments.allDepartments")}
-              value={departmentId}
-              onChange={(value) =>
-                update({ department: value, doctor: value ? undefined : doctorId })
-              }
-              className={styles.filter}
-              aria-label={t("appointments.fields.department")}
-            />
-            <Select<string>
-              allowClear
-              showSearch={{ optionFilterProp: "label" }}
-              placeholder={t("appointments.allDoctors")}
-              value={doctorId}
-              onChange={(value) => update({ doctor: value })}
-              loading={doctors.isLoading}
-              options={(doctors.data ?? []).map((d) => ({
-                value: d.userId,
-                label: `${d.firstName} ${d.lastName}`,
+            <Segmented<AppointmentsView>
+              value={view}
+              onChange={changeView}
+              options={VIEWS.map((v) => ({
+                value: v,
+                label: t(`appointments.views.${v}`),
+                icon: VIEW_ICONS[v],
               }))}
-              className={styles.filter}
-              aria-label={t("appointments.fields.doctor")}
+              aria-label={t("appointments.views.label")}
             />
-            <Select<AppointmentStatus>
-              allowClear
-              placeholder={t("appointments.allStatuses")}
-              value={status}
-              onChange={(value) => update({ status: value })}
-              options={Object.values(AppointmentStatus).map((s) => ({
-                value: s,
-                label: t(`appointmentStatus.${s}`),
-              }))}
-              className={styles.filter}
-              aria-label={t("appointments.columns.status")}
-            />
-            <ClearFiltersButton active={filtersActive} onClear={resetFilters} />
+            {bookButton}
           </>
         }
       />
+      {view !== "list" ? (
+        <CalendarPanel
+          state={{
+            view,
+            date: calendarDate,
+            departmentId,
+            doctorId: calendarDoctor,
+            showCancelled: params.get("cancelled") === "1",
+          }}
+          onChange={(patch) =>
+            update(
+              {
+                ...("date" in patch
+                  ? { date: patch.date === clinicToday() ? undefined : patch.date }
+                  : {}),
+                ...("departmentId" in patch ? { department: patch.departmentId } : {}),
+                ...("doctorId" in patch ? { doctor: patch.doctorId } : {}),
+                ...("showCancelled" in patch
+                  ? { cancelled: patch.showCancelled ? "1" : undefined }
+                  : {}),
+              },
+              true,
+            )
+          }
+          onOpen={setOpenRow}
+          onBookSlot={
+            canBook
+              ? (slot) => {
+                  setBookSlot(slot);
+                  setBookOpen(true);
+                }
+              : undefined
+          }
+        />
+      ) : (
+        <DataTable<Appointment>
+          tableKey="appointments"
+          columns={columns}
+          data={appointments.data?.items}
+          rowKey="id"
+          loading={appointments.isFetching}
+          error={appointments.error}
+          onRetry={() => void appointments.refetch()}
+          sort={sort}
+          onSortChange={(value) =>
+            update({ sort: value ? `${value.key}:${value.order}` : undefined })
+          }
+          pagination={{
+            page,
+            pageSize,
+            total: appointments.data?.meta.total ?? 0,
+            onChange: (nextPage, nextSize) =>
+              update(
+                {
+                  page: nextSize === pageSize && nextPage > 1 ? nextPage : undefined,
+                  size: nextSize === 20 ? undefined : nextSize,
+                },
+                true,
+              ),
+          }}
+          onRowClick={setOpenRow}
+          onViewDetails={setOpenRow}
+          rowLabel={(a) => `${a.patientName} ${timeRange(a.startsAt, a.endsAt)}`}
+          rowActions={rowActions}
+          rowAccent={(a) => STATUS_COLOR[a.status]}
+          empty={
+            filtersActive
+              ? {
+                  title: t("appointments.noMatchTitle"),
+                  description: t("appointments.noMatchText"),
+                  action: (
+                    <Flex gap="small" wrap justify="center">
+                      <Button onClick={resetFilters}>{t("common.clearFilters")}</Button>
+                      {bookButton}
+                    </Flex>
+                  ),
+                }
+              : {
+                  title: t("appointments.emptyTitle"),
+                  description: t(
+                    canBook ? "appointments.emptyText" : "appointments.emptyReadText",
+                  ),
+                  action: bookButton,
+                }
+          }
+          toolbar={
+            <>
+              <SearchInput
+                placeholder={t("appointments.search")}
+                value={search}
+                onChange={(value) => update({ q: value })}
+                className={styles.search}
+              />
+              {isDoctor && (
+                <Segmented
+                  value={everyone ? "all" : "mine"}
+                  onChange={(value) =>
+                    update({ scope: value === "all" ? "all" : undefined })
+                  }
+                  options={[
+                    { value: "mine", label: t("appointments.scope.mine") },
+                    { value: "all", label: t("appointments.scope.all") },
+                  ]}
+                />
+              )}
+              <Button
+                type={showingToday ? "primary" : "default"}
+                ghost={showingToday}
+                onClick={showToday}
+                aria-pressed={showingToday}
+              >
+                {t("appointments.today")}
+              </Button>
+              <DateRangeFilter value={range} onChange={onRange} />
+              <DepartmentSelect
+                allowClear
+                placeholder={t("appointments.allDepartments")}
+                value={departmentId}
+                onChange={(value) =>
+                  update({ department: value, doctor: value ? undefined : doctorId })
+                }
+                className={styles.filter}
+                aria-label={t("appointments.fields.department")}
+              />
+              <Select<string>
+                allowClear
+                showSearch={{ optionFilterProp: "label" }}
+                placeholder={t("appointments.allDoctors")}
+                value={doctorId}
+                onChange={(value) => update({ doctor: value })}
+                loading={doctors.isLoading}
+                options={(doctors.data ?? []).map((d) => ({
+                  value: d.userId,
+                  label: `${d.firstName} ${d.lastName}`,
+                }))}
+                className={styles.filter}
+                aria-label={t("appointments.fields.doctor")}
+              />
+              <Select<AppointmentStatus>
+                allowClear
+                placeholder={t("appointments.allStatuses")}
+                value={status}
+                onChange={(value) => update({ status: value })}
+                options={Object.values(AppointmentStatus).map((s) => ({
+                  value: s,
+                  label: t(`appointmentStatus.${s}`),
+                }))}
+                className={styles.filter}
+                aria-label={t("appointments.columns.status")}
+              />
+              <ClearFiltersButton active={filtersActive} onClear={resetFilters} />
+            </>
+          }
+        />
+      )}
       <AppointmentDrawer
         appointment={opened}
         onClose={() => setOpenRow(null)}
@@ -460,6 +563,7 @@ export function AppointmentsPage() {
       <BookAppointmentModal
         open={bookOpen}
         onClose={() => setBookOpen(false)}
+        slot={bookSlot}
         onBooked={setOpenRow}
       />
     </>

@@ -10,6 +10,7 @@ import {
   createAppointment,
   getAppointment,
   getAvailability,
+  getCalendar,
   listAppointments,
   listTodayAppointments,
   rescheduleAppointment,
@@ -18,6 +19,7 @@ import {
   type AppointmentInput,
   type AppointmentsQuery,
   type AvailabilityQuery,
+  type CalendarQuery,
 } from "../services/appointmentsService";
 
 export const appointmentsKey = ["appointments"] as const;
@@ -47,6 +49,19 @@ export function useAvailability(query: AvailabilityQuery | null) {
     queryFn: () => getAvailability(query!),
     enabled: Boolean(query),
     staleTime: 0,
+  });
+}
+
+// Day / week calendar. Refreshed every 30 s and when the tab comes back,
+// so bookings made at another desk show up without a reload.
+export function useCalendar(query: CalendarQuery | null) {
+  return useQuery({
+    queryKey: [...appointmentsKey, "calendar", query],
+    queryFn: () => getCalendar(query!),
+    enabled: Boolean(query),
+    placeholderData: keepPreviousData,
+    refetchInterval: 30_000,
+    refetchOnWindowFocus: true,
   });
 }
 
