@@ -371,6 +371,36 @@
       "title": "Bütün cihazlardan çıxış edildi",
       "message": "Təhlükəsizliyiniz üçün bütün sessiyalar bağlandı. Bunu siz etməmisinizsə, şifrənizi dəyişin.",
       "label": "Təhlükəsizlik"
+    },
+    "APPOINTMENT_BOOKED": {
+      "title": "Yeni qəbul",
+      "message": "{{name}} ({{mrn}}) {{startsAt}} vaxtına yazıldı",
+      "label": "Yeni qəbul"
+    },
+    "APPOINTMENT_RESCHEDULED": {
+      "title": "Qəbulun vaxtı dəyişdi",
+      "message": "{{name}} ({{mrn}}): {{previousStartsAt}} → {{startsAt}}",
+      "label": "Vaxt dəyişdi"
+    },
+    "APPOINTMENT_MOVED_AWAY": {
+      "title": "Qəbul başqa həkimə köçürüldü",
+      "message": "{{name}} ({{mrn}}), {{previousStartsAt}} — indi {{doctor}} həkimdə",
+      "label": "Başqa həkimə köçürüldü"
+    },
+    "APPOINTMENT_CANCELLED": {
+      "title": "Qəbul ləğv edildi",
+      "message": "{{name}} ({{mrn}}), {{startsAt}}",
+      "label": "Qəbul ləğv edildi"
+    },
+    "APPOINTMENT_CHECKED_IN": {
+      "title": "Pasiyent gəldi",
+      "message": "{{name}} ({{mrn}}) {{startsAt}} qəbuluna gəldi",
+      "label": "Pasiyent gəldi"
+    },
+    "APPOINTMENT_NO_SHOW": {
+      "title": "Pasiyent gəlmədi",
+      "message": "{{name}} ({{mrn}}), {{startsAt}}",
+      "label": "Gəlmədi"
     }
   },
   "profile": {
@@ -620,7 +650,8 @@
       "appointment.updated": "Qəbul redaktə edildi",
       "appointment.rescheduled": "Qəbulun vaxtı dəyişdi",
       "appointment.checked_in": "Pasiyent gəldi",
-      "appointment.cancelled": "Qəbul ləğv edildi"
+      "appointment.cancelled": "Qəbul ləğv edildi",
+      "appointment.no_show": "Pasiyent gəlmədi"
     },
     "fields": {
       "firstName": "ad",
@@ -713,7 +744,11 @@
       "staff-invite": "Əməkdaş dəvəti",
       "password-reset": "Şifrənin sıfırlanması",
       "password-changed": "Şifrə dəyişdi bildirişi",
-      "session-revoked": "Təhlükəsizlik xəbərdarlığı"
+      "session-revoked": "Təhlükəsizlik xəbərdarlığı",
+      "appointment-booked": "Qəbulun təsdiqi",
+      "appointment-rescheduled": "Qəbulun vaxtı dəyişdi",
+      "appointment-cancelled": "Qəbul ləğv edildi",
+      "appointment-reminder": "Qəbul xatırlatması"
     }
   },
   "historyEvents": {
@@ -770,7 +805,8 @@
       "rescheduled": "{{actor}} {{name}} ({{mrn}}) pasiyentinin qəbulunu {{previousStartsAt}} vaxtından {{startsAt}} vaxtına köçürdü",
       "rescheduledDoctor": "{{actor}} {{name}} ({{mrn}}) pasiyentinin qəbulunu {{previousDoctor}}, {{previousStartsAt}} → {{doctor}}, {{startsAt}} köçürdü",
       "checkedIn": "{{actor}} {{name}} ({{mrn}}) pasiyentini {{doctor}} həkimin qəbuluna gəldi kimi qeyd etdi",
-      "cancelled": "{{actor}} {{name}} ({{mrn}}) pasiyentinin {{startsAt}} vaxtına {{doctor}} həkimdəki qəbulunu ləğv etdi"
+      "cancelled": "{{actor}} {{name}} ({{mrn}}) pasiyentinin {{startsAt}} vaxtına {{doctor}} həkimdəki qəbulunu ləğv etdi",
+      "noShow": "{{actor}} {{name}} ({{mrn}}) pasiyentini {{startsAt}} vaxtına {{doctor}} həkimin qəbuluna gəlməmiş kimi qeyd etdi"
     }
   },
   "permissionCatalog": {
@@ -1568,7 +1604,8 @@
       "booked": "Yazılıb",
       "changed": "Son dəyişiklik",
       "checkedIn": "Gəlib",
-      "cancelled": "Ləğv edilib"
+      "cancelled": "Ləğv edilib",
+      "noShow": "Gəlmədi"
     },
     "drawerActions": {
       "cancel": "Ləğv et",
@@ -1607,6 +1644,9 @@
         "NOT_SCHEDULED": "İşləmir",
         "NO_DEPARTMENT": "Şöbə yoxdur"
       }
+    },
+    "systemReasons": {
+      "PATIENT_DEACTIVATED": "Pasiyent qeydi deaktiv edildi"
     }
   }
 }

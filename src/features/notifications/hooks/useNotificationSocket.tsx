@@ -72,6 +72,10 @@ export function useNotificationSocket() {
         onClick: () => n.link && void handlers.current.navigate(n.link),
       });
     });
+    // An appointment changed somewhere: lists and calendars refetch
+    socket.on("appointments:changed", () => {
+      void queryClient.invalidateQueries({ queryKey: ["appointments"] });
+    });
     socket.on("notification:count", ({ count }: { count: number }) =>
       dispatch(setUnreadCount(count)),
     );

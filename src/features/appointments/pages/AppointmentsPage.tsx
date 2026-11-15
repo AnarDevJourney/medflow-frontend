@@ -10,7 +10,7 @@ import {
 } from "@ant-design/icons";
 import { App, Button, Flex, Segmented, Select } from "antd";
 import type { Dayjs } from "dayjs";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -43,7 +43,11 @@ import {
 import { CancelAppointmentModal } from "../components/CancelAppointmentModal";
 import { EditAppointmentModal } from "../components/EditAppointmentModal";
 import { RescheduleModal } from "../components/RescheduleModal";
-import { useAppointmentActions, useAppointments } from "../hooks/useAppointments";
+import {
+  useAppointment,
+  useAppointmentActions,
+  useAppointments,
+} from "../hooks/useAppointments";
 import { useAppointmentRules } from "../hooks/useAppointmentRules";
 import type { Appointment } from "../services/appointmentsService";
 import { dayLabel, timeRange } from "../utils/appointment";
@@ -218,6 +222,27 @@ export function AppointmentsPage() {
           : departmentId,
     });
   const [openRow, setOpenRow] = useState<Appointment | null>(null);
+  // ?open=<id> (a notification link): open that appointment's drawer once,
+  // then drop the parameter so a refresh does not reopen it
+  const openParam = params.get("open") ?? undefined;
+  const linked = useAppointment(openParam);
+  const [openedFromLink, setOpenedFromLink] = useState<string | null>(null);
+  if (openParam && linked.data && openedFromLink !== openParam) {
+    setOpenedFromLink(openParam);
+    setOpenRow(linked.data);
+  }
+  const linkDone = Boolean(openParam && (linked.data || linked.error));
+  useEffect(() => {
+    if (!linkDone) return;
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        next.delete("open");
+        return next;
+      },
+      { replace: true },
+    );
+  }, [linkDone, setParams]);
   const doctors = useDoctors(departmentId);
 
   const appointments = useAppointments({

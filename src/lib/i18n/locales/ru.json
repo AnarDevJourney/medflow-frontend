@@ -371,6 +371,36 @@
       "title": "Выполнен выход на всех устройствах",
       "message": "Для вашей безопасности все сессии закрыты. Если это были не вы, смените пароль.",
       "label": "Безопасность"
+    },
+    "APPOINTMENT_BOOKED": {
+      "title": "Новая запись",
+      "message": "{{name}} ({{mrn}}) записан(а) на {{startsAt}}",
+      "label": "Новая запись"
+    },
+    "APPOINTMENT_RESCHEDULED": {
+      "title": "Приём перенесён",
+      "message": "{{name}} ({{mrn}}): {{previousStartsAt}} → {{startsAt}}",
+      "label": "Приём перенесён"
+    },
+    "APPOINTMENT_MOVED_AWAY": {
+      "title": "Приём передан другому врачу",
+      "message": "{{name}} ({{mrn}}), {{previousStartsAt}} — теперь у врача {{doctor}}",
+      "label": "Передан другому врачу"
+    },
+    "APPOINTMENT_CANCELLED": {
+      "title": "Приём отменён",
+      "message": "{{name}} ({{mrn}}), {{startsAt}}",
+      "label": "Приём отменён"
+    },
+    "APPOINTMENT_CHECKED_IN": {
+      "title": "Пациент пришёл",
+      "message": "{{name}} ({{mrn}}) пришёл(ла) на приём {{startsAt}}",
+      "label": "Пациент пришёл"
+    },
+    "APPOINTMENT_NO_SHOW": {
+      "title": "Пациент не пришёл",
+      "message": "{{name}} ({{mrn}}), {{startsAt}}",
+      "label": "Неявка"
     }
   },
   "profile": {
@@ -620,7 +650,8 @@
       "appointment.updated": "Приём изменён",
       "appointment.rescheduled": "Приём перенесён",
       "appointment.checked_in": "Пациент пришёл",
-      "appointment.cancelled": "Приём отменён"
+      "appointment.cancelled": "Приём отменён",
+      "appointment.no_show": "Пациент не пришёл"
     },
     "fields": {
       "firstName": "имя",
@@ -713,7 +744,11 @@
       "staff-invite": "Приглашение сотрудника",
       "password-reset": "Сброс пароля",
       "password-changed": "Уведомление о смене пароля",
-      "session-revoked": "Предупреждение безопасности"
+      "session-revoked": "Предупреждение безопасности",
+      "appointment-booked": "Подтверждение записи",
+      "appointment-rescheduled": "Перенос приёма",
+      "appointment-cancelled": "Отмена приёма",
+      "appointment-reminder": "Напоминание о приёме"
     }
   },
   "historyEvents": {
@@ -770,7 +805,8 @@
       "rescheduled": "{{actor}} перенёс(ла) приём пациента {{name}} ({{mrn}}) с {{previousStartsAt}} на {{startsAt}}",
       "rescheduledDoctor": "{{actor}} перенёс(ла) приём пациента {{name}} ({{mrn}}): {{previousDoctor}}, {{previousStartsAt}} → {{doctor}}, {{startsAt}}",
       "checkedIn": "{{actor}} отметил(а) приход пациента {{name}} ({{mrn}}) на приём к врачу {{doctor}}",
-      "cancelled": "{{actor}} отменил(а) приём пациента {{name}} ({{mrn}}) у врача {{doctor}} на {{startsAt}}"
+      "cancelled": "{{actor}} отменил(а) приём пациента {{name}} ({{mrn}}) у врача {{doctor}} на {{startsAt}}",
+      "noShow": "{{actor}} отметил(а) неявку пациента {{name}} ({{mrn}}) на приём к врачу {{doctor}} на {{startsAt}}"
     }
   },
   "permissionCatalog": {
@@ -1604,7 +1640,8 @@
       "booked": "Записан",
       "changed": "Последнее изменение",
       "checkedIn": "Пришёл",
-      "cancelled": "Отменён"
+      "cancelled": "Отменён",
+      "noShow": "Не пришёл"
     },
     "drawerActions": {
       "cancel": "Отменить",
@@ -1643,6 +1680,9 @@
         "NOT_SCHEDULED": "Не работает",
         "NO_DEPARTMENT": "Без отделения"
       }
+    },
+    "systemReasons": {
+      "PATIENT_DEACTIVATED": "Карта пациента деактивирована"
     }
   }
 }

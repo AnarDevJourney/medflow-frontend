@@ -201,8 +201,22 @@ function AppointmentTimeline({ appointment: a }: { appointment: Appointment }) {
       tone: "muted",
       title: t("appointments.timeline.cancelled"),
       at: a.cancelledAt,
-      by: a.cancelledByName,
-      note: a.cancellationReason,
+      by: a.cancelledByName ?? (a.cancelledAt ? t("history.system") : null),
+      note:
+        a.cancellationReason &&
+        t(`appointments.systemReasons.${a.cancellationReason}`, {
+          defaultValue: a.cancellationReason,
+        }),
+    });
+  }
+  if (a.status === "NO_SHOW") {
+    steps.push({
+      key: "noShow",
+      icon: <StopOutlined />,
+      tone: "muted",
+      title: t("appointments.timeline.noShow"),
+      at: a.updatedAt,
+      by: t("history.system"),
     });
   }
   steps.sort((x, y) => x.at.localeCompare(y.at));

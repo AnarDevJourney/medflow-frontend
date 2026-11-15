@@ -1,3 +1,4 @@
+import { formatDateTime } from "@lib/dayjs";
 import {
   keepPreviousData,
   useMutation,
@@ -58,10 +59,29 @@ export function useOpenNotification() {
 export function useNotificationText() {
   const { t } = useTranslation();
   return useCallback(
-    (n: Pick<NotificationItem, "type" | "title" | "message">) => ({
-      title: t(`notificationTypes.${n.type}.title`, { defaultValue: n.title }),
-      message: t(`notificationTypes.${n.type}.message`, { defaultValue: n.message }),
-    }),
+    (
+      n: Pick<NotificationItem, "type" | "title" | "message"> & {
+        params?: NotificationItem["params"];
+      },
+    ) => {
+      // Times arrive as ISO and are shown in clinic time
+      const p = n.params ?? {};
+      const values = {
+        ...p,
+        startsAt: p.startsAt ? formatDateTime(p.startsAt) : "",
+        previousStartsAt: p.previousStartsAt ? formatDateTime(p.previousStartsAt) : "",
+      };
+      return {
+        title: t(`notificationTypes.${n.type}.title`, {
+          ...values,
+          defaultValue: n.title,
+        }),
+        message: t(`notificationTypes.${n.type}.message`, {
+          ...values,
+          defaultValue: n.message,
+        }),
+      };
+    },
     [t],
   );
 }

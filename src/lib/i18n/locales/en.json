@@ -371,6 +371,36 @@
       "title": "You were signed out everywhere",
       "message": "For your security all sessions were closed. If this wasn't you, change your password.",
       "label": "Security"
+    },
+    "APPOINTMENT_BOOKED": {
+      "title": "New appointment",
+      "message": "{{name}} ({{mrn}}) is booked for {{startsAt}}",
+      "label": "New appointment"
+    },
+    "APPOINTMENT_RESCHEDULED": {
+      "title": "Appointment moved",
+      "message": "{{name}} ({{mrn}}): {{previousStartsAt}} → {{startsAt}}",
+      "label": "Appointment moved"
+    },
+    "APPOINTMENT_MOVED_AWAY": {
+      "title": "Appointment moved to another doctor",
+      "message": "{{name}} ({{mrn}}), {{previousStartsAt}} — now with {{doctor}}",
+      "label": "Moved to another doctor"
+    },
+    "APPOINTMENT_CANCELLED": {
+      "title": "Appointment cancelled",
+      "message": "{{name}} ({{mrn}}), {{startsAt}}",
+      "label": "Appointment cancelled"
+    },
+    "APPOINTMENT_CHECKED_IN": {
+      "title": "Patient arrived",
+      "message": "{{name}} ({{mrn}}) checked in for {{startsAt}}",
+      "label": "Patient arrived"
+    },
+    "APPOINTMENT_NO_SHOW": {
+      "title": "Patient did not come",
+      "message": "{{name}} ({{mrn}}), {{startsAt}}",
+      "label": "No-show"
     }
   },
   "profile": {
@@ -620,7 +650,8 @@
       "appointment.updated": "Appointment edited",
       "appointment.rescheduled": "Appointment rescheduled",
       "appointment.checked_in": "Patient checked in",
-      "appointment.cancelled": "Appointment cancelled"
+      "appointment.cancelled": "Appointment cancelled",
+      "appointment.no_show": "Patient did not come"
     },
     "fields": {
       "firstName": "first name",
@@ -713,7 +744,11 @@
       "staff-invite": "Staff invitation",
       "password-reset": "Password reset",
       "password-changed": "Password changed notice",
-      "session-revoked": "Security alert"
+      "session-revoked": "Security alert",
+      "appointment-booked": "Appointment confirmation",
+      "appointment-rescheduled": "Appointment moved",
+      "appointment-cancelled": "Appointment cancelled",
+      "appointment-reminder": "Appointment reminder"
     }
   },
   "historyEvents": {
@@ -770,7 +805,8 @@
       "rescheduled": "{{actor}} moved the appointment of {{name}} ({{mrn}}) from {{previousStartsAt}} to {{startsAt}}",
       "rescheduledDoctor": "{{actor}} moved the appointment of {{name}} ({{mrn}}) from {{previousDoctor}}, {{previousStartsAt}} to {{doctor}}, {{startsAt}}",
       "checkedIn": "{{actor}} checked in {{name}} ({{mrn}}) for the appointment with {{doctor}}",
-      "cancelled": "{{actor}} cancelled the appointment of {{name}} ({{mrn}}) with {{doctor}} for {{startsAt}}"
+      "cancelled": "{{actor}} cancelled the appointment of {{name}} ({{mrn}}) with {{doctor}} for {{startsAt}}",
+      "noShow": "{{actor}} marked {{name}} ({{mrn}}) as not come to the appointment with {{doctor}} for {{startsAt}}"
     }
   },
   "permissionCatalog": {
@@ -1568,7 +1604,8 @@
       "booked": "Booked",
       "changed": "Last changed",
       "checkedIn": "Checked in",
-      "cancelled": "Cancelled"
+      "cancelled": "Cancelled",
+      "noShow": "Did not come"
     },
     "drawerActions": {
       "cancel": "Cancel",
@@ -1607,6 +1644,9 @@
         "NOT_SCHEDULED": "Not working",
         "NO_DEPARTMENT": "No department"
       }
+    },
+    "systemReasons": {
+      "PATIENT_DEACTIVATED": "The patient record was deactivated"
     }
   }
 }

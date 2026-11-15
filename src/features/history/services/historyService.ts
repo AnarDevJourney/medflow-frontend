@@ -137,6 +137,7 @@ export const EVENT_TYPES = [
   "appointment.rescheduled",
   "appointment.checked_in",
   "appointment.cancelled",
+  "appointment.no_show",
 ];
 export const ENTITY_TYPES = [
   "USER",
@@ -151,4 +152,8 @@ export const EMAIL_TEMPLATES = [
   "password-reset",
   "password-changed",
   "session-revoked",
+  "appointment-booked",
+  "appointment-rescheduled",
+  "appointment-cancelled",
+  "appointment-reminder",
 ];

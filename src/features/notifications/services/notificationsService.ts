@@ -10,6 +10,8 @@ export interface NotificationItem {
   entityId: string | null;
   link: string | null; // app route to open
   isUrgent: boolean;
+  // Data for the translated text: names, MRN, ISO times ({} on old rows)
+  params: Record<string, string | null>;
   isRead: boolean;
   readAt: string | null;
   createdAt: string;
@@ -27,7 +29,15 @@ export interface NotificationsQuery {
 }
 
 // Known types for the filter (each phase adds the ones it creates)
-export const NOTIFICATION_TYPES = ["SESSION_REVOKED"];
+export const NOTIFICATION_TYPES = [
+  "SESSION_REVOKED",
+  "APPOINTMENT_BOOKED",
+  "APPOINTMENT_RESCHEDULED",
+  "APPOINTMENT_MOVED_AWAY",
+  "APPOINTMENT_CANCELLED",
+  "APPOINTMENT_CHECKED_IN",
+  "APPOINTMENT_NO_SHOW",
+];
 
 // Own notifications only (notification-history-service)
 export async function listNotifications(

@@ -17,6 +17,7 @@ import {
   StopOutlined,
   UndoOutlined,
   UserAddOutlined,
+  UserDeleteOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { ReactNode } from "react";
@@ -54,6 +55,7 @@ const EVENT_LOOK: Record<string, { icon: ReactNode; tone: EventTone }> = {
   "appointment.rescheduled": { icon: <FieldTimeOutlined />, tone: "warning" },
   "appointment.checked_in": { icon: <LoginOutlined />, tone: "success" },
   "appointment.cancelled": { icon: <StopOutlined />, tone: "danger" },
+  "appointment.no_show": { icon: <UserDeleteOutlined />, tone: "danger" },
 };
 const DEFAULT_LOOK = { icon: <HistoryOutlined />, tone: "primary" as EventTone };
 
