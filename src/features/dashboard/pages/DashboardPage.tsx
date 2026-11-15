@@ -3,6 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { NAV_ITEMS } from "@components/layout/navigation";
 import { RoleTag } from "@components/ui/RoleTag";
+import { AppointmentStatsCard } from "@features/appointments/components/stats/AppointmentStatsCard";
+import { DoctorStatsCard } from "@features/appointments/components/stats/DoctorStatsCard";
 import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
 import { PatientStatsCard } from "@features/patients/components/stats/PatientStatsCard";
 import { useCan } from "@features/permissions/hooks/usePermissions";
@@ -14,8 +16,8 @@ const greetingKey = (hour: number) =>
   hour < 5 ? "evening" : hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening";
 
 // Role-shaped home page (DOC 9.2). The role widgets arrive with their
-// backend phases: so far the patient statistics (patients.stats); today's
-// queue, revenue, lab orders … follow. Plus a welcome and quick access.
+// backend phases: appointments (overview / own) and patients so far;
+// revenue, lab orders … follow. Plus a welcome and quick access.
 export function DashboardPage() {
   const { t } = useTranslation();
   const { data: user } = useCurrentUser();
@@ -40,6 +42,8 @@ export function DashboardPage() {
         <RoleTag role={user.role} />
       </section>
 
+      {can("appointments.stats_own") && <DoctorStatsCard />}
+      {can("appointments.stats") && <AppointmentStatsCard />}
       {can("patients.stats") && <PatientStatsCard />}
 
       <section>

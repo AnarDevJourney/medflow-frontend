@@ -24,7 +24,9 @@ export function PatientPicker({
   value,
   onChange,
   status,
+  disabled,
 }: {
+  disabled?: boolean;
   id?: string;
   value: PatientRef | null;
   onChange: (patient: PatientRef | null) => void;
@@ -52,7 +54,8 @@ export function PatientPicker({
     <Select<string, (typeof options)[number]>
       id={id}
       showSearch={{ filterOption: false, onSearch: setText }}
-      allowClear
+      allowClear={!disabled}
+      disabled={disabled}
       status={status}
       placeholder={t("appointments.book.patientPlaceholder")}
       value={value?.id}

@@ -17,13 +17,14 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { ShareBars } from "@components/charts/ShareBars";
 import { EmptyState } from "@components/ui/EmptyState";
 import { useTheme } from "@lib/theme/useTheme";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
 import dayjs from "@lib/dayjs";
 import { PATHS } from "@router/paths";
 import { usePatientStats } from "../../hooks/usePatients";
-import styles from "./PatientStatsCard.module.css";
+import styles from "@components/charts/StatsCard.module.css";
 
 const monthLabel = (month: string, format: string) => dayjs(`${month}-01`).format(format);
 
@@ -43,47 +44,6 @@ function StatTile({
       <span className={styles.statValue}>{value.toLocaleString()}</span>
       {sub && <span className={styles.statSub}>{sub}</span>}
     </div>
-  );
-}
-
-// Labeled horizontal bars: one hue, the value and share printed beside each
-// bar, so nothing is read from color alone
-function ShareBars({
-  title,
-  rows,
-}: {
-  title: string;
-  rows: { key: string; label: ReactNode; count: number }[];
-}) {
-  const total = rows.reduce((sum, row) => sum + row.count, 0);
-  const max = Math.max(...rows.map((row) => row.count), 1);
-  return (
-    <section className={styles.shares}>
-      <h3 className={styles.subheading}>{title}</h3>
-      <ul className={styles.shareList}>
-        {rows.map((row, index) => {
-          const share = total ? Math.round((row.count / total) * 100) : 0;
-          return (
-            <li key={row.key} className={styles.shareRow}>
-              <span className={styles.shareLabel}>{row.label}</span>
-              <span className={styles.shareTrack} aria-hidden="true">
-                <span
-                  className={styles.shareFill}
-                  style={{
-                    width: `${(row.count / max) * 100}%`,
-                    animationDelay: `${100 + index * 60}ms`,
-                  }}
-                />
-              </span>
-              <span className={styles.shareValue}>
-                {row.count.toLocaleString()}
-                <span className={styles.shareSub}> · {share}%</span>
-              </span>
-            </li>
-          );
-        })}
-      </ul>
-    </section>
   );
 }
 

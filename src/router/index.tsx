@@ -6,6 +6,7 @@ import { ForgotPasswordPage } from "@features/auth/pages/ForgotPasswordPage";
 import { LoginPage } from "@features/auth/pages/LoginPage";
 import { ResetPasswordPage } from "@features/auth/pages/ResetPasswordPage";
 import { AppointmentsPage } from "@features/appointments/pages/AppointmentsPage";
+import { TodayPage } from "@features/appointments/pages/TodayPage";
 import { ComingSoonPage } from "@features/coming-soon/pages/ComingSoonPage";
 import { DashboardPage } from "@features/dashboard/pages/DashboardPage";
 import { DepartmentsPage } from "@features/departments/pages/DepartmentsPage";
@@ -31,6 +32,7 @@ const BUILT = new Set([
   "notifications",
   "patients",
   "appointments",
+  "today",
   "staff",
   "departments",
   "history",
@@ -76,6 +78,7 @@ export const router = createBrowserRouter([
       { path: PATHS.notifications, element: <NotificationsPage /> },
       { path: PATHS.patients, element: gated("patients", <PatientsPage />) },
       { path: PATHS.patient, element: gated("patients", <PatientDetailPage />) },
+      { path: PATHS.today, element: gated("today", <TodayPage />) },
       {
         path: PATHS.appointments,
         element: gated("appointments", <AppointmentsPage />),

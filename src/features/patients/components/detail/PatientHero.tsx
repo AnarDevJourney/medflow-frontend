@@ -7,6 +7,7 @@ import {
   UndoOutlined,
 } from "@ant-design/icons";
 import { Button, Dropdown, type MenuProps } from "antd";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import {
   HeroFacts,
@@ -27,11 +28,14 @@ export function PatientHero({
   facts,
   onEdit,
   canChangeStatus,
+  extraActions,
 }: {
   patient: Patient;
   facts: HeroFact[];
   onEdit?: () => void;
   canChangeStatus: boolean;
+  // e.g. "Book appointment" — shown before Edit
+  extraActions?: ReactNode;
 }) {
   const { t } = useTranslation();
   const { deactivate, reactivate } = useConfirmPatientAction();
@@ -90,8 +94,9 @@ export function PatientHero({
             )}
           </div>
         </div>
-        {(onEdit || menu.length > 0) && (
+        {(onEdit || menu.length > 0 || extraActions) && (
           <div className={styles.heroActions}>
+            {extraActions}
             {onEdit && (
               <Button type="primary" icon={<EditOutlined />} onClick={onEdit}>
                 {t("patients.edit")}

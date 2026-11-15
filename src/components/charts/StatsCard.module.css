@@ -133,69 +133,67 @@
   gap: var(--space-6);
 }
 
-.shareList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.shareRow {
-  display: grid;
-  grid-template-columns: minmax(84px, max-content) minmax(0, 1fr) max-content;
-  gap: var(--space-3);
+.headerEnd {
+  display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
-  font-size: var(--font-size-sm);
+  gap: var(--space-3);
 }
 
-.shareLabel {
+/* Legend under a multi-series chart: swatch + name, never color alone */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+  margin-top: var(--space-2);
+  color: var(--color-muted);
+  font-size: var(--font-size-xs);
+}
+
+.legendItem {
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  white-space: nowrap;
 }
 
-.shareLabel :global(.anticon) {
-  color: var(--color-muted);
+.legendSwatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--swatch);
 }
 
-.shareTrack {
-  height: 8px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: var(--color-hover);
+.tooltipRow {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  gap: var(--space-2);
+  align-items: center;
 }
 
-.shareFill {
-  display: block;
-  height: 100%;
-  min-width: 2px;
-  border-radius: 999px;
-  background: var(--color-primary);
-  /* Fills grow from zero to their width on first paint */
-  animation: share-grow 800ms cubic-bezier(0.22, 1, 0.36, 1) 100ms backwards;
-}
-
-@keyframes share-grow {
-  from {
-    width: 0;
-  }
-}
-
-:global(html[data-motion="reduced"]) .shareFill {
-  animation: none;
-}
-
-.shareValue {
-  min-width: 64px;
+.tooltipValue {
   font-variant-numeric: tabular-nums;
   font-weight: 600;
   text-align: right;
 }
 
-.shareSub {
-  color: var(--color-muted);
-  font-weight: 400;
+.statsTight {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+/* Appointment status series for charts — validated as a categorical set in
+   this order (completed, scheduled, no-show, cancelled; dataviz validator):
+   light uses the status tokens, dark its own steps inside the lightness
+   band. Cancelled is the intended neutral (legend + table carry it). */
+.card {
+  --chart-completed: #16a34a;
+  --chart-scheduled: #2563eb;
+  --chart-no-show: #dc2626;
+  --chart-cancelled: #8a959c;
+}
+
+:global(html[data-theme="dark"]) .card {
+  --chart-completed: #16a34a;
+  --chart-scheduled: #3b82f6;
+  --chart-no-show: #e5484d;
+  --chart-cancelled: #76838a;
 }

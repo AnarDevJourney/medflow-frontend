@@ -1372,7 +1372,8 @@
       "empty": "Nothing recorded about this patient yet"
     },
     "tabs": {
-      "clinical": "Clinical summary"
+      "clinical": "Clinical summary",
+      "appointments": "Appointments"
     }
   },
   "clinical": {
@@ -1648,5 +1649,71 @@
     "systemReasons": {
       "PATIENT_DEACTIVATED": "The patient record was deactivated"
     }
+  },
+  "appointmentStats": {
+    "title": "Appointments",
+    "range": "Period",
+    "open": "Open appointments",
+    "total": "Visits",
+    "completed": "Completed",
+    "noShowRate": "No-show rate",
+    "cancelled": "Cancelled",
+    "perDay": "Visits per day",
+    "byDepartment": "By department",
+    "topDoctors": "Busiest doctors",
+    "emptyTitle": "No appointments in this period",
+    "emptyText": "Pick a longer period, or book the first appointment.",
+    "mineTitle": "My appointments",
+    "openToday": "My day",
+    "today": "Today",
+    "thisWeek": "This week",
+    "next7Days": "Next 7 days",
+    "weeklyAverage": "Per week (avg.)",
+    "last90": "last 90 days",
+    "last14": "Last 14 days",
+    "series": {
+      "completed": "Completed",
+      "scheduled": "Scheduled",
+      "noShow": "No-show",
+      "cancelled": "Cancelled"
+    },
+    "lastDays_one": "{{count}} day",
+    "lastDays_other": "{{count}} days",
+    "noShowCount_one": "{{count}} did not come",
+    "noShowCount_other": "{{count}} did not come",
+    "visits_one": "{{count}} visit",
+    "visits_other": "{{count}} visits"
+  },
+  "today": {
+    "title": "My day",
+    "summary": {
+      "total": "Appointments",
+      "waiting": "Waiting",
+      "done": "Completed",
+      "noShow": "Did not come"
+    },
+    "waiting": "Waiting now",
+    "nobodyWaiting": "Nobody is waiting.",
+    "next": "Next patient",
+    "noNext": "No more patients today.",
+    "openProfile": "Open the profile",
+    "schedule": "Today's schedule",
+    "now": "Now · {{time}}",
+    "dayOver": "The day's appointments are over",
+    "emptyTitle": "No appointments today",
+    "emptyText": "Enjoy the quiet day — new bookings show up here right away.",
+    "waitingFor_one": "waiting {{count}} min",
+    "waitingFor_other": "waiting {{count}} min"
+  },
+  "patientAppointments": {
+    "upcoming": "Upcoming",
+    "past": "Past",
+    "noUpcoming": "No upcoming appointments.",
+    "noPast": "No past appointments.",
+    "emptyTitle": "No appointments yet",
+    "emptyText": "Book the patient's first appointment.",
+    "emptyReadText": "The patient's appointments will appear here.",
+    "nextVisit": "Next visit",
+    "none": "None"
   }
 }

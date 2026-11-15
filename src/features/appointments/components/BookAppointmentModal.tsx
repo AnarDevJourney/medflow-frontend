@@ -69,6 +69,7 @@ export function BookAppointmentModal({
   onClose,
   patient: initialPatient = null,
   slot = null,
+  lockPatient = false,
   onBooked,
 }: {
   open: boolean;
@@ -77,6 +78,8 @@ export function BookAppointmentModal({
   patient?: PatientRef | null;
   // Booking from a calendar slot starts with that doctor, day and time
   slot?: PresetSlot | null;
+  // Booking from the patient's profile: the patient is fixed
+  lockPatient?: boolean;
   onBooked?: (appointment: Appointment) => void;
 }) {
   const { t } = useTranslation();
@@ -252,6 +255,7 @@ export function BookAppointmentModal({
             render={({ field, fieldState }) => (
               <PatientPicker
                 id="book-patient"
+                disabled={lockPatient}
                 value={field.value}
                 onChange={(next) => {
                   // The chosen time stays; it is dropped below only if this

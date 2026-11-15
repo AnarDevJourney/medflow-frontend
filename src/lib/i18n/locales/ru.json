@@ -1394,7 +1394,8 @@
       "empty": "Об этом пациенте пока ничего не записано"
     },
     "tabs": {
-      "clinical": "Клиническая сводка"
+      "clinical": "Клиническая сводка",
+      "appointments": "Приёмы"
     }
   },
   "clinical": {
@@ -1684,5 +1685,79 @@
     "systemReasons": {
       "PATIENT_DEACTIVATED": "Карта пациента деактивирована"
     }
+  },
+  "appointmentStats": {
+    "title": "Приёмы",
+    "range": "Период",
+    "open": "Открыть приёмы",
+    "total": "Приёмы",
+    "completed": "Завершено",
+    "noShowRate": "Доля неявок",
+    "cancelled": "Отменено",
+    "perDay": "Приёмы по дням",
+    "byDepartment": "По отделениям",
+    "topDoctors": "Самые загруженные врачи",
+    "emptyTitle": "За этот период приёмов нет",
+    "emptyText": "Выберите период подлиннее или запишите первого пациента.",
+    "mineTitle": "Мои приёмы",
+    "openToday": "Мой день",
+    "today": "Сегодня",
+    "thisWeek": "Эта неделя",
+    "next7Days": "Следующие 7 дней",
+    "weeklyAverage": "В неделю (в среднем)",
+    "last90": "за 90 дней",
+    "last14": "Последние 14 дней",
+    "series": {
+      "completed": "Завершён",
+      "scheduled": "Запланирован",
+      "noShow": "Неявка",
+      "cancelled": "Отменён"
+    },
+    "lastDays_one": "{{count}} день",
+    "lastDays_other": "{{count}} дня",
+    "lastDays_few": "{{count}} дня",
+    "lastDays_many": "{{count}} дней",
+    "noShowCount_one": "{{count}} неявка",
+    "noShowCount_other": "{{count}} неявки",
+    "noShowCount_few": "{{count}} неявки",
+    "noShowCount_many": "{{count}} неявок",
+    "visits_one": "{{count}} приём",
+    "visits_other": "{{count}} приёма",
+    "visits_few": "{{count}} приёма",
+    "visits_many": "{{count}} приёмов"
+  },
+  "today": {
+    "title": "Мой день",
+    "summary": {
+      "total": "Приёмы",
+      "waiting": "Ждут",
+      "done": "Завершено",
+      "noShow": "Не пришли"
+    },
+    "waiting": "Сейчас ждут",
+    "nobodyWaiting": "Никто не ждёт.",
+    "next": "Следующий пациент",
+    "noNext": "Сегодня больше пациентов нет.",
+    "openProfile": "Открыть карту",
+    "schedule": "Расписание на сегодня",
+    "now": "Сейчас · {{time}}",
+    "dayOver": "Приёмы на сегодня закончились",
+    "emptyTitle": "Сегодня приёмов нет",
+    "emptyText": "Спокойный день — новые записи сразу появятся здесь.",
+    "waitingFor_one": "ждёт {{count}} мин",
+    "waitingFor_other": "ждёт {{count}} мин",
+    "waitingFor_few": "ждёт {{count}} мин",
+    "waitingFor_many": "ждёт {{count}} мин"
+  },
+  "patientAppointments": {
+    "upcoming": "Предстоящие",
+    "past": "Прошедшие",
+    "noUpcoming": "Предстоящих приёмов нет.",
+    "noPast": "Прошедших приёмов нет.",
+    "emptyTitle": "Приёмов пока нет",
+    "emptyText": "Запишите пациента на первый приём.",
+    "emptyReadText": "Здесь появятся приёмы пациента.",
+    "nextVisit": "Следующий приём",
+    "none": "Нет"
   }
 }

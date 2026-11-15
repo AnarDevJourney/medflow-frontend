@@ -5,10 +5,11 @@ import {
   IdcardOutlined,
   ManOutlined,
   UserAddOutlined,
+  ScheduleOutlined,
   WomanOutlined,
 } from "@ant-design/icons";
 import { Alert, Button, Skeleton, Tabs } from "antd";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useLocation, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { detailStyles as styles, type HeroFact } from "@components/detail-page";
@@ -18,9 +19,19 @@ import { PatientTimeline } from "@features/history/components/PatientTimeline";
 import { useCan } from "@features/permissions/hooks/usePermissions";
 import { isApiError } from "@lib/api/errors";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
-import { formatDate, formatDay, fromNow } from "@lib/dayjs";
+import dayjs, {
+  CLINIC_TZ,
+  formatDate,
+  formatDay,
+  fromNow,
+  toClinicTime,
+} from "@lib/dayjs";
+import { AppointmentStatus } from "@models/enums";
 import { PATHS } from "@router/paths";
 import { AllergyBanner } from "../components/clinical/AllergyBanner";
+import { BookAppointmentModal } from "@features/appointments/components/BookAppointmentModal";
+import { PatientAppointmentsTab } from "@features/appointments/components/PatientAppointmentsTab";
+import { useAppointments } from "@features/appointments/hooks/useAppointments";
 import { ClinicalTab } from "../components/clinical/ClinicalTab";
 import { PatientHero } from "../components/detail/PatientHero";
 import { PatientOverview } from "../components/detail/PatientOverview";
@@ -30,7 +41,7 @@ import { useConfirmPatientAction } from "../hooks/useConfirmPatientAction";
 import { usePatient } from "../hooks/usePatients";
 import { ageOf, bloodTypeLabel } from "../utils/patient";
 
-type TabKey = "overview" | "clinical" | "history";
+type TabKey = "overview" | "clinical" | "appointments" | "history";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -55,6 +66,34 @@ export function PatientDetailPage() {
   const canChangeStatus = can("patients.deactivate");
   const showHistory = can("history.patient_read");
   const showClinical = can("patients.clinical_read");
+  const showAppointments = can("appointments.read");
+  const canBook = can("appointments.book") && can("appointments.availability");
+  const [booking, setBooking] = useState(false);
+  // The next visit for the facts strip (soonest scheduled from today)
+  const nextVisit = useAppointments(
+    {
+      page: 1,
+      limit: 1,
+      patientId: id,
+      from: dayjs().tz(CLINIC_TZ).format("YYYY-MM-DD"),
+      status: AppointmentStatus.SCHEDULED,
+      sort: "startsAt:asc",
+    },
+    validId && showAppointments,
+  ).data?.items[0];
+  // Stable, so the booking modal does not reset while it is open
+  const bookingPatient = useMemo(
+    () =>
+      patient && {
+        id: patient.id,
+        firstName: patient.firstName,
+        lastName: patient.lastName,
+        mrn: patient.mrn,
+        phone: patient.phone,
+        dateOfBirth: patient.dateOfBirth,
+      },
+    [patient],
+  );
 
   // Back to the list with the filters it had (PatientsPage passes its query)
   const from = (location.state as { from?: string } | null)?.from ?? "";
@@ -133,6 +172,20 @@ export function PatientDetailPage() {
       value: formatDate(patient.createdAt),
       sub: fromNow(patient.createdAt),
     },
+    ...(showAppointments
+      ? [
+          {
+            key: "nextVisit",
+            icon: <ScheduleOutlined />,
+            label: t("patientAppointments.nextVisit"),
+            value: nextVisit
+              ? toClinicTime(nextVisit.startsAt).format("D MMM, HH:mm")
+              : t("patientAppointments.none"),
+            sub: nextVisit?.doctorName,
+            tone: nextVisit ? undefined : ("muted" as const),
+          },
+        ]
+      : []),
   ];
 
   const tabs = [
@@ -150,6 +203,20 @@ export function PatientDetailPage() {
               <ClinicalTab
                 patient={patient}
                 canManage={can("patients.clinical_manage")}
+              />
+            ),
+          },
+        ]
+      : []),
+    ...(showAppointments
+      ? [
+          {
+            key: "appointments",
+            label: t("patientDetail.tabs.appointments"),
+            children: (
+              <PatientAppointmentsTab
+                patientId={patient.id}
+                onBook={canBook && patient.isActive ? () => setBooking(true) : undefined}
               />
             ),
           },
@@ -195,6 +262,14 @@ export function PatientDetailPage() {
         facts={facts}
         onEdit={canUpdate && patient.isActive ? () => setEditing(true) : undefined}
         canChangeStatus={canChangeStatus}
+        extraActions={
+          canBook &&
+          patient.isActive && (
+            <Button icon={<CalendarOutlined />} onClick={() => setBooking(true)}>
+              {t("appointments.bookButton")}
+            </Button>
+          )
+        }
       />
       <Tabs
         className={styles.tabs}
@@ -211,6 +286,12 @@ export function PatientDetailPage() {
           )
         }
         items={tabs}
+      />
+      <BookAppointmentModal
+        open={booking}
+        onClose={() => setBooking(false)}
+        patient={bookingPatient}
+        lockPatient
       />
       <PatientModal
         open={editing}

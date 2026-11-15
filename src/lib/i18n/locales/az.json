@@ -1372,7 +1372,8 @@
       "empty": "Bu pasiyent haqqında hələ heç nə qeydə alınmayıb"
     },
     "tabs": {
-      "clinical": "Klinik xülasə"
+      "clinical": "Klinik xülasə",
+      "appointments": "Qəbullar"
     }
   },
   "clinical": {
@@ -1648,5 +1649,71 @@
     "systemReasons": {
       "PATIENT_DEACTIVATED": "Pasiyent qeydi deaktiv edildi"
     }
+  },
+  "appointmentStats": {
+    "title": "Qəbullar",
+    "range": "Dövr",
+    "open": "Qəbullara keç",
+    "total": "Qəbullar",
+    "completed": "Tamamlanıb",
+    "noShowRate": "Gəlməmə faizi",
+    "cancelled": "Ləğv edilib",
+    "perDay": "Günlük qəbullar",
+    "byDepartment": "Şöbələr üzrə",
+    "topDoctors": "Ən çox qəbulu olan həkimlər",
+    "emptyTitle": "Bu dövrdə qəbul yoxdur",
+    "emptyText": "Daha uzun dövr seçin və ya ilk qəbulu yazın.",
+    "mineTitle": "Mənim qəbullarım",
+    "openToday": "Mənim günüm",
+    "today": "Bu gün",
+    "thisWeek": "Bu həftə",
+    "next7Days": "Növbəti 7 gün",
+    "weeklyAverage": "Həftədə (orta)",
+    "last90": "son 90 gün",
+    "last14": "Son 14 gün",
+    "series": {
+      "completed": "Tamamlanıb",
+      "scheduled": "Planlaşdırılıb",
+      "noShow": "Gəlməyib",
+      "cancelled": "Ləğv edilib"
+    },
+    "lastDays_one": "{{count}} gün",
+    "lastDays_other": "{{count}} gün",
+    "noShowCount_one": "{{count}} nəfər gəlməyib",
+    "noShowCount_other": "{{count}} nəfər gəlməyib",
+    "visits_one": "{{count}} qəbul",
+    "visits_other": "{{count}} qəbul"
+  },
+  "today": {
+    "title": "Mənim günüm",
+    "summary": {
+      "total": "Qəbullar",
+      "waiting": "Gözləyir",
+      "done": "Tamamlanıb",
+      "noShow": "Gəlməyib"
+    },
+    "waiting": "İndi gözləyənlər",
+    "nobodyWaiting": "Heç kim gözləmir.",
+    "next": "Növbəti pasiyent",
+    "noNext": "Bu gün başqa pasiyent yoxdur.",
+    "openProfile": "Profili aç",
+    "schedule": "Günün cədvəli",
+    "now": "İndi · {{time}}",
+    "dayOver": "Günün qəbulları bitib",
+    "emptyTitle": "Bu gün qəbul yoxdur",
+    "emptyText": "Sakit gün — yeni qəbullar dərhal burada görünəcək.",
+    "waitingFor_one": "{{count}} dəq gözləyir",
+    "waitingFor_other": "{{count}} dəq gözləyir"
+  },
+  "patientAppointments": {
+    "upcoming": "Gələcək",
+    "past": "Keçmiş",
+    "noUpcoming": "Gələcək qəbul yoxdur.",
+    "noPast": "Keçmiş qəbul yoxdur.",
+    "emptyTitle": "Hələ qəbul yoxdur",
+    "emptyText": "Pasiyenti ilk qəbula yazın.",
+    "emptyReadText": "Pasiyentin qəbulları burada görünəcək.",
+    "nextVisit": "Növbəti qəbul",
+    "none": "Yoxdur"
   }
 }

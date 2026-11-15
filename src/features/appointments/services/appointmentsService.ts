@@ -219,3 +219,41 @@ export async function getCalendar(query: CalendarQuery): Promise<CalendarData> {
   });
   return data;
 }
+
+// Dashboards (DOC 8.5)
+export type StatusCounts = Record<AppointmentStatus, number>;
+
+export interface AppointmentOverview {
+  from: string;
+  to: string;
+  total: number;
+  byStatus: StatusCounts;
+  noShowRate: number | null; // %
+  daily: ({ date: string } & StatusCounts)[];
+  departments: { departmentId: string; name: string; code: string; count: number }[];
+  doctors: { doctorId: string; name: string; count: number }[];
+}
+
+export interface DoctorAppointmentStats {
+  today: number;
+  thisWeek: number;
+  next7Days: number;
+  weeklyAverage: number;
+  noShowRate: number | null; // %, last 90 days
+  daily: { date: string; count: number }[]; // last 14 days
+}
+
+export async function getAppointmentOverview(query: {
+  from?: string;
+  to?: string;
+}): Promise<AppointmentOverview> {
+  const { data } = await api.get<AppointmentOverview>("/appointments/stats/overview", {
+    params: query,
+  });
+  return data;
+}
+
+export async function getDoctorAppointmentStats(): Promise<DoctorAppointmentStats> {
+  const { data } = await api.get<DoctorAppointmentStats>("/appointments/stats/doctor");
+  return data;
+}

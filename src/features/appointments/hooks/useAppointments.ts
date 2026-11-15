@@ -9,6 +9,8 @@ import {
   checkInAppointment,
   createAppointment,
   getAppointment,
+  getAppointmentOverview,
+  getDoctorAppointmentStats,
   getAvailability,
   getCalendar,
   listAppointments,
@@ -62,6 +64,22 @@ export function useCalendar(query: CalendarQuery | null) {
     placeholderData: keepPreviousData,
     refetchInterval: 30_000,
     refetchOnWindowFocus: true,
+  });
+}
+
+export function useAppointmentOverview(query: { from?: string; to?: string }) {
+  return useQuery({
+    queryKey: [...appointmentsKey, "stats", "overview", query],
+    queryFn: () => getAppointmentOverview(query),
+    placeholderData: keepPreviousData,
+  });
+}
+
+export function useDoctorAppointmentStats(enabled = true) {
+  return useQuery({
+    queryKey: [...appointmentsKey, "stats", "doctor"],
+    queryFn: getDoctorAppointmentStats,
+    enabled,
   });
 }
 
