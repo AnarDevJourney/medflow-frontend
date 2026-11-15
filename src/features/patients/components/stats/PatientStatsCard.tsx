@@ -18,6 +18,7 @@ import {
   YAxis,
 } from "recharts";
 import { EmptyState } from "@components/ui/EmptyState";
+import { useTheme } from "@lib/theme/useTheme";
 import { useErrorMessage } from "@lib/api/useErrorMessage";
 import dayjs from "@lib/dayjs";
 import { PATHS } from "@router/paths";
@@ -60,7 +61,7 @@ function ShareBars({
     <section className={styles.shares}>
       <h3 className={styles.subheading}>{title}</h3>
       <ul className={styles.shareList}>
-        {rows.map((row) => {
+        {rows.map((row, index) => {
           const share = total ? Math.round((row.count / total) * 100) : 0;
           return (
             <li key={row.key} className={styles.shareRow}>
@@ -68,7 +69,10 @@ function ShareBars({
               <span className={styles.shareTrack} aria-hidden="true">
                 <span
                   className={styles.shareFill}
-                  style={{ width: `${(row.count / max) * 100}%` }}
+                  style={{
+                    width: `${(row.count / max) * 100}%`,
+                    animationDelay: `${100 + index * 60}ms`,
+                  }}
                 />
               </span>
               <span className={styles.shareValue}>
@@ -90,6 +94,7 @@ export function PatientStatsCard() {
   const errorMessage = useErrorMessage();
   const stats = usePatientStats();
   const data = stats.data;
+  const { reducedMotion } = useTheme();
 
   const header = (
     <header className={styles.header}>
@@ -221,7 +226,11 @@ export function PatientStatsCard() {
                 fill="var(--color-primary)"
                 radius={[4, 4, 0, 0]}
                 maxBarSize={24}
-                isAnimationActive={false}
+                // Bars grow in on first paint (off when motion is reduced)
+                isAnimationActive={!reducedMotion}
+                animationBegin={100}
+                animationDuration={800}
+                animationEasing="ease-out"
               />
             </BarChart>
           </ResponsiveContainer>
