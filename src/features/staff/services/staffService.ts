@@ -84,3 +84,12 @@ export async function updateMyStaffProfile(
   const { data } = await api.patch<StaffMember>("/staff/me", input);
   return data;
 }
+
+// Booking pickers: doctors who can work (not deactivated), by name;
+// optionally of one department (GET /staff/doctors)
+export async function listDoctors(departmentId?: string): Promise<StaffMember[]> {
+  const { data } = await api.get<StaffMember[]>("/staff/doctors", {
+    params: departmentId ? { departmentId } : undefined,
+  });
+  return data;
+}

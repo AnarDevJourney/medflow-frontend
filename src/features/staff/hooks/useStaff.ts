@@ -8,6 +8,7 @@ import {
 import {
   getMyStaffProfile,
   getStaffMember,
+  listDoctors,
   listStaff,
   updateMyStaffProfile,
   updateStaff,
@@ -32,6 +33,16 @@ export function useStaffMember(userId: string | undefined) {
     queryKey: [...staffKey, "one", userId],
     queryFn: () => getStaffMember(userId!),
     enabled: Boolean(userId),
+  });
+}
+
+// Doctors for booking pickers (all, or one department's), by name
+export function useDoctors(departmentId?: string, enabled = true) {
+  return useQuery({
+    queryKey: [...staffKey, "doctors", departmentId ?? null],
+    queryFn: () => listDoctors(departmentId),
+    staleTime: 60 * 1000,
+    enabled,
   });
 }
 

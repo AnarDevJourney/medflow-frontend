@@ -11,6 +11,7 @@ import {
   MedicineBoxOutlined,
   SafetyCertificateOutlined,
   SafetyOutlined,
+  ScheduleOutlined,
   StopOutlined,
   UndoOutlined,
   UserAddOutlined,
@@ -46,6 +47,7 @@ const EVENT_LOOK: Record<string, { icon: ReactNode; tone: EventTone }> = {
   "patient.condition_added": { icon: <MedicineBoxOutlined />, tone: "primary" },
   "patient.condition_updated": { icon: <MedicineBoxOutlined />, tone: "primary" },
   "patient.condition_removed": { icon: <MedicineBoxOutlined />, tone: "warning" },
+  "appointment.created": { icon: <ScheduleOutlined />, tone: "success" },
 };
 const DEFAULT_LOOK = { icon: <HistoryOutlined />, tone: "primary" as EventTone };
 

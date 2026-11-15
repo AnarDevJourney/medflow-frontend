@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { formatPeriod } from "@features/schedules/utils/timeOff";
+import { formatDateTime } from "@lib/dayjs";
 import type { HistoryEntry } from "../services/historyService";
 
 // History rows in the reader's language. The backend stores a key + data
@@ -52,6 +53,8 @@ export function useHistoryText() {
           typeof p.start === "string" && typeof p.end === "string"
             ? formatPeriod(p.start, p.end)
             : "",
+        // appointments: the visit time in clinic time
+        startsAt: typeof p.startsAt === "string" ? formatDateTime(p.startsAt) : "",
         // permission changes: "+View patients, −Book appointments"
         changes: [...list(p.added, "+"), ...list(p.removed, "−")].join(", "),
         // a key this build doesn't know yet → the stored sentence

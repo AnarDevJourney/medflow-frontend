@@ -132,8 +132,16 @@ export const EVENT_TYPES = [
   "patient.condition_added",
   "patient.condition_updated",
   "patient.condition_removed",
+  "appointment.created",
 ];
-export const ENTITY_TYPES = ["USER", "ROLE", "DEPARTMENT", "STAFF_MEMBER", "PATIENT"];
+export const ENTITY_TYPES = [
+  "USER",
+  "ROLE",
+  "DEPARTMENT",
+  "STAFF_MEMBER",
+  "PATIENT",
+  "APPOINTMENT",
+];
 export const EMAIL_TEMPLATES = [
   "staff-invite",
   "password-reset",

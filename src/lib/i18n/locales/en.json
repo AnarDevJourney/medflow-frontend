@@ -564,7 +564,8 @@
       "ROLE": "Role",
       "DEPARTMENT": "Department",
       "STAFF_MEMBER": "Staff profile",
-      "PATIENT": "Patient"
+      "PATIENT": "Patient",
+      "APPOINTMENT": "Appointment"
     },
     "emailStatus": {
       "QUEUED": "Queued",
@@ -614,7 +615,8 @@
       "patient.condition_added": "Chronic condition added",
       "patient.condition_updated": "Chronic condition updated",
       "patient.condition_removed": "Chronic condition removed",
-      "patient.allergy_updated": "Allergy updated"
+      "patient.allergy_updated": "Allergy updated",
+      "appointment.created": "Appointment booked"
     },
     "fields": {
       "firstName": "first name",
@@ -670,7 +672,11 @@
       "startDate": "First day",
       "endDate": "Last day",
       "days": "Days",
-      "mrn": "MRN"
+      "mrn": "MRN",
+      "doctorName": "Doctor",
+      "departmentName": "Department",
+      "startsAt": "Visit time",
+      "appointmentType": "Visit type"
     },
     "via": {
       "RESET": "Reset with an email link",
@@ -748,6 +754,9 @@
       "conditionUpdated": "{{actor}} updated a chronic condition of {{name}} ({{mrn}}): {{fields}}",
       "conditionRemoved": "{{actor}} removed a chronic condition from the record of {{name}} ({{mrn}})",
       "allergyUpdated": "{{actor}} updated an allergy of {{name}} ({{mrn}}): {{fields}}"
+    },
+    "appointment": {
+      "created": "{{actor}} booked {{name}} ({{mrn}}) with {{doctor}} for {{startsAt}}"
     }
   },
   "permissionCatalog": {
@@ -1408,5 +1417,105 @@
     },
     "emptyTitle": "No patients yet",
     "emptyText": "Statistics appear once the first patient is registered."
+  },
+  "appointments": {
+    "title": "Appointments",
+    "subtitle": "Booked visits of the clinic. Book a patient into a doctor's free time.",
+    "bookButton": "Book appointment",
+    "search": "Patient name or MRN",
+    "allDepartments": "All departments",
+    "allDoctors": "All doctors",
+    "allStatuses": "All statuses",
+    "scope": {
+      "mine": "My appointments",
+      "all": "All doctors"
+    },
+    "columns": {
+      "time": "Time",
+      "status": "Status"
+    },
+    "fields": {
+      "patient": "Patient",
+      "doctor": "Doctor",
+      "department": "Department",
+      "date": "Day",
+      "time": "Time",
+      "type": "Visit type",
+      "reason": "Reason for the visit",
+      "notes": "Notes",
+      "booked": "Booked"
+    },
+    "types": {
+      "CONSULTATION": "Consultation",
+      "FOLLOW_UP": "Follow-up",
+      "CHECK_UP": "Check-up"
+    },
+    "drawerTitle": "Appointment",
+    "visitSection": "Visit",
+    "emptyTitle": "No appointments yet",
+    "emptyText": "Book the first appointment: pick a patient, a doctor and one of their free times.",
+    "emptyReadText": "Booked appointments will appear here.",
+    "noMatchTitle": "No appointments match",
+    "noMatchText": "Try another period, doctor or status — or clear the filters.",
+    "slotReason": {
+      "PAST": "already started",
+      "TAKEN": "booked",
+      "PATIENT_BUSY": "the patient has another appointment"
+    },
+    "notWorking": {
+      "NOT_A_DOCTOR": "This staff member is not a doctor.",
+      "DEACTIVATED": "This doctor's account is deactivated.",
+      "VACATION": "The doctor is on vacation this day.",
+      "SICK_LEAVE": "The doctor is on sick leave this day.",
+      "TRAINING": "The doctor is at a training this day.",
+      "DAY_OFF": "The doctor has a day off.",
+      "NOT_SCHEDULED": "The doctor does not work on this weekday.",
+      "NO_DEPARTMENT": "The doctor is not assigned to a department yet, so they cannot be booked."
+    },
+    "rules": {
+      "NOT_A_SLOT": "This time is not one of the doctor's slots. Pick a time from the list.",
+      "TOO_FAR_AHEAD": "Appointments can be booked at most 90 days ahead.",
+      "VACATION": "The doctor is on vacation that day.",
+      "SICK_LEAVE": "The doctor is on sick leave that day.",
+      "TRAINING": "The doctor is at a training that day.",
+      "DAY_OFF": "The doctor has a day off that day.",
+      "NOT_SCHEDULED": "The doctor does not work that day.",
+      "NO_DEPARTMENT": "The doctor is not assigned to a department.",
+      "DEACTIVATED": "This doctor's account is deactivated."
+    },
+    "book": {
+      "title": "Book appointment",
+      "description": "Choose the patient, the doctor and a free time.",
+      "submit": "Book",
+      "patientPlaceholder": "Search by name, MRN, FIN or phone",
+      "patientHint": "Type at least 2 characters",
+      "patientNone": "No active patient found",
+      "patientRequired": "Choose the patient",
+      "inactive": "This patient record is inactive and cannot be booked",
+      "allergies_one": "{{count}} allergy",
+      "allergies_other": "{{count}} allergies",
+      "anyDepartment": "Any department",
+      "doctorPlaceholder": "Choose a doctor",
+      "doctorRequired": "Choose the doctor",
+      "noDoctors": "No doctors in this department",
+      "timeRequired": "Choose a free time",
+      "pickDoctorFirst": "Choose a doctor and a day to see the free times.",
+      "otherDay": "Pick another day or another doctor.",
+      "slotLength_one": "{{count}} min slots",
+      "slotLength_other": "{{count}} min slots",
+      "freeCount_one": "{{count}} free",
+      "freeCount_other": "{{count}} free",
+      "dayFull": "No free time left on this day. Pick another day.",
+      "parts": {
+        "morning": "Morning",
+        "afternoon": "Afternoon",
+        "evening": "Evening"
+      },
+      "slotTaken": "This time was just taken at another desk. Pick another time.",
+      "patientBusy": "The patient already has an appointment at this time. Pick another time.",
+      "reasonPlaceholder": "e.g. chest pain for two days",
+      "notesPlaceholder": "Notes for the front desk (optional)",
+      "booked": "{{name}} is booked for {{time}} with {{doctor}}"
+    }
   }
 }

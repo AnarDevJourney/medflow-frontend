@@ -100,6 +100,21 @@ export function HistoryDrawer({
           label: t("history.meta.via"),
           value: t(`history.via.${String(value)}`, { defaultValue: String(value) }),
         };
+      case "doctorName":
+      case "departmentName":
+        return { label: t(`history.meta.${key}`), value: String(value) };
+      case "startsAt":
+        return {
+          label: t("history.meta.startsAt"),
+          value: formatDateTime(String(value)),
+        };
+      case "appointmentType":
+        return {
+          label: t("history.meta.appointmentType"),
+          value: t(`appointments.types.${String(value)}`, {
+            defaultValue: String(value),
+          }),
+        };
       case "reason":
         return {
           label: t("history.meta.reason"),

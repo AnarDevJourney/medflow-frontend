@@ -564,7 +564,8 @@
       "ROLE": "Rol",
       "DEPARTMENT": "Şöbə",
       "STAFF_MEMBER": "İş profili",
-      "PATIENT": "Pasiyent"
+      "PATIENT": "Pasiyent",
+      "APPOINTMENT": "Qəbul"
     },
     "emailStatus": {
       "QUEUED": "Növbədə",
@@ -614,7 +615,8 @@
       "patient.condition_added": "Xroniki xəstəlik əlavə edildi",
       "patient.condition_updated": "Xroniki xəstəlik yeniləndi",
       "patient.condition_removed": "Xroniki xəstəlik silindi",
-      "patient.allergy_updated": "Allergiya yeniləndi"
+      "patient.allergy_updated": "Allergiya yeniləndi",
+      "appointment.created": "Qəbula yazılma"
     },
     "fields": {
       "firstName": "ad",
@@ -670,7 +672,11 @@
       "startDate": "İlk gün",
       "endDate": "Son gün",
       "days": "Günlər",
-      "mrn": "MRN"
+      "mrn": "MRN",
+      "doctorName": "Həkim",
+      "departmentName": "Şöbə",
+      "startsAt": "Qəbul vaxtı",
+      "appointmentType": "Qəbulun növü"
     },
     "via": {
       "RESET": "Email linki ilə sıfırlama",
@@ -748,6 +754,9 @@
       "conditionUpdated": "{{actor}} {{name}} ({{mrn}}) pasiyentinin xroniki xəstəliyini yenilədi: {{fields}}",
       "conditionRemoved": "{{actor}} {{name}} ({{mrn}}) qeydindən xroniki xəstəlik sildi",
       "allergyUpdated": "{{actor}} {{name}} ({{mrn}}) pasiyentinin allergiyasını yenilədi: {{fields}}"
+    },
+    "appointment": {
+      "created": "{{actor}} {{name}} ({{mrn}}) pasiyentini {{startsAt}} vaxtına {{doctor}} həkimin qəbuluna yazdı"
     }
   },
   "permissionCatalog": {
@@ -1408,5 +1417,105 @@
     },
     "emptyTitle": "Hələ pasiyent yoxdur",
     "emptyText": "İlk pasiyent qeydiyyata alınandan sonra statistika görünəcək."
+  },
+  "appointments": {
+    "title": "Qəbullar",
+    "subtitle": "Klinikanın yazılmış qəbulları. Pasiyenti həkimin boş vaxtına yazın.",
+    "bookButton": "Qəbula yaz",
+    "search": "Pasiyentin adı və ya MRN",
+    "allDepartments": "Bütün şöbələr",
+    "allDoctors": "Bütün həkimlər",
+    "allStatuses": "Bütün statuslar",
+    "scope": {
+      "mine": "Mənim qəbullarım",
+      "all": "Bütün həkimlər"
+    },
+    "columns": {
+      "time": "Vaxt",
+      "status": "Status"
+    },
+    "fields": {
+      "patient": "Pasiyent",
+      "doctor": "Həkim",
+      "department": "Şöbə",
+      "date": "Gün",
+      "time": "Vaxt",
+      "type": "Qəbulun növü",
+      "reason": "Müraciətin səbəbi",
+      "notes": "Qeydlər",
+      "booked": "Yazılıb"
+    },
+    "types": {
+      "CONSULTATION": "Konsultasiya",
+      "FOLLOW_UP": "Təkrar qəbul",
+      "CHECK_UP": "Müayinə"
+    },
+    "drawerTitle": "Qəbul",
+    "visitSection": "Qəbul",
+    "emptyTitle": "Hələ qəbul yoxdur",
+    "emptyText": "İlk qəbulu yazın: pasiyenti, həkimi və onun boş vaxtlarından birini seçin.",
+    "emptyReadText": "Yazılmış qəbullar burada görünəcək.",
+    "noMatchTitle": "Uyğun qəbul tapılmadı",
+    "noMatchText": "Başqa dövr, həkim və ya status seçin, ya da filtrləri təmizləyin.",
+    "slotReason": {
+      "PAST": "artıq başlayıb",
+      "TAKEN": "tutulub",
+      "PATIENT_BUSY": "pasiyentin bu vaxt başqa qəbulu var"
+    },
+    "notWorking": {
+      "NOT_A_DOCTOR": "Bu əməkdaş həkim deyil.",
+      "DEACTIVATED": "Bu həkimin hesabı deaktiv edilib.",
+      "VACATION": "Həkim bu gün məzuniyyətdədir.",
+      "SICK_LEAVE": "Həkim bu gün xəstəlik məzuniyyətindədir.",
+      "TRAINING": "Həkim bu gün təlimdədir.",
+      "DAY_OFF": "Həkimin bu gün istirahət günüdür.",
+      "NOT_SCHEDULED": "Həkim həftənin bu günü işləmir.",
+      "NO_DEPARTMENT": "Həkim hələ heç bir şöbəyə təyin edilməyib, ona görə qəbula yazmaq olmur."
+    },
+    "rules": {
+      "NOT_A_SLOT": "Bu vaxt həkimin slotlarından biri deyil. Siyahıdan vaxt seçin.",
+      "TOO_FAR_AHEAD": "Qəbula ən çox 90 gün irəliyə yazmaq olar.",
+      "VACATION": "Həkim həmin gün məzuniyyətdədir.",
+      "SICK_LEAVE": "Həkim həmin gün xəstəlik məzuniyyətindədir.",
+      "TRAINING": "Həkim həmin gün təlimdədir.",
+      "DAY_OFF": "Həkimin həmin gün istirahət günüdür.",
+      "NOT_SCHEDULED": "Həkim həmin gün işləmir.",
+      "NO_DEPARTMENT": "Həkim heç bir şöbəyə təyin edilməyib.",
+      "DEACTIVATED": "Bu həkimin hesabı deaktiv edilib."
+    },
+    "book": {
+      "title": "Qəbula yaz",
+      "description": "Pasiyenti, həkimi və boş vaxtı seçin.",
+      "submit": "Yaz",
+      "patientPlaceholder": "Ad, MRN, FİN və ya telefonla axtarın",
+      "patientHint": "Ən azı 2 simvol yazın",
+      "patientNone": "Aktiv pasiyent tapılmadı",
+      "patientRequired": "Pasiyenti seçin",
+      "inactive": "Bu pasiyentin qeydi deaktivdir, qəbula yazmaq olmur",
+      "allergies_one": "{{count}} allergiya",
+      "allergies_other": "{{count}} allergiya",
+      "anyDepartment": "İstənilən şöbə",
+      "doctorPlaceholder": "Həkim seçin",
+      "doctorRequired": "Həkimi seçin",
+      "noDoctors": "Bu şöbədə həkim yoxdur",
+      "timeRequired": "Boş vaxt seçin",
+      "pickDoctorFirst": "Boş vaxtları görmək üçün həkim və gün seçin.",
+      "otherDay": "Başqa gün və ya başqa həkim seçin.",
+      "slotLength_one": "{{count}} dəqiqəlik slotlar",
+      "slotLength_other": "{{count}} dəqiqəlik slotlar",
+      "freeCount_one": "{{count}} boş",
+      "freeCount_other": "{{count}} boş",
+      "dayFull": "Bu gün boş vaxt qalmayıb. Başqa gün seçin.",
+      "parts": {
+        "morning": "Səhər",
+        "afternoon": "Günorta",
+        "evening": "Axşam"
+      },
+      "slotTaken": "Bu vaxt indicə başqa masada tutuldu. Başqa vaxt seçin.",
+      "patientBusy": "Pasiyentin bu vaxt artıq başqa qəbulu var. Başqa vaxt seçin.",
+      "reasonPlaceholder": "məs. iki gündür sinə ağrısı",
+      "notesPlaceholder": "Qeydiyyat masası üçün qeyd (istəyə görə)",
+      "booked": "{{name}} {{time}} vaxtına {{doctor}} həkimin qəbuluna yazıldı"
+    }
   }
 }

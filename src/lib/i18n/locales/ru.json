@@ -564,7 +564,8 @@
       "ROLE": "Роль",
       "DEPARTMENT": "Отделение",
       "STAFF_MEMBER": "Рабочий профиль",
-      "PATIENT": "Пациент"
+      "PATIENT": "Пациент",
+      "APPOINTMENT": "Приём"
     },
     "emailStatus": {
       "QUEUED": "В очереди",
@@ -614,7 +615,8 @@
       "patient.condition_added": "Хроническое заболевание добавлено",
       "patient.condition_updated": "Хроническое заболевание изменено",
       "patient.condition_removed": "Хроническое заболевание удалено",
-      "patient.allergy_updated": "Аллергия изменена"
+      "patient.allergy_updated": "Аллергия изменена",
+      "appointment.created": "Запись на приём"
     },
     "fields": {
       "firstName": "имя",
@@ -670,7 +672,11 @@
       "startDate": "Первый день",
       "endDate": "Последний день",
       "days": "Дни",
-      "mrn": "MRN"
+      "mrn": "MRN",
+      "doctorName": "Врач",
+      "departmentName": "Отделение",
+      "startsAt": "Время приёма",
+      "appointmentType": "Вид приёма"
     },
     "via": {
       "RESET": "Сброс по ссылке из письма",
@@ -748,6 +754,9 @@
       "conditionUpdated": "{{actor}} изменил(а) хроническое заболевание пациента {{name}} ({{mrn}}): {{fields}}",
       "conditionRemoved": "{{actor}} удалил(а) хроническое заболевание из записи {{name}} ({{mrn}})",
       "allergyUpdated": "{{actor}} изменил(а) аллергию пациента {{name}} ({{mrn}}): {{fields}}"
+    },
+    "appointment": {
+      "created": "{{actor}} записал(а) пациента {{name}} ({{mrn}}) к врачу {{doctor}} на {{startsAt}}"
     }
   },
   "permissionCatalog": {
@@ -1438,5 +1447,111 @@
     },
     "emptyTitle": "Пациентов пока нет",
     "emptyText": "Статистика появится после регистрации первого пациента."
+  },
+  "appointments": {
+    "title": "Приёмы",
+    "subtitle": "Записи клиники на приём. Запишите пациента на свободное время врача.",
+    "bookButton": "Записать на приём",
+    "search": "Имя пациента или MRN",
+    "allDepartments": "Все отделения",
+    "allDoctors": "Все врачи",
+    "allStatuses": "Все статусы",
+    "scope": {
+      "mine": "Мои приёмы",
+      "all": "Все врачи"
+    },
+    "columns": {
+      "time": "Время",
+      "status": "Статус"
+    },
+    "fields": {
+      "patient": "Пациент",
+      "doctor": "Врач",
+      "department": "Отделение",
+      "date": "День",
+      "time": "Время",
+      "type": "Вид приёма",
+      "reason": "Причина обращения",
+      "notes": "Заметки",
+      "booked": "Записан"
+    },
+    "types": {
+      "CONSULTATION": "Консультация",
+      "FOLLOW_UP": "Повторный приём",
+      "CHECK_UP": "Осмотр"
+    },
+    "drawerTitle": "Приём",
+    "visitSection": "Приём",
+    "emptyTitle": "Записей пока нет",
+    "emptyText": "Создайте первую запись: выберите пациента, врача и одно из его свободных окон.",
+    "emptyReadText": "Здесь появятся записи на приём.",
+    "noMatchTitle": "Подходящих записей нет",
+    "noMatchText": "Выберите другой период, врача или статус — или сбросьте фильтры.",
+    "slotReason": {
+      "PAST": "уже началось",
+      "TAKEN": "занято",
+      "PATIENT_BUSY": "у пациента в это время другой приём"
+    },
+    "notWorking": {
+      "NOT_A_DOCTOR": "Этот сотрудник не врач.",
+      "DEACTIVATED": "Учётная запись врача деактивирована.",
+      "VACATION": "Врач в этот день в отпуске.",
+      "SICK_LEAVE": "Врач в этот день на больничном.",
+      "TRAINING": "Врач в этот день на обучении.",
+      "DAY_OFF": "У врача выходной.",
+      "NOT_SCHEDULED": "Врач не работает в этот день недели.",
+      "NO_DEPARTMENT": "Врач ещё не прикреплён к отделению, поэтому записать к нему нельзя."
+    },
+    "rules": {
+      "NOT_A_SLOT": "Это время не входит в расписание врача. Выберите время из списка.",
+      "TOO_FAR_AHEAD": "Записать можно не более чем на 90 дней вперёд.",
+      "VACATION": "Врач в этот день в отпуске.",
+      "SICK_LEAVE": "Врач в этот день на больничном.",
+      "TRAINING": "Врач в этот день на обучении.",
+      "DAY_OFF": "У врача в этот день выходной.",
+      "NOT_SCHEDULED": "Врач в этот день не работает.",
+      "NO_DEPARTMENT": "Врач не прикреплён к отделению.",
+      "DEACTIVATED": "Учётная запись врача деактивирована."
+    },
+    "book": {
+      "title": "Запись на приём",
+      "description": "Выберите пациента, врача и свободное время.",
+      "submit": "Записать",
+      "patientPlaceholder": "Поиск по имени, MRN, FIN или телефону",
+      "patientHint": "Введите не менее 2 символов",
+      "patientNone": "Активный пациент не найден",
+      "patientRequired": "Выберите пациента",
+      "inactive": "Карта пациента деактивирована, записать нельзя",
+      "allergies_one": "{{count}} аллергия",
+      "allergies_few": "{{count}} аллергии",
+      "allergies_many": "{{count}} аллергий",
+      "allergies_other": "{{count}} аллергии",
+      "anyDepartment": "Любое отделение",
+      "doctorPlaceholder": "Выберите врача",
+      "doctorRequired": "Выберите врача",
+      "noDoctors": "В этом отделении нет врачей",
+      "timeRequired": "Выберите свободное время",
+      "pickDoctorFirst": "Выберите врача и день, чтобы увидеть свободное время.",
+      "otherDay": "Выберите другой день или другого врача.",
+      "slotLength_one": "окна по {{count}} мин",
+      "slotLength_few": "окна по {{count}} мин",
+      "slotLength_many": "окна по {{count}} мин",
+      "slotLength_other": "окна по {{count}} мин",
+      "freeCount_one": "{{count}} свободно",
+      "freeCount_few": "{{count}} свободно",
+      "freeCount_many": "{{count}} свободно",
+      "freeCount_other": "{{count}} свободно",
+      "dayFull": "На этот день свободного времени нет. Выберите другой день.",
+      "parts": {
+        "morning": "Утро",
+        "afternoon": "День",
+        "evening": "Вечер"
+      },
+      "slotTaken": "Это время только что заняли за другой стойкой. Выберите другое.",
+      "patientBusy": "У пациента в это время уже есть приём. Выберите другое время.",
+      "reasonPlaceholder": "например, боль в груди два дня",
+      "notesPlaceholder": "Заметка для регистратуры (необязательно)",
+      "booked": "{{name}} записан(а) на {{time}} к врачу {{doctor}}"
+    }
   }
 }
