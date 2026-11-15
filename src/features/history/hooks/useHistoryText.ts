@@ -55,6 +55,10 @@ export function useHistoryText() {
             : "",
         // appointments: the visit time in clinic time
         startsAt: typeof p.startsAt === "string" ? formatDateTime(p.startsAt) : "",
+        previousStartsAt:
+          typeof p.previousStartsAt === "string"
+            ? formatDateTime(p.previousStartsAt)
+            : "",
         // permission changes: "+View patients, −Book appointments"
         changes: [...list(p.added, "+"), ...list(p.removed, "−")].join(", "),
         // a key this build doesn't know yet → the stored sentence

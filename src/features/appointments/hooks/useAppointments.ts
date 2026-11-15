@@ -5,10 +5,16 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import {
+  cancelAppointment,
+  checkInAppointment,
   createAppointment,
   getAppointment,
   getAvailability,
   listAppointments,
+  listTodayAppointments,
+  rescheduleAppointment,
+  updateAppointment,
+  type AppointmentEdit,
   type AppointmentInput,
   type AppointmentsQuery,
   type AvailabilityQuery,
@@ -44,6 +50,17 @@ export function useAvailability(query: AvailabilityQuery | null) {
   });
 }
 
+export function useTodayAppointments(
+  query: { departmentId?: string; doctorId?: string },
+  enabled = true,
+) {
+  return useQuery({
+    queryKey: [...appointmentsKey, "today", query],
+    queryFn: () => listTodayAppointments(query),
+    enabled,
+  });
+}
+
 export function useAppointmentActions() {
   const queryClient = useQueryClient();
   const done = () => queryClient.invalidateQueries({ queryKey: appointmentsKey });
@@ -51,6 +68,30 @@ export function useAppointmentActions() {
   return {
     create: useMutation({
       mutationFn: (input: AppointmentInput) => createAppointment(input),
+      onSettled: done,
+    }),
+    update: useMutation({
+      mutationFn: ({ id, input }: { id: string; input: AppointmentEdit }) =>
+        updateAppointment(id, input),
+      onSettled: done,
+    }),
+    reschedule: useMutation({
+      mutationFn: ({
+        id,
+        input,
+      }: {
+        id: string;
+        input: { startsAt: string; doctorId?: string };
+      }) => rescheduleAppointment(id, input),
+      onSettled: done,
+    }),
+    cancel: useMutation({
+      mutationFn: ({ id, reason }: { id: string; reason: string }) =>
+        cancelAppointment(id, reason),
+      onSettled: done,
+    }),
+    checkIn: useMutation({
+      mutationFn: (id: string) => checkInAppointment(id),
       onSettled: done,
     }),
   };

@@ -616,7 +616,11 @@
       "patient.condition_updated": "Xroniki xəstəlik yeniləndi",
       "patient.condition_removed": "Xroniki xəstəlik silindi",
       "patient.allergy_updated": "Allergiya yeniləndi",
-      "appointment.created": "Qəbula yazılma"
+      "appointment.created": "Qəbula yazılma",
+      "appointment.updated": "Qəbul redaktə edildi",
+      "appointment.rescheduled": "Qəbulun vaxtı dəyişdi",
+      "appointment.checked_in": "Pasiyent gəldi",
+      "appointment.cancelled": "Qəbul ləğv edildi"
     },
     "fields": {
       "firstName": "ad",
@@ -650,7 +654,9 @@
       "allergen": "Allergen",
       "category": "Növ",
       "severity": "Dərəcə",
-      "reaction": "Reaksiya"
+      "reaction": "Reaksiya",
+      "type": "qəbulun növü",
+      "reason": "səbəb"
     },
     "actorSection": "Əməliyyatı edən",
     "detailsSection": "Təfərrüatlar",
@@ -676,7 +682,10 @@
       "doctorName": "Həkim",
       "departmentName": "Şöbə",
       "startsAt": "Qəbul vaxtı",
-      "appointmentType": "Qəbulun növü"
+      "appointmentType": "Qəbulun növü",
+      "previousStartsAt": "Əvvəlki vaxt",
+      "previousDoctorName": "Əvvəlki həkim",
+      "cancellationReason": "Ləğv səbəbi"
     },
     "via": {
       "RESET": "Email linki ilə sıfırlama",
@@ -756,7 +765,12 @@
       "allergyUpdated": "{{actor}} {{name}} ({{mrn}}) pasiyentinin allergiyasını yenilədi: {{fields}}"
     },
     "appointment": {
-      "created": "{{actor}} {{name}} ({{mrn}}) pasiyentini {{startsAt}} vaxtına {{doctor}} həkimin qəbuluna yazdı"
+      "created": "{{actor}} {{name}} ({{mrn}}) pasiyentini {{startsAt}} vaxtına {{doctor}} həkimin qəbuluna yazdı",
+      "updated": "{{actor}} {{name}} ({{mrn}}) pasiyentinin qəbulunu redaktə etdi: {{fields}}",
+      "rescheduled": "{{actor}} {{name}} ({{mrn}}) pasiyentinin qəbulunu {{previousStartsAt}} vaxtından {{startsAt}} vaxtına köçürdü",
+      "rescheduledDoctor": "{{actor}} {{name}} ({{mrn}}) pasiyentinin qəbulunu {{previousDoctor}}, {{previousStartsAt}} → {{doctor}}, {{startsAt}} köçürdü",
+      "checkedIn": "{{actor}} {{name}} ({{mrn}}) pasiyentini {{doctor}} həkimin qəbuluna gəldi kimi qeyd etdi",
+      "cancelled": "{{actor}} {{name}} ({{mrn}}) pasiyentinin {{startsAt}} vaxtına {{doctor}} həkimdəki qəbulunu ləğv etdi"
     }
   },
   "permissionCatalog": {
@@ -1460,7 +1474,8 @@
     "slotReason": {
       "PAST": "artıq başlayıb",
       "TAKEN": "tutulub",
-      "PATIENT_BUSY": "pasiyentin bu vaxt başqa qəbulu var"
+      "PATIENT_BUSY": "pasiyentin bu vaxt başqa qəbulu var",
+      "CURRENT": "indiki vaxt"
     },
     "notWorking": {
       "NOT_A_DOCTOR": "Bu əməkdaş həkim deyil.",
@@ -1516,6 +1531,50 @@
       "reasonPlaceholder": "məs. iki gündür sinə ağrısı",
       "notesPlaceholder": "Qeydiyyat masası üçün qeyd (istəyə görə)",
       "booked": "{{name}} {{time}} vaxtına {{doctor}} həkimin qəbuluna yazıldı"
+    },
+    "today": "Bu gün",
+    "actions": {
+      "checkIn": "Gəldi (check-in)",
+      "reschedule": "Vaxtı dəyiş",
+      "edit": "Redaktə et",
+      "cancel": "Qəbulu ləğv et"
+    },
+    "checkIn": {
+      "done": "{{name}} gəldi kimi qeyd olundu"
+    },
+    "cancel": {
+      "title": "Qəbulu ləğv et",
+      "submit": "Qəbulu ləğv et",
+      "keep": "Saxla",
+      "consequence": "Vaxt digər pasiyentlər üçün boşalacaq. Qəbul siyahıda ləğv edilmiş kimi qalır — bu əməliyyat geri qaytarılmır.",
+      "reason": "Səbəb",
+      "reasonPlaceholder": "məs. pasiyent zəng edib imtina etdi",
+      "reasonRequired": "Qəbulun niyə ləğv edildiyini yazın",
+      "done": "{{name}} pasiyentinin qəbulu ləğv edildi"
+    },
+    "edit": {
+      "title": "Qəbulu redaktə et",
+      "saved": "Qəbul yadda saxlanıldı"
+    },
+    "reschedule": {
+      "title": "Qəbulun vaxtını dəyiş",
+      "submit": "Bura köçür",
+      "now": "İndi:",
+      "newTime": "Yeni vaxt",
+      "done": "{{name}} {{time}} vaxtına, {{doctor}} həkimə köçürüldü"
+    },
+    "timeline": {
+      "title": "Tarixçə",
+      "booked": "Yazılıb",
+      "changed": "Son dəyişiklik",
+      "checkedIn": "Gəlib",
+      "cancelled": "Ləğv edilib"
+    },
+    "drawerActions": {
+      "cancel": "Ləğv et",
+      "edit": "Redaktə et",
+      "reschedule": "Vaxtı dəyiş",
+      "checkIn": "Gəldi"
     }
   }
 }

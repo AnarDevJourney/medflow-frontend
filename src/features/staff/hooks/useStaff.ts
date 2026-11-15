@@ -46,8 +46,8 @@ export function useDoctors(departmentId?: string, enabled = true) {
   });
 }
 
-export function useMyStaffProfile() {
-  return useQuery({ queryKey: myStaffProfileKey, queryFn: getMyStaffProfile });
+export function useMyStaffProfile(enabled = true) {
+  return useQuery({ queryKey: myStaffProfileKey, queryFn: getMyStaffProfile, enabled });
 }
 
 // Account changes (invite, rename, role, deactivate) reach staff-service

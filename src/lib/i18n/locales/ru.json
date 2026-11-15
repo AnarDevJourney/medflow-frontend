@@ -616,7 +616,11 @@
       "patient.condition_updated": "Хроническое заболевание изменено",
       "patient.condition_removed": "Хроническое заболевание удалено",
       "patient.allergy_updated": "Аллергия изменена",
-      "appointment.created": "Запись на приём"
+      "appointment.created": "Запись на приём",
+      "appointment.updated": "Приём изменён",
+      "appointment.rescheduled": "Приём перенесён",
+      "appointment.checked_in": "Пациент пришёл",
+      "appointment.cancelled": "Приём отменён"
     },
     "fields": {
       "firstName": "имя",
@@ -650,7 +654,9 @@
       "allergen": "Аллерген",
       "category": "Тип",
       "severity": "Тяжесть",
-      "reaction": "Реакция"
+      "reaction": "Реакция",
+      "type": "вид приёма",
+      "reason": "причина"
     },
     "actorSection": "Кто выполнил",
     "detailsSection": "Подробности",
@@ -676,7 +682,10 @@
       "doctorName": "Врач",
       "departmentName": "Отделение",
       "startsAt": "Время приёма",
-      "appointmentType": "Вид приёма"
+      "appointmentType": "Вид приёма",
+      "previousStartsAt": "Прежнее время",
+      "previousDoctorName": "Прежний врач",
+      "cancellationReason": "Причина отмены"
     },
     "via": {
       "RESET": "Сброс по ссылке из письма",
@@ -756,7 +765,12 @@
       "allergyUpdated": "{{actor}} изменил(а) аллергию пациента {{name}} ({{mrn}}): {{fields}}"
     },
     "appointment": {
-      "created": "{{actor}} записал(а) пациента {{name}} ({{mrn}}) к врачу {{doctor}} на {{startsAt}}"
+      "created": "{{actor}} записал(а) пациента {{name}} ({{mrn}}) к врачу {{doctor}} на {{startsAt}}",
+      "updated": "{{actor}} изменил(а) приём пациента {{name}} ({{mrn}}): {{fields}}",
+      "rescheduled": "{{actor}} перенёс(ла) приём пациента {{name}} ({{mrn}}) с {{previousStartsAt}} на {{startsAt}}",
+      "rescheduledDoctor": "{{actor}} перенёс(ла) приём пациента {{name}} ({{mrn}}): {{previousDoctor}}, {{previousStartsAt}} → {{doctor}}, {{startsAt}}",
+      "checkedIn": "{{actor}} отметил(а) приход пациента {{name}} ({{mrn}}) на приём к врачу {{doctor}}",
+      "cancelled": "{{actor}} отменил(а) приём пациента {{name}} ({{mrn}}) у врача {{doctor}} на {{startsAt}}"
     }
   },
   "permissionCatalog": {
@@ -1490,7 +1504,8 @@
     "slotReason": {
       "PAST": "уже началось",
       "TAKEN": "занято",
-      "PATIENT_BUSY": "у пациента в это время другой приём"
+      "PATIENT_BUSY": "у пациента в это время другой приём",
+      "CURRENT": "текущее время"
     },
     "notWorking": {
       "NOT_A_DOCTOR": "Этот сотрудник не врач.",
@@ -1552,6 +1567,50 @@
       "reasonPlaceholder": "например, боль в груди два дня",
       "notesPlaceholder": "Заметка для регистратуры (необязательно)",
       "booked": "{{name}} записан(а) на {{time}} к врачу {{doctor}}"
+    },
+    "today": "Сегодня",
+    "actions": {
+      "checkIn": "Отметить приход",
+      "reschedule": "Перенести",
+      "edit": "Изменить",
+      "cancel": "Отменить приём"
+    },
+    "checkIn": {
+      "done": "{{name}}: приход отмечен"
+    },
+    "cancel": {
+      "title": "Отмена приёма",
+      "submit": "Отменить приём",
+      "keep": "Оставить",
+      "consequence": "Время освободится для других пациентов. Приём останется в списке как отменённый — это действие нельзя отменить.",
+      "reason": "Причина",
+      "reasonPlaceholder": "например, пациент позвонил и отказался",
+      "reasonRequired": "Укажите причину отмены",
+      "done": "Приём пациента {{name}} отменён"
+    },
+    "edit": {
+      "title": "Изменение приёма",
+      "saved": "Приём сохранён"
+    },
+    "reschedule": {
+      "title": "Перенос приёма",
+      "submit": "Перенести сюда",
+      "now": "Сейчас:",
+      "newTime": "Новое время",
+      "done": "{{name}}: приём перенесён на {{time}} к врачу {{doctor}}"
+    },
+    "timeline": {
+      "title": "История",
+      "booked": "Записан",
+      "changed": "Последнее изменение",
+      "checkedIn": "Пришёл",
+      "cancelled": "Отменён"
+    },
+    "drawerActions": {
+      "cancel": "Отменить",
+      "edit": "Изменить",
+      "reschedule": "Перенести",
+      "checkIn": "Пришёл"
     }
   }
 }

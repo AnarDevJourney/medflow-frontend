@@ -101,8 +101,15 @@ export function HistoryDrawer({
           value: t(`history.via.${String(value)}`, { defaultValue: String(value) }),
         };
       case "doctorName":
+      case "previousDoctorName":
       case "departmentName":
+      case "cancellationReason":
         return { label: t(`history.meta.${key}`), value: String(value) };
+      case "previousStartsAt":
+        return {
+          label: t("history.meta.previousStartsAt"),
+          value: formatDateTime(String(value)),
+        };
       case "startsAt":
         return {
           label: t("history.meta.startsAt"),

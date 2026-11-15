@@ -1,5 +1,6 @@
 .footer {
   display: flex;
+  flex-wrap: wrap; /* long labels (az, ru) move to a second line instead of overflowing */
   justify-content: flex-end;
   gap: var(--space-2);
 }

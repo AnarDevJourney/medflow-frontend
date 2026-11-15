@@ -31,6 +31,7 @@ export function SlotPicker({
   onChange,
   onRetry,
   invalid,
+  currentStartsAt,
 }: {
   ready: boolean; // a doctor and a day are chosen
   loading: boolean;
@@ -40,6 +41,8 @@ export function SlotPicker({
   onChange: (startsAt: string) => void;
   onRetry: () => void;
   invalid?: boolean;
+  // Rescheduling: the appointment's own time, marked as "current"
+  currentStartsAt?: string;
 }) {
   const { t } = useTranslation();
   const errorMessage = useErrorMessage();
@@ -96,10 +99,15 @@ export function SlotPicker({
     }),
   })).filter((g) => g.slots.length > 0);
 
+  const isCurrent = (slot: Slot) =>
+    currentStartsAt !== undefined &&
+    new Date(slot.startsAt).getTime() === new Date(currentStartsAt).getTime();
   const label = (slot: Slot) =>
-    slot.reason
-      ? `${timeOf(slot.startsAt)} — ${t(`appointments.slotReason.${slot.reason}`)}`
-      : timeOf(slot.startsAt);
+    isCurrent(slot)
+      ? `${timeOf(slot.startsAt)} — ${t("appointments.slotReason.CURRENT")}`
+      : slot.reason
+        ? `${timeOf(slot.startsAt)} — ${t(`appointments.slotReason.${slot.reason}`)}`
+        : timeOf(slot.startsAt);
 
   return (
     <div className={styles.slots} data-invalid={invalid || undefined}>
@@ -125,6 +133,7 @@ export function SlotPicker({
           >
             {group.slots.map((slot) => {
               const selected = value === slot.startsAt;
+              const current = isCurrent(slot);
               return (
                 <button
                   key={slot.startsAt}
@@ -132,11 +141,12 @@ export function SlotPicker({
                   role="radio"
                   aria-checked={selected}
                   aria-label={label(slot)}
-                  title={slot.reason ? label(slot) : undefined}
+                  title={slot.reason || current ? label(slot) : undefined}
                   disabled={!slot.available}
                   className={styles.slot}
                   data-selected={selected || undefined}
-                  data-reason={slot.reason}
+                  data-reason={current ? undefined : slot.reason}
+                  data-current={current || undefined}
                   onClick={() => onChange(slot.startsAt)}
                 >
                   {timeOf(slot.startsAt)}

@@ -7,3 +7,7 @@ export const timeRange = (startsAt: string, endsAt: string) =>
 // "Mon, 17 Nov 2026"
 export const dayLabel = (startsAt: string) =>
   toClinicTime(startsAt).format("ddd, DD MMM YYYY");
+
+// The appointment is on the clinic's today (check-in is allowed then)
+export const isClinicToday = (startsAt: string) =>
+  toClinicTime(startsAt).isSame(toClinicTime(new Date()), "day");

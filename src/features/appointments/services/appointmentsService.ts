@@ -31,10 +31,14 @@ export interface Appointment {
   notes: string | null;
   encounterId: string | null;
   checkedInAt: string | null;
+  checkedInByName: string | null;
   startedAt: string | null;
   completedAt: string | null;
   cancelledAt: string | null;
+  cancelledByName: string | null;
   cancellationReason: string | null;
+  createdByName: string | null;
+  updatedByName: string | null; // last reschedule / edit
   createdAt: string;
   updatedAt: string;
 }
@@ -130,5 +134,52 @@ export async function getAvailability(query: AvailabilityQuery): Promise<Availab
 
 export async function createAppointment(input: AppointmentInput): Promise<Appointment> {
   const { data } = await api.post<Appointment>("/appointments", input);
+  return data;
+}
+
+// Today's appointments in time order (a doctor gets their own)
+export async function listTodayAppointments(query: {
+  departmentId?: string;
+  doctorId?: string;
+}): Promise<Appointment[]> {
+  const { data } = await api.get<Appointment[]>("/appointments/today", { params: query });
+  return data;
+}
+
+// Visit type, reason, notes (SCHEDULED or CHECKED_IN)
+export interface AppointmentEdit {
+  type?: AppointmentType;
+  reason?: string | null;
+  notes?: string | null;
+}
+
+export async function updateAppointment(
+  id: string,
+  input: AppointmentEdit,
+): Promise<Appointment> {
+  const { data } = await api.patch<Appointment>(`/appointments/${id}`, input);
+  return data;
+}
+
+// Another time and / or doctor (SCHEDULED); the same rules as booking
+export async function rescheduleAppointment(
+  id: string,
+  input: { startsAt: string; doctorId?: string },
+): Promise<Appointment> {
+  const { data } = await api.patch<Appointment>(`/appointments/${id}/reschedule`, input);
+  return data;
+}
+
+export async function cancelAppointment(
+  id: string,
+  reason: string,
+): Promise<Appointment> {
+  const { data } = await api.patch<Appointment>(`/appointments/${id}/cancel`, { reason });
+  return data;
+}
+
+// The patient arrived — only on the appointment's day
+export async function checkInAppointment(id: string): Promise<Appointment> {
+  const { data } = await api.patch<Appointment>(`/appointments/${id}/check-in`);
   return data;
 }

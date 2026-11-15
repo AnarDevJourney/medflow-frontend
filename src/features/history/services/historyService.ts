@@ -133,6 +133,10 @@ export const EVENT_TYPES = [
   "patient.condition_updated",
   "patient.condition_removed",
   "appointment.created",
+  "appointment.updated",
+  "appointment.rescheduled",
+  "appointment.checked_in",
+  "appointment.cancelled",
 ];
 export const ENTITY_TYPES = [
   "USER",

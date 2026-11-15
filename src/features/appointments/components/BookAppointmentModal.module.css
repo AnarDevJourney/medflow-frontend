@@ -233,3 +233,23 @@
   border-style: dashed;
   border-color: var(--color-warning);
 }
+
+/* Rescheduling: where the appointment is now */
+.slot[data-current] {
+  border-style: solid;
+  border-color: var(--color-primary);
+  background: transparent;
+  color: var(--color-primary);
+  opacity: 1;
+}
+
+.slot[data-current]::after {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  vertical-align: middle;
+}

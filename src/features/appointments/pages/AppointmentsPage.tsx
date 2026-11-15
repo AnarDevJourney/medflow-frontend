@@ -1,5 +1,11 @@
-import { CalendarOutlined } from "@ant-design/icons";
-import { Button, Flex, Segmented, Select } from "antd";
+import {
+  CalendarOutlined,
+  EditOutlined,
+  FieldTimeOutlined,
+  LoginOutlined,
+  StopOutlined,
+} from "@ant-design/icons";
+import { App, Button, Flex, Segmented, Select } from "antd";
 import type { Dayjs } from "dayjs";
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
@@ -7,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import {
   DataTable,
   type DataTableColumn,
+  type DataTableRowMenuItem,
   type DataTableSort,
 } from "@components/data-table";
 import { ClearFiltersButton } from "@components/ui/ClearFiltersButton";
@@ -18,14 +25,19 @@ import { UserAvatar } from "@components/ui/UserAvatar";
 import { useCurrentUser } from "@features/auth/hooks/useCurrentUser";
 import { DepartmentSelect } from "@features/departments/components/DepartmentSelect";
 import { useCan } from "@features/permissions/hooks/usePermissions";
-import { useDoctors } from "@features/staff/hooks/useStaff";
+import { useDoctors, useMyStaffProfile } from "@features/staff/hooks/useStaff";
+import { useErrorMessage } from "@lib/api/useErrorMessage";
 import dayjs, { CLINIC_TZ, formatDate } from "@lib/dayjs";
 import { AppointmentStatus, Role } from "@models/enums";
 import { STATUS_COLOR } from "@utils/statusColors";
 import type { DayRange } from "@utils/dayRange";
 import { AppointmentDrawer } from "../components/AppointmentDrawer";
 import { BookAppointmentModal } from "../components/BookAppointmentModal";
-import { useAppointments } from "../hooks/useAppointments";
+import { CancelAppointmentModal } from "../components/CancelAppointmentModal";
+import { EditAppointmentModal } from "../components/EditAppointmentModal";
+import { RescheduleModal } from "../components/RescheduleModal";
+import { useAppointmentActions, useAppointments } from "../hooks/useAppointments";
+import { useAppointmentRules } from "../hooks/useAppointmentRules";
 import type { Appointment } from "../services/appointmentsService";
 import { dayLabel, timeRange } from "../utils/appointment";
 import styles from "./AppointmentsPage.module.css";
@@ -55,6 +67,9 @@ export function AppointmentsPage() {
   const canBook = can("appointments.book") && can("appointments.availability");
   const me = useCurrentUser().data;
   const isDoctor = me?.role === Role.DOCTOR;
+  const isNurse = me?.role === Role.NURSE;
+  // A nurse's "today" starts with her own department
+  const myProfile = useMyStaffProfile(isNurse);
   const [params, setParams] = useSearchParams();
   const search = params.get("q") ?? "";
   const departmentId = params.get("department") ?? undefined;
@@ -87,6 +102,75 @@ export function AppointmentsPage() {
     );
 
   const [bookOpen, setBookOpen] = useState(false);
+  const [moveRow, setMoveRow] = useState<Appointment | null>(null);
+  const [editRow, setEditRow] = useState<Appointment | null>(null);
+  const [cancelRow, setCancelRow] = useState<Appointment | null>(null);
+  const { message } = App.useApp();
+  const errorMessage = useErrorMessage();
+  const { checkIn } = useAppointmentActions();
+  const rulesOf = useAppointmentRules();
+  const onCheckIn = (a: Appointment) =>
+    checkIn.mutate(a.id, {
+      onSuccess: (done) =>
+        void message.success(t("appointments.checkIn.done", { name: done.patientName })),
+      onError: (error) => void message.error(errorMessage(error)),
+    });
+  const commands = {
+    onCheckIn,
+    onReschedule: setMoveRow,
+    onEdit: setEditRow,
+    onCancel: setCancelRow,
+    checkingIn: checkIn.isPending,
+  };
+  const rowActions = (a: Appointment): DataTableRowMenuItem[] => {
+    const rules = rulesOf(a);
+    const main: DataTableRowMenuItem[] = [];
+    if (rules.checkIn) {
+      main.push({
+        key: "checkIn",
+        icon: <LoginOutlined />,
+        label: t("appointments.actions.checkIn"),
+        onClick: () => onCheckIn(a),
+      });
+    }
+    if (rules.reschedule) {
+      main.push({
+        key: "reschedule",
+        icon: <FieldTimeOutlined />,
+        label: t("appointments.actions.reschedule"),
+        onClick: () => setMoveRow(a),
+      });
+    }
+    if (rules.edit) {
+      main.push({
+        key: "edit",
+        icon: <EditOutlined />,
+        label: t("appointments.actions.edit"),
+        onClick: () => setEditRow(a),
+      });
+    }
+    if (!rules.cancel) return main;
+    const cancel: DataTableRowMenuItem = {
+      key: "cancel",
+      icon: <StopOutlined />,
+      label: t("appointments.actions.cancel"),
+      danger: true,
+      onClick: () => setCancelRow(a),
+    };
+    return main.length ? [...main, "divider", cancel] : [cancel];
+  };
+  const today = clinicToday();
+  const showingToday = from === today && to === today;
+  const showToday = () =>
+    update({
+      from: today,
+      to: today,
+      period: undefined,
+      department:
+        isNurse && !departmentId
+          ? (myProfile.data?.department?.id ?? undefined)
+          : departmentId,
+    });
   const [openRow, setOpenRow] = useState<Appointment | null>(null);
   const doctors = useDoctors(departmentId);
 
@@ -271,6 +355,7 @@ export function AppointmentsPage() {
         onRowClick={setOpenRow}
         onViewDetails={setOpenRow}
         rowLabel={(a) => `${a.patientName} ${timeRange(a.startsAt, a.endsAt)}`}
+        rowActions={rowActions}
         rowAccent={(a) => STATUS_COLOR[a.status]}
         empty={
           filtersActive
@@ -312,6 +397,14 @@ export function AppointmentsPage() {
                 ]}
               />
             )}
+            <Button
+              type={showingToday ? "primary" : "default"}
+              ghost={showingToday}
+              onClick={showToday}
+              aria-pressed={showingToday}
+            >
+              {t("appointments.today")}
+            </Button>
             <DateRangeFilter value={range} onChange={onRange} />
             <DepartmentSelect
               allowClear
@@ -353,7 +446,17 @@ export function AppointmentsPage() {
           </>
         }
       />
-      <AppointmentDrawer appointment={opened} onClose={() => setOpenRow(null)} />
+      <AppointmentDrawer
+        appointment={opened}
+        onClose={() => setOpenRow(null)}
+        commands={commands}
+      />
+      <RescheduleModal appointment={moveRow} onClose={() => setMoveRow(null)} />
+      <EditAppointmentModal appointment={editRow} onClose={() => setEditRow(null)} />
+      <CancelAppointmentModal
+        appointment={cancelRow}
+        onClose={() => setCancelRow(null)}
+      />
       <BookAppointmentModal
         open={bookOpen}
         onClose={() => setBookOpen(false)}

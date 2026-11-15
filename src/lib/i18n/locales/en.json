@@ -616,7 +616,11 @@
       "patient.condition_updated": "Chronic condition updated",
       "patient.condition_removed": "Chronic condition removed",
       "patient.allergy_updated": "Allergy updated",
-      "appointment.created": "Appointment booked"
+      "appointment.created": "Appointment booked",
+      "appointment.updated": "Appointment edited",
+      "appointment.rescheduled": "Appointment rescheduled",
+      "appointment.checked_in": "Patient checked in",
+      "appointment.cancelled": "Appointment cancelled"
     },
     "fields": {
       "firstName": "first name",
@@ -650,7 +654,9 @@
       "allergen": "Allergen",
       "category": "Type",
       "severity": "Severity",
-      "reaction": "Reaction"
+      "reaction": "Reaction",
+      "type": "visit type",
+      "reason": "reason"
     },
     "actorSection": "Performed by",
     "detailsSection": "Details",
@@ -676,7 +682,10 @@
       "doctorName": "Doctor",
       "departmentName": "Department",
       "startsAt": "Visit time",
-      "appointmentType": "Visit type"
+      "appointmentType": "Visit type",
+      "previousStartsAt": "Previous time",
+      "previousDoctorName": "Previous doctor",
+      "cancellationReason": "Cancellation reason"
     },
     "via": {
       "RESET": "Reset with an email link",
@@ -756,7 +765,12 @@
       "allergyUpdated": "{{actor}} updated an allergy of {{name}} ({{mrn}}): {{fields}}"
     },
     "appointment": {
-      "created": "{{actor}} booked {{name}} ({{mrn}}) with {{doctor}} for {{startsAt}}"
+      "created": "{{actor}} booked {{name}} ({{mrn}}) with {{doctor}} for {{startsAt}}",
+      "updated": "{{actor}} updated the appointment of {{name}} ({{mrn}}): {{fields}}",
+      "rescheduled": "{{actor}} moved the appointment of {{name}} ({{mrn}}) from {{previousStartsAt}} to {{startsAt}}",
+      "rescheduledDoctor": "{{actor}} moved the appointment of {{name}} ({{mrn}}) from {{previousDoctor}}, {{previousStartsAt}} to {{doctor}}, {{startsAt}}",
+      "checkedIn": "{{actor}} checked in {{name}} ({{mrn}}) for the appointment with {{doctor}}",
+      "cancelled": "{{actor}} cancelled the appointment of {{name}} ({{mrn}}) with {{doctor}} for {{startsAt}}"
     }
   },
   "permissionCatalog": {
@@ -1460,7 +1474,8 @@
     "slotReason": {
       "PAST": "already started",
       "TAKEN": "booked",
-      "PATIENT_BUSY": "the patient has another appointment"
+      "PATIENT_BUSY": "the patient has another appointment",
+      "CURRENT": "current time"
     },
     "notWorking": {
       "NOT_A_DOCTOR": "This staff member is not a doctor.",
@@ -1516,6 +1531,50 @@
       "reasonPlaceholder": "e.g. chest pain for two days",
       "notesPlaceholder": "Notes for the front desk (optional)",
       "booked": "{{name}} is booked for {{time}} with {{doctor}}"
+    },
+    "today": "Today",
+    "actions": {
+      "checkIn": "Check in",
+      "reschedule": "Reschedule",
+      "edit": "Edit",
+      "cancel": "Cancel appointment"
+    },
+    "checkIn": {
+      "done": "{{name}} is checked in"
+    },
+    "cancel": {
+      "title": "Cancel appointment",
+      "submit": "Cancel appointment",
+      "keep": "Keep it",
+      "consequence": "The time becomes free for other patients. The appointment stays in the list as cancelled — this cannot be undone.",
+      "reason": "Reason",
+      "reasonPlaceholder": "e.g. the patient called to cancel",
+      "reasonRequired": "Write why the appointment is cancelled",
+      "done": "The appointment of {{name}} is cancelled"
+    },
+    "edit": {
+      "title": "Edit appointment",
+      "saved": "Appointment saved"
+    },
+    "reschedule": {
+      "title": "Reschedule appointment",
+      "submit": "Move here",
+      "now": "Now:",
+      "newTime": "New time",
+      "done": "{{name}} moved to {{time}} with {{doctor}}"
+    },
+    "timeline": {
+      "title": "History",
+      "booked": "Booked",
+      "changed": "Last changed",
+      "checkedIn": "Checked in",
+      "cancelled": "Cancelled"
+    },
+    "drawerActions": {
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "reschedule": "Reschedule",
+      "checkIn": "Check in"
     }
   }
 }
