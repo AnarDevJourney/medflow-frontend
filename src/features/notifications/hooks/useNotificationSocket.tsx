@@ -11,7 +11,7 @@ import {
   permissionsMatrixKey,
 } from "@features/permissions/hooks/usePermissions";
 import type { MyPermissions } from "@features/permissions/services/permissionsService";
-import { api } from "@lib/api/client";
+import { refreshSession } from "@lib/api/client";
 import type { Permission } from "@models/permissions";
 import { useAppDispatch } from "@store/index";
 import { setUnreadCount } from "@store/uiSlice";
@@ -52,7 +52,8 @@ export function useNotificationSocket() {
       if (refreshing) return;
       refreshing = true;
       try {
-        await api.post("/auth/refresh");
+        // the shared refresh: never a second one next to a request's
+        await refreshSession();
         socket.connect();
       } catch {
         void handlers.current.signOut({ callServer: false, reason });
